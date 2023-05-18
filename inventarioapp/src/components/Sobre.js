@@ -1,9 +1,9 @@
 
-function Home() {
+function Sobre() {
   return (
     <div>
-      <p>Esta é a página Home</p>
+      <p>Esta é a página Sobre</p>
     </div>
   );
 }
-export default Home;
+export default Sobre;
