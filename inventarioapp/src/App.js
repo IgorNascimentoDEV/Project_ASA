@@ -13,9 +13,11 @@ function App() {
       <BrowserRouter>
       <Nav variant="tabs">
         <Nav.Link as={Link} to="/"> Página Inicial</Nav.Link>
-        <Nav.Link as={Link} to="/produto"> Cadastro de Produtos</Nav.Link>
+        <Nav.Link as={Link} to="/produtos"> Cadastro de Produtos</Nav.Link>
         <Nav.Link as={Link} to="/sobre"> Sobre </Nav.Link>
       </Nav>
+
+      
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/produtos' element={<Produtos/>}></Route>

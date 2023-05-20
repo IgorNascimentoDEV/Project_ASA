@@ -12,7 +12,7 @@ const Produto = mongoose.model('Produto', {
  data: {
     type: String,
   },
-  ime: {
+  imei: {
     type: String,
   },
   colaborador: {

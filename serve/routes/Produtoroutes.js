@@ -47,7 +47,7 @@ router.post('/', async(req, res) =>{
     modelo,
     linha,
     data,
-    ime,
+    imei,
     colaborador,
     obs
   } = req.body
@@ -60,7 +60,7 @@ router.post('/', async(req, res) =>{
     modelo,
     linha,
     data,
-    ime,
+    imei,
     colaborador,
     obs
   }
@@ -90,7 +90,7 @@ router.put('/:id', async(req, res) => {
     modelo,
     linha,
     data,
-    ime,
+    imei,
     colaborador,
     obs
   }
