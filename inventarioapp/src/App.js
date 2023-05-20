@@ -3,17 +3,19 @@ import Home from './components/Home';
 import Sobre from './components/Sobre';
 import Produtos from './components/Produtos';
 import {BrowserRouter, Routes, Link, Route} from 'react-router-dom';
+import {Nav} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
       <h1>Minha aplicação em React</h1>
       <BrowserRouter>
-      <ul>
-        <li><Link to="/">Página inicial</Link></li>
-        <li><Link to="/produtos">Cadastro de Produto</Link></li>
-        <li><Link to="/sobre">Sobre</Link></li>
-      </ul>
+      <Nav variant="tabs">
+        <Nav.Link as={Link} to="/"> Página Inicial</Nav.Link>
+        <Nav.Link as={Link} to="/produto"> Cadastro de Produtos</Nav.Link>
+        <Nav.Link as={Link} to="/sobre"> Sobre </Nav.Link>
+      </Nav>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/produtos' element={<Produtos/>}></Route>
