@@ -81,7 +81,7 @@ router.put('/:id', async(req, res) => {
     modelo,
     linha,
     data,
-    ime,
+    imei,
     colaborador,
     obs
   } = req.body
