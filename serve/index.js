@@ -28,7 +28,7 @@ mongoose.connect("mongodb://127.0.0.1/projectAsa", {
     })
     .then((result) => {
       console.log("conexão feita!");
-      app.listen(3000)
+      app.listen(4000)
     })
     .catch((error) => {
       console.log("Erro ao conectar" + error);

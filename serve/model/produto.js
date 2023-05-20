@@ -13,7 +13,7 @@ const Produto = mongoose.model('Produto', {
     type: String,
   },
   ime: {
-    type: [],
+    type: String,
   },
   colaborador: {
     type: String,

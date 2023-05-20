@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const Produto = require('../model/Produto')
+const Produto = require('../model/produto')
 
 //rotas / endpoint 
 
@@ -104,7 +104,7 @@ router.put('/:id', async(req, res) => {
       return
     }
 
-    res.status(200).json(noticia)
+    res.status(200).json(produto)
 
 
   } catch (error) {
@@ -126,7 +126,7 @@ router.delete('/:id', async (req, res) => {
   try {
     
     await Produto.deleteOne({_id: id})
-    res.status(200).json({message: "usuario removido com sucesso"}) 
+    res.status(200).json({message: "produto  removido com sucesso"}) 
 
   } catch (error) {
     res.status(500).json({error: error})
