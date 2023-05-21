@@ -2,8 +2,11 @@ import React from "react";
 import { Table, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import Modal from "react-bootstrap/Modal";
+import Card from "react-bootstrap/Card";
+import "../index.css";
+import InputGroup from "react-bootstrap/InputGroup";
 
 class Produto extends React.Component {
   constructor(props) {
@@ -18,13 +21,13 @@ class Produto extends React.Component {
       colaborador: "",
       obs: "",
       produtos: [],
+      modalAberto: false,
     };
   }
 
   componentDidMount() {
     this.buscarProduto();
   }
-  componentWillUnmount() {}
 
   buscarProduto = () => {
     fetch("http://localhost:4000/produto/")
@@ -57,6 +60,7 @@ class Produto extends React.Component {
           colaborador: produto.colaborador,
           obs: produto.obs,
         });
+        this.abrirModal();
       });
   };
 
@@ -90,39 +94,44 @@ class Produto extends React.Component {
 
   renderTabela() {
     return (
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>IMEI</th>
-            <th>Linha</th>
-            <th>Colab.</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.produtos.map((produto) => (
-            <tr>
-              <td>{produto.imei}</td>
-              <td>{produto.linha}</td>
-              <td>{produto.colaborador}</td>
-              <td>
-                <Button
-                  variant="secondary"
-                  onClick={() => this.carregarDados(produto._id)}
-                >
-                  Atualizar
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => this.deletarProduto(produto._id)}
-                >
-                  Excluir
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Card>
+        <Card.Body>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>IMEI</th>
+                <th>Linha</th>
+                <th>Colab.</th>
+                <th>Opções</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.produtos.map((produto) => (
+                <tr>
+                  <td>{produto.imei}</td>
+                  <td>{produto.linha}</td>
+                  <td>{produto.colaborador}</td>
+                  <td>
+                    <Button
+                      variant="warning"
+                      onClick={() => this.carregarDados(produto._id)}
+                      style={{ marginRight: "1rem" }}
+                    >
+                      Atualizar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => this.deletarProduto(produto._id)}
+                    >
+                      Excluir
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card.Body>
+      </Card>
     );
   }
 
@@ -158,115 +167,188 @@ class Produto extends React.Component {
   };
 
   submit = () => {
-    if (this.state.id == "") {
+    const { id, modelo, linha, data, imei, colaborador, obs } = this.state;
+
+    if (
+      modelo === "" ||
+      linha === "" ||
+      data === "" ||
+      imei === "" ||
+      colaborador === "" ||
+      obs === ""
+    ) {
+      alert("Por favor, preencha todos os campos antes de cadastrar.");
+      return;
+    }
+
+    if (id === "") {
       const produto = {
-        modelo: this.state.modelo,
-        linha: this.state.linha,
-        data: this.state.data,
-        imei: this.state.imei,
-        colaborador: this.state.colaborador,
-        obs: this.state.obs,
+        modelo,
+        linha,
+        data,
+        imei,
+        colaborador,
+        obs,
       };
 
       this.cadastraProduto(produto);
+      this.fecharModal();
     } else {
       const produto = {
-        id: this.state.id,
-        modelo: this.state.modelo,
-        linha: this.state.linha,
-        data: this.state.data,
-        imei: this.state.imei,
-        colaborador: this.state.colaborador,
-        obs: this.state.obs,
+        id,
+        modelo,
+        linha,
+        data,
+        imei,
+        colaborador,
+        obs,
       };
       this.atualizarProduto(produto);
+      this.fecharModal();
     }
+  };
+
+  reset = () => {
+    this.setState({
+      id: "",
+      modelo: "",
+      linha: "",
+      data: "",
+      imei: "",
+      colaborador: "",
+      obs: "",
+    });
+    this.abrirModal();
+  };
+
+  fecharModal = () => {
+    this.setState({
+      modalAberto: false,
+    });
+  };
+  abrirModal = () => {
+    this.setState({
+      modalAberto: true,
+    });
   };
 
   render() {
     return (
       <div>
-        <div>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Control
-                placeholder="id"
-                value={this.state.id}
-                readOnly={true}
-                style={{ display: 'none' }}
-              />
-            </Form.Group>
-            <Row>
-              <Col>
-                <Form.Label>Modelo</Form.Label>
+        <Modal show={this.state.modalAberto} onHide={this.fecharModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Atrelamento de aparelho</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3">
                 <Form.Control
-                  placeholder="MODELO"
-                  type="text"
-                  value={this.state.modelo}
-                  onChange={this.atualizarModelo}
+                  placeholder="id"
+                  value={this.state.id}
+                  readOnly={true}
+                  style={{ display: "none" }}
                 />
-              </Col>
-              <Col>
-                <Form.Label>Linha</Form.Label>
+              </Form.Group>
+              <Row>
+                <Col>
+                  <Form.Label>Modelo</Form.Label>
+                  <Form.Control
+                    placeholder="MODELO"
+                    type="text"
+                    value={this.state.modelo}
+                    onChange={this.atualizarModelo}
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>Linha</Form.Label>
+                  <Form.Control
+                    placeholder="LINHA"
+                    type="text"
+                    value={this.state.linha}
+                    onChange={this.atualizarLinha}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>
+                  <Form.Label>Data</Form.Label>
+                  <Form.Control
+                    placeholder="MODELO"
+                    type="date"
+                    value={this.state.data}
+                    onChange={this.atualizarData}
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>IMEI</Form.Label>
+                  <Form.Control
+                    placeholder="IMEI"
+                    type="text"
+                    value={this.state.imei}
+                    onChange={this.atualizarImei}
+                  />
+                </Col>
+              </Row>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Nome</Form.Label>
                 <Form.Control
-                  placeholder="LINHA"
-                  type="text"
-                  value={this.state.linha}
-                  onChange={this.atualizarLinha}
+                  placeholder="NOME DO COLABORADOR"
+                  value={this.state.colaborador}
+                  onChange={this.atualizarColaborador}
                 />
-              </Col>
-            </Row>
+              </Form.Group>
 
-            <Row>
-              <Col>
-                <Form.Label>Data</Form.Label>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Observação</Form.Label>
                 <Form.Control
-                  placeholder="MODELO"
-                  type="date"
-                  value={this.state.data}
-                  onChange={this.atualizarData}
+                  as="textarea"
+                  rows={3}
+                  value={this.state.obs}
+                  onChange={this.atualizarObs}
                 />
-              </Col>
-              <Col>
-                <Form.Label>IMEI</Form.Label>
-                <Form.Control
-                  placeholder="IMEI"
-                  type="text"
-                  value={this.state.imei}
-                  onChange={this.atualizarImei}
-                />
-              </Col>
-            </Row>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Nome</Form.Label>
-              <Form.Control
-                placeholder="NOME DO COLABORADOR"
-                value={this.state.colaborador}
-                onChange={this.atualizarColaborador}
-              />
-            </Form.Group>
-
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Observação</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={this.state.obs}
-                onChange={this.atualizarObs}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="submit" onClick={this.submit}>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.fecharModal}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={this.submit}>
               Salvar
             </Button>
-          </Form>
+          </Modal.Footer>
+        </Modal>
+
+        <div className="novo">
+          <div className="pesquisa">
+            <InputGroup >
+              <Form.Control
+                placeholder="Pesquisar..."
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+              />
+              <Button variant="outline-secondary" id="button-addon2">
+                Buscar
+              </Button>
+            </InputGroup>
+          </div>
+
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={this.reset}
+            style={{ width: "8rem" }}
+          >
+            Novo
+          </Button>
         </div>
 
-        {this.renderTabela()}
+        <div className="tabela">{this.renderTabela()}</div>
       </div>
     );
   }

@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.novo{
+  display: flex;
+  justify-content: end; 
+  padding: 1rem; 
+}
+
+.pesquisa{
+  width: 30%;
+  margin-right: 1rem;
+}
+
+.tabela{
+  margin-top: 1rem;
+}
