@@ -18,6 +18,18 @@ const Produto = mongoose.model('Produto', {
   colaborador: {
     type: String,
   },
+  setor: {
+    type: String,
+  },
+  funcao: {
+    type: String,
+  },
+  matricula: {
+    type: String,
+  },
+  backup: {
+    type: String,
+  },
   obs: {
     type: String,
   }

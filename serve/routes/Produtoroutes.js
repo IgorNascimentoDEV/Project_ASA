@@ -49,6 +49,10 @@ router.post('/', async(req, res) =>{
     data,
     imei,
     colaborador,
+    setor,
+    funcao,
+    matricula,
+    backup,
     obs
   } = req.body
 
@@ -62,6 +66,10 @@ router.post('/', async(req, res) =>{
     data,
     imei,
     colaborador,
+    setor,
+    funcao,
+    matricula,
+    backup,
     obs
   }
 
@@ -83,6 +91,10 @@ router.put('/:id', async(req, res) => {
     data,
     imei,
     colaborador,
+    setor,
+    funcao,
+    matricula,
+    backup,
     obs
   } = req.body
 
@@ -92,6 +104,10 @@ router.put('/:id', async(req, res) => {
     data,
     imei,
     colaborador,
+    setor,
+    funcao,
+    matricula,
+    backup,
     obs
   }
 
@@ -113,10 +129,10 @@ router.put('/:id', async(req, res) => {
 })
 
 //DELETE
-router.delete('/:id', async (req, res) => {
-  const id = req.params.id
+router.delete('/:imei', async (req, res) => {
+  const imei = req.params.imei
 
-  const produto = await Produto.findOne({_id: id})
+  const produto = await Produto.findOne({imei: imei})
 
   if(!produto){
     res.status(422).json({error: "A produto nao foi encontrada"})
@@ -125,7 +141,7 @@ router.delete('/:id', async (req, res) => {
 
   try {
     
-    await Produto.deleteOne({_id: id})
+    await Produto.deleteOne({imei: imei})
     res.status(200).json({message: "produto  removido com sucesso"}) 
 
   } catch (error) {

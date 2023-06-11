@@ -19,9 +19,14 @@ class Produto extends React.Component {
       data: "",
       imei: "",
       colaborador: "",
+      setor: "",
+      funcao: "",
+      matricula: "",
+      backup: "",
       obs: "",
       produtos: [],
       modalAberto: false,
+      modalExcluirAberto: false,
     };
   }
 
@@ -29,6 +34,7 @@ class Produto extends React.Component {
     this.buscarProduto();
   }
 
+  // Busca os produtos do servidor
   buscarProduto = () => {
     fetch("http://localhost:4000/produto/")
       .then((resposta) => resposta.json())
@@ -37,33 +43,46 @@ class Produto extends React.Component {
       });
   };
 
-  deletarProduto = (id) => {
-    fetch("http://localhost:4000/produto/" + id, { method: "DELETE" }).then(
+  // Deleta um produto do servidor
+  deletarProduto = (imei) => {
+    fetch("http://localhost:4000/produto/" + imei, { method: "DELETE" }).then(
       (resposta) => {
         if (resposta.ok) {
           this.buscarProduto();
         }
       }
     );
+    this.fecharModalExcluir();
   };
 
-  carregarDados = (id) => {
+  // Carrega os dados de um produto para edição
+  carregarDados = (id, requisicao) => {
     fetch("http://localhost:4000/produto/" + id, { method: "GET" })
       .then((resposta) => resposta.json())
       .then((produto) => {
         this.setState({
-          id: produto._id,
+          id: id, 
           modelo: produto.modelo,
           linha: produto.linha,
           data: produto.data,
           imei: produto.imei,
           colaborador: produto.colaborador,
+          setor: produto.setor,
+          funcao: produto.funcao,
+          matricula: produto.matricula,
+          backup: produto.backup,
           obs: produto.obs,
         });
-        this.abrirModal();
+
+        if (requisicao === "editar") {
+          this.abrirModal();
+        } else {
+          this.abrirModalExcluir();
+        }
       });
   };
 
+  // Cadastra um novo produto no servidor
   cadastraProduto = (produto) => {
     fetch("http://localhost:4000/produto/", {
       method: "POST",
@@ -73,11 +92,12 @@ class Produto extends React.Component {
       if (response.ok) {
         this.buscarProduto();
       } else {
-        alert("Não foi possivel adcionar o produto");
+        alert("Não foi possível adicionar o produto.");
       }
     });
   };
 
+  // Atualiza um produto no servidor
   atualizarProduto = (produto) => {
     fetch("http://localhost:4000/produto/" + produto.id, {
       method: "PUT",
@@ -87,11 +107,12 @@ class Produto extends React.Component {
       if (response.ok) {
         this.buscarProduto();
       } else {
-        alert("Não foi possivel atualizar o produto");
+        alert("Não foi possível atualizar o produto." + produto.imei);
       }
     });
   };
 
+  // Renderiza a tabela de produtos
   renderTabela() {
     return (
       <Card>
@@ -107,21 +128,21 @@ class Produto extends React.Component {
             </thead>
             <tbody>
               {this.state.produtos.map((produto) => (
-                <tr>
+                <tr key={produto._id}>
                   <td>{produto.imei}</td>
                   <td>{produto.linha}</td>
                   <td>{produto.colaborador}</td>
                   <td>
                     <Button
                       variant="warning"
-                      onClick={() => this.carregarDados(produto._id)}
+                      onClick={() => this.carregarDados(produto._id, "editar")}
                       style={{ marginRight: "1rem" }}
                     >
                       Atualizar
                     </Button>
                     <Button
                       variant="danger"
-                      onClick={() => this.deletarProduto(produto._id)}
+                      onClick={() => this.carregarDados(produto._id, "excluir")}
                     >
                       Excluir
                     </Button>
@@ -135,49 +156,91 @@ class Produto extends React.Component {
     );
   }
 
+  // Atualiza o estado "modelo" com o valor do input correspondente
   atualizarModelo = (e) => {
     this.setState({
       modelo: e.target.value,
     });
   };
+
+  // Atualiza o estado "linha" com o valor do input correspondente
   atualizarLinha = (e) => {
     this.setState({
       linha: e.target.value,
     });
   };
+
+  // Atualiza o estado "data" com o valor do input correspondente
   atualizarData = (e) => {
     this.setState({
       data: e.target.value,
     });
   };
+
+  // Atualiza o estado "imei" com o valor do input correspondente
   atualizarImei = (e) => {
     this.setState({
       imei: e.target.value,
     });
   };
+
+  // Atualiza o estado "colaborador" com o valor do input correspondente
   atualizarColaborador = (e) => {
     this.setState({
       colaborador: e.target.value,
     });
   };
+  // Atualiza o estado "setor" com o valor do input correspondente
+  atualizarSetor = (e) => {
+    this.setState({
+      setor: e.target.value,
+    });
+  };
+  // Atualiza o estado "funcao" com o valor do input correspondente
+  atualizarFuncao = (e) => {
+    this.setState({
+      funcao: e.target.value,
+    });
+  };
+  // Atualiza o estado "matricula" com o valor do input correspondente
+  atualizarMatricula = (e) => {
+    this.setState({
+      matricula: e.target.value,
+    });
+  };
+
+  // Atualiza o estado "Backup" com o valor do input correspondente
+  atualizarBackup = (e) => {
+    this.setState({
+      backup: e.target.value,
+    });
+  };
+
+  // Atualiza o estado "obs" com o valor do input correspondente
   atualizarObs = (e) => {
     this.setState({
       obs: e.target.value,
     });
   };
 
+  // Executa o cadastro ou atualização do produto
   submit = () => {
-    const { id, modelo, linha, data, imei, colaborador, obs } = this.state;
+    const {
+      id,
+      modelo,
+      linha,
+      data,
+      imei,
+      colaborador,
+      setor,
+      funcao,
+      matricula,
+      backup,
+      obs,
+    } = this.state;
 
-    if (
-      modelo === "" ||
-      linha === "" ||
-      data === "" ||
-      imei === "" ||
-      colaborador === "" ||
-      obs === ""
-    ) {
-      alert("Por favor, preencha todos os campos antes de cadastrar.");
+    if (modelo === "" || imei === "" || backup === "") {
+      alert("Os campo de Modelo. Imei e Backup são obrigatorios");
       return;
     }
 
@@ -188,6 +251,10 @@ class Produto extends React.Component {
         data,
         imei,
         colaborador,
+        setor,
+        funcao,
+        matricula,
+        backup,
         obs,
       };
 
@@ -201,6 +268,10 @@ class Produto extends React.Component {
         data,
         imei,
         colaborador,
+        setor,
+        funcao,
+        matricula,
+        backup,
         obs,
       };
       this.atualizarProduto(produto);
@@ -208,6 +279,7 @@ class Produto extends React.Component {
     }
   };
 
+  // Limpa o formulário e abre o modal de edição
   reset = () => {
     this.setState({
       id: "",
@@ -216,19 +288,41 @@ class Produto extends React.Component {
       data: "",
       imei: "",
       colaborador: "",
+      setor: "",
+      funcao: "",
+      matricula: "",
+      backup: "",
       obs: "",
     });
     this.abrirModal();
   };
 
+  // Fecha o modal de edição
   fecharModal = () => {
     this.setState({
       modalAberto: false,
     });
   };
+
+  // Abre o modal de edição
   abrirModal = () => {
     this.setState({
       modalAberto: true,
+    });
+  };
+
+  // Fecha o modal de exclusão
+  fecharModalExcluir = () => {
+    this.setState({
+      modalExcluirAberto: false,
+    });
+  };
+
+  // Abre o modal de exclusão
+  abrirModalExcluir = (id) => {
+    this.setState({
+      modalExcluirAberto: true,
+      id: id,
     });
   };
 
@@ -300,6 +394,51 @@ class Produto extends React.Component {
                 />
               </Form.Group>
 
+              <Row>
+                <Col>
+                  <Form.Label>Setor</Form.Label>
+                  <Form.Control
+                    placeholder="SETOR"
+                    type="text"
+                    value={this.state.setor}
+                    onChange={this.atualizarSetor}
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>Funcão</Form.Label>
+                  <Form.Control
+                    placeholder="FUNÇÃO"
+                    type="text"
+                    value={this.state.funcao}
+                    onChange={this.atualizarFuncao}
+                  />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>
+                  <Form.Label>Matricula</Form.Label>
+                  <Form.Control
+                    placeholder="Matricula"
+                    type="text"
+                    value={this.state.matricula}
+                    onChange={this.atualizarMatricula}
+                  />
+                </Col>
+                <Col>
+                  <Form.Label>Backup</Form.Label>
+                  <Form.Select
+                    aria-label="Backup"
+                    value={this.state.backup}
+                    onChange={this.atualizarBackup}
+                  >
+                    <option value="">Backup</option>
+                    <option value="SIM">SIM</option>
+                    <option value="NÃO">NÃO</option>
+                  </Form.Select>
+                </Col>
+              </Row>
+
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
@@ -326,7 +465,7 @@ class Produto extends React.Component {
 
         <div className="novo">
           <div className="pesquisa">
-            <InputGroup >
+            <InputGroup>
               <Form.Control
                 placeholder="Pesquisar..."
                 aria-label="Recipient's username"
@@ -348,6 +487,31 @@ class Produto extends React.Component {
           </Button>
         </div>
 
+        <div>
+          {" "}
+          <Modal
+            show={this.state.modalExcluirAberto}
+            onHide={this.fecharModalExcluir}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Confirmação de Exclusão</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Tem certeza que deseja excluir este produto?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.fecharModalExcluir}>
+                Cancelar
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => this.deletarProduto(this.state.imei)}
+              >
+                Excluir
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
         <div className="tabela">{this.renderTabela()}</div>
       </div>
     );
