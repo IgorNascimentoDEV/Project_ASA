@@ -61,7 +61,7 @@ class Produto extends React.Component {
       .then((resposta) => resposta.json())
       .then((produto) => {
         this.setState({
-          id: id, 
+          id: id,
           modelo: produto.modelo,
           linha: produto.linha,
           data: produto.data,
