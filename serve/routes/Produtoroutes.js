@@ -186,48 +186,60 @@ router.get("/maquina/dev/:id", async (req, res) => {
 
 //Criando dado
 router.post("/maquina/dev", async (req, res) => {
-  const { NºS, Nome, Empresa, Colab, memoria, Ram, Processador, Oficce } =
-    req.body;
-
-  if (!Nome) {
-    res.status(422).json({ error: "Campo nome é obrigatorio" });
-  }
-  const maquina = {
-    NºS,
-    Nome,
-    Empresa,
-    Colab,
+  const {
+    nºS,
+    nome,
+    empresa,
+    colab,
+    setor,
     memoria,
-    Ram,
-    Processador,
-    Oficce,
+    ram,
+    processador,
+    oficce
+  } = req.body;
+
+  if (!nome) {
+    res.status(422).json({ error: "Campo nome é obrigatorio" });
+    return;
+  }
+
+  const maquina = {
+    nºS,
+    nome,
+    empresa,
+    colab,
+    setor,
+    memoria,
+    ram,
+    processador,
+    oficce
   };
 
   try {
     await Maquina.create(maquina);
     res.status(200).json({ message: "Maquina inserida com sucesso" });
   } catch (error) {
-    res.status(500).json({ errror: error });
+    res.status(500).json({ error: error });
   }
 });
-
 //Editando
 router.put("/maquina/dev/:id", async (req, res) => {
     
   const id = req.params._id;
   
-  const { NºS, Nome, Empresa, Colab, memoria, Ram, Processador, Oficce } =
+  const { nºS, nome, empresa, colab, setor, memoria, ram, processador, oficce } =
     req.body;
 
     const maquina = {
-      NºS,
-      Nome,
-      Empresa,
-      Colab,
+      nºS,
+      nome,
+      empresa,
+      colab,
+      setor,
       memoria,
-      Ram,
-      Processador,
-      Oficce,
+      ram,
+      processador,
+      oficce,
     };
 
     try {

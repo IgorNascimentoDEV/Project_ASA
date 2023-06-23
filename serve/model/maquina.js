@@ -3,28 +3,31 @@
 const mongoose = require('mongoose');
 
 const Maquina = mongoose.model('Maquina', {
-    NºS:{
+    nºS:{
         type: String
     },
-    Nome:{
+    nome:{
         type: String
     },
-    Empresa:{
+    empresa:{
         type: String
     },
-    Colab:{
+    colab:{
         type: String
+    },
+    setor:{
+        type:String
     },
     memoria: {
         type: String
     },
-    Ram:{
+    ram:{
         type:String
     },
-    Processador:{
+    processador:{
         type: String
     },
-    Oficce: {
+    oficce: {
         type: String
     }
 })

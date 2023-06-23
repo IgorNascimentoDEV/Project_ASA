@@ -55,7 +55,7 @@ class Produto extends React.Component {
     this.fecharModalExcluir();
   };
 
-  // Carrega os dados de um produto para edição
+  // Carrega os dados de um aparelho
   carregarDados = (id, requisicao) => {
     fetch("http://localhost:4000/produto/" + id, { method: "GET" })
       .then((resposta) => resposta.json())
@@ -240,7 +240,7 @@ class Produto extends React.Component {
     } = this.state;
 
     if (modelo === "" || imei === "" || backup === "") {
-      alert("Os campo de Modelo. Imei e Backup são obrigatorios");
+      alert("Os campo de Modelo, Imei e Backup são obrigatorios");
       return;
     }
 
