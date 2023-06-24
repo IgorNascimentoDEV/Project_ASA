@@ -29,6 +29,9 @@ const Maquina = mongoose.model('Maquina', {
     },
     oficce: {
         type: String
+    },
+    obs: {
+        type:String
     }
 })
 

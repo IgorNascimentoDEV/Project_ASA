@@ -1,0 +1,43 @@
+
+.cabecalho{
+    display: flex;
+    align-items: center;
+    background-color: #0796f2;
+}
+h1{
+    color:aliceblue
+}
+
+.content {
+    background-color: #0796f2;
+    height: 100vh; /* A altura da div será igual à altura da tela */
+     display: flex;
+     flex-direction: column;
+}
+
+.logo{
+    width: 15%;
+}
+
+.sidebar-content{
+    display: flex;
+    flex-direction: column;
+}
+
+  
+  .menu-item {
+    align-items: center;
+    margin-left: 0%;
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+
+  
+.card{
+    flex: 1;
+}
+
+.page{
+    margin-top: 30%;
+    margin-left: 40%;
+}

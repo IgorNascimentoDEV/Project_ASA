@@ -195,7 +195,8 @@ router.post("/maquina/dev", async (req, res) => {
     memoria,
     ram,
     processador,
-    oficce
+    oficce,
+    obs
   } = req.body;
 
   if (!nome) {
@@ -212,7 +213,8 @@ router.post("/maquina/dev", async (req, res) => {
     memoria,
     ram,
     processador,
-    oficce
+    oficce,
+    obs
   };
 
   try {
@@ -227,7 +229,7 @@ router.put("/maquina/dev/:id", async (req, res) => {
     
   const id = req.params._id;
   
-  const { nºS, nome, empresa, colab, setor, memoria, ram, processador, oficce } =
+  const { nºS, nome, empresa, colab, setor, memoria, ram, processador, oficce, obs } =
     req.body;
 
     const maquina = {
@@ -240,6 +242,7 @@ router.put("/maquina/dev/:id", async (req, res) => {
       ram,
       processador,
       oficce,
+      obs,
     };
 
     try {

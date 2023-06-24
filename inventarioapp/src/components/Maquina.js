@@ -69,6 +69,21 @@ class Maquina extends React.Component {
     this.fecharModalExcluir();
   };
 
+  //Atualizar dados da maquina
+  atualizarMaquina = (maquina) => {
+    fetch("http://localhost:4000/produto/maquina/dev/" + maquina.id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(maquina),
+    }).then((resposta) => {
+      if(resposta.ok){
+        this.buscaMaquinas();
+      } else {
+        alert("Não foi possivel atualizar a maquina")
+      }
+    })
+  }
+
   //Carregar dados de uma maquina
   carregarDados = (id, requisicao) => {
     fetch("http://localhost:4000/produto/maquina/dev/" + id, { method: "GET" })
@@ -85,11 +100,11 @@ class Maquina extends React.Component {
           ram: maquina.ram,
           processador: maquina.processador,
           oficce: maquina.oficce,
+          obs: maquina.obs
         });
 
         if (requisicao === "editar") {
-          alert("Falta implementar a edição");
-          //this.abrirModal();
+          this.abrirModal();
         } else {
           this.abrirModalExcluir(id);
         }
@@ -147,7 +162,7 @@ class Maquina extends React.Component {
         obs,
       };
 
-      //this.atualizarMaquina(maquina);
+      this.atualizarMaquina(maquina);
       this.fecharModal();
     }
   };
@@ -164,6 +179,7 @@ class Maquina extends React.Component {
       ram: "",
       processador: "",
       oficce: "",
+      obs: "",
     });
     this.abrirModal();
   };
