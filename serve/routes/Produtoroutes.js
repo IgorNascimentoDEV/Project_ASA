@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const Maquina = require("../model/maquina");
 const Produto = require("../model/produto");
+const Usuario = require("../model/usuario");
 
 //rotas / endpoint
 
@@ -277,5 +278,37 @@ router.delete("/maquina/dev/:id", async (req, res) => {
     res.status(500).json({error: error})
   }
 });
+
+
+
+// Cadastrar usuários
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email === "" && password === "") {
+    res.status(422).json({ error: "Os campos são obrigatórios!" });
+    return;
+  }
+
+  try {
+    const existingUser = await Usuario.findOne({ email });
+
+    if (existingUser) {
+      res.status(409).json({ error: "Usuário já cadastrado!" });
+      return;
+    }
+
+    const usuario = {
+      email,
+      password,
+    };
+
+    await Usuario.create(usuario);
+    res.status(200).json( usuario );
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
 
 module.exports = router;
