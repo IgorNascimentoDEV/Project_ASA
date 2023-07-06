@@ -170,7 +170,7 @@ router.get("/maquina/dev", async (req, res) => {
 
 //Leitura por Id
 router.get("/maquina/dev/:id", async (req, res) => {
-  const id = req.params._id
+  const id = req.params._id;
   try {
     const maquina = await Maquina.findOne({ id: id });
 
@@ -197,7 +197,7 @@ router.post("/maquina/dev", async (req, res) => {
     ram,
     processador,
     oficce,
-    obs
+    obs,
   } = req.body;
 
   if (!nome) {
@@ -215,7 +215,7 @@ router.post("/maquina/dev", async (req, res) => {
     ram,
     processador,
     oficce,
-    obs
+    obs,
   };
 
   try {
@@ -227,88 +227,116 @@ router.post("/maquina/dev", async (req, res) => {
 });
 //Editando
 router.put("/maquina/dev/:id", async (req, res) => {
-    
   const id = req.params._id;
-  
-  const { nºS, nome, empresa, colab, setor, memoria, ram, processador, oficce, obs } =
-    req.body;
 
-    const maquina = {
-      nºS,
-      nome,
-      empresa,
-      colab,
-      setor,
-      memoria,
-      ram,
-      processador,
-      oficce,
-      obs,
-    };
+  const {
+    nºS,
+    nome,
+    empresa,
+    colab,
+    setor,
+    memoria,
+    ram,
+    processador,
+    oficce,
+    obs,
+  } = req.body;
 
-    try {
-      const updateMaquina = await Maquina.updateOne({id: id}, maquina);
-
-      if(updateMaquina.matchedCount === 0){
-        res.status(422).json({error: "A maquina não foi encontrada"});
-        return
-      }
-
-      res.status(200).json(maquina);
-    } catch (error) {
-        res.status(500).json({error: error});      
-    }
-});
-
-//Excluir
-router.delete("/maquina/dev/:id", async (req, res) => {
-  const id = req.params._id
-
-  const maquina = await Maquina.findOne({id: id});
-
-  if(!maquina){
-    res.status(422).json({error: "A maquina não foi encontrada"});
-    return
-  }
+  const maquina = {
+    nºS,
+    nome,
+    empresa,
+    colab,
+    setor,
+    memoria,
+    ram,
+    processador,
+    oficce,
+    obs,
+  };
 
   try {
-    await Maquina.deleteOne({id: id});
-    res.status(200).json({message: "Maquina excluida com sucesso"});
-  } catch (error) {
-    res.status(500).json({error: error})
-  }
-});
+    const updateMaquina = await Maquina.updateOne({ id: id }, maquina);
 
-
-
-// Cadastrar usuários
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  if (email === "" && password === "") {
-    res.status(422).json({ error: "Os campos são obrigatórios!" });
-    return;
-  }
-
-  try {
-    const existingUser = await Usuario.findOne({ email });
-
-    if (existingUser) {
-      res.status(409).json({ error: "Usuário já cadastrado!" });
+    if (updateMaquina.matchedCount === 0) {
+      res.status(422).json({ error: "A maquina não foi encontrada" });
       return;
     }
 
-    const usuario = {
-      email,
-      password,
-    };
-
-    await Usuario.create(usuario);
-    res.status(200).json( usuario );
+    res.status(200).json(maquina);
   } catch (error) {
     res.status(500).json({ error: error });
   }
 });
 
+//Excluir
+router.delete("/maquina/dev/:id", async (req, res) => {
+  const id = req.params._id;
+
+  const maquina = await Maquina.findOne({ id: id });
+
+  if (!maquina) {
+    res.status(422).json({ error: "A maquina não foi encontrada" });
+    return;
+  }
+
+  try {
+    await Maquina.deleteOne({ id: id });
+    res.status(200).json({ message: "Maquina excluida com sucesso" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+// Cadastrar usuários
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email === "" || password === "") {
+    res.status(422).json({ error: "Os campos são obrigatórios!" });
+    return;
+  }
+
+  try {
+    const existingUser = await Usuario.findOne({ email, password });
+
+    if (existingUser) {
+      res.status(200).json(existingUser._id);
+    } else {
+      res.status(401).json({ message: "Credenciais inválidas" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+  //Depois valida pra cadastrar
+  // try {
+  //   const usuario = {
+  //     email,
+  //     password,
+  //   };
+
+  //   await Usuario.create(usuario);
+  //   res.status(200).json({ message: "Usuário cadastrado com sucesso!" });
+  // } catch (error) {
+  //   res.status(500).json({ error: error.message });
+  // }
+});
+
+// Rota para verificar se o usuário está cadastrado
+router.get("/login", async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const existingUser = await Usuario.findOne({ email });
+
+    if (existingUser) {
+      res.status(200).json({ message: "Usuário cadastrado" });
+    } else {
+      res.status(404).json({ message: "Usuário não cadastrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;
