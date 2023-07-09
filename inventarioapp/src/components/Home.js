@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import Maquina from "./Maquina";
 import Celular from "./Celular";
 import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
@@ -6,7 +6,6 @@ import { Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../assets/Asa-1.png";
 import Card from "react-bootstrap/Card";
-import Pagination from "react-bootstrap/Pagination";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -17,7 +16,6 @@ import {
 } from "cdbreact";
 
 import "../App.css";
-import StoreContext from "../contexts/context";
 
 function initialState() {
   return { email: "", password: "" };
@@ -27,15 +25,6 @@ function Home() {
   const [values, setValues] = useState(initialState);
   const [auth, setAuth] = useState("");
 
-  const { setToken } = useContext(StoreContext);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-      setAuth(storedToken);
-    }
-  }, [setToken]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -63,9 +52,7 @@ function Home() {
         }
       })
       .then((data) => {
-        setToken(data);
         setAuth(data);
-        localStorage.setItem("token", data);
         console.log(data);
       })
       .catch((error) => {
@@ -84,9 +71,7 @@ function Home() {
   }
 
   const handleLogout = () => {
-    setToken("");
     setAuth("");
-    localStorage.removeItem("token");
   };
 
   return (
@@ -204,15 +189,7 @@ function Home() {
                         <Route path="/maquina" element={<Maquina />} />
                       </Routes>
 
-                      <Pagination className="page">
-                        <Pagination.Prev />
-                        <Pagination.Ellipsis />
-                        <Pagination.Item>{3}</Pagination.Item>
-                        <Pagination.Item>{4}</Pagination.Item>
-                        <Pagination.Item>{5}</Pagination.Item>
-                        <Pagination.Ellipsis />
-                        <Pagination.Next />
-                      </Pagination>
+                     
                     </Card.Body>
                   </Card>
                 </div>

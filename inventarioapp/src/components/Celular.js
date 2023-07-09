@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Pagination } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -27,6 +27,8 @@ class Produto extends React.Component {
       produtos: [],
       modalAberto: false,
       modalExcluirAberto: false,
+      paginaAtual: 1,
+      itensPorPagina: 9
     };
   }
 
@@ -114,6 +116,13 @@ class Produto extends React.Component {
 
   // Renderiza a tabela de produtos
   renderTabela() {
+    const { produtos, paginaAtual, itensPorPagina } = this.state;
+
+    // Calcula os índices dos itens a serem exibidos na página atual
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = indiceInicial + itensPorPagina;
+    const produtosesPaginados = produtos.slice(indiceInicial, indiceFinal);
+
     return (
       <Card>
         <Card.Body>
@@ -127,7 +136,7 @@ class Produto extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.produtos.map((produto) => (
+              {produtosesPaginados.map((produto) => (
                 <tr key={produto._id}>
                   <td>{produto.imei}</td>
                   <td>{produto.linha}</td>
@@ -151,10 +160,28 @@ class Produto extends React.Component {
               ))}
             </tbody>
           </Table>
+
+          <Pagination className="page">
+            <Pagination.Prev
+              disabled={paginaAtual === 1}
+              onClick={() => this.atualizarPaginaAtual(paginaAtual - 1)}
+            />
+            <Pagination.Item>{paginaAtual}</Pagination.Item>
+            <Pagination.Next
+              disabled={paginaAtual === Math.ceil(produtos.length / itensPorPagina)}
+              onClick={() => this.atualizarPaginaAtual(paginaAtual + 1)}
+            />
+          </Pagination>
         </Card.Body>
       </Card>
     );
   }
+
+  atualizarPaginaAtual = (pagina) => {
+    this.setState({
+      paginaAtual: pagina,
+    });
+  };
 
   // Atualiza o estado "modelo" com o valor do input correspondente
   atualizarModelo = (e) => {

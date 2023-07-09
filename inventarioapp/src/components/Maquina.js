@@ -1,10 +1,5 @@
 import React from "react";
-import { Table, Button } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
+import { Table, Button, Form, Col, Row, Modal, Card, Pagination } from "react-bootstrap";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -14,7 +9,7 @@ class Maquina extends React.Component {
 
     this.state = {
       id: "",
-      nºS: "",
+      numeroSerie: "",
       nome: "",
       empresa: "",
       colab: "",
@@ -22,18 +17,21 @@ class Maquina extends React.Component {
       memoria: "",
       ram: "",
       processador: "",
-      oficce: "",
+      office: "",
       obs: "",
       maquinas: [],
       modalAberto: false,
       modalExcluirAberto: false,
+      paginaAtual: 1,
+      itensPorPagina: 9
     };
   }
+
   componentDidMount() {
     this.buscaMaquinas();
   }
 
-  //Buscar maquina do servidor
+  // Buscar maquina do servidor
   buscaMaquinas = () => {
     fetch("http://localhost:4000/produto/maquina/dev")
       .then((response) => response.json())
@@ -42,22 +40,22 @@ class Maquina extends React.Component {
       });
   };
 
-  //Cadastra um novo maquina no servidor
+  // Cadastra um novo maquina no servidor
   cadastraMaquina = (maquina) => {
     fetch("http://localhost:4000/produto/maquina/dev/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(maquina),
     }).then((response) => {
-      if(response.ok){
+      if (response.ok) {
         this.buscaMaquinas();
-      }else{
-        alert("Não foi possivel adicionar o produto");
+      } else {
+        alert("Não foi possível adicionar o produto");
       }
     });
   };
 
-  //Deletar maquina no servidor
+  // Deletar maquina no servidor
   deletarMaquina = (id) => {
     fetch("http://localhost:4000/produto/maquina/dev/" + id, {
       method: "DELETE",
@@ -69,29 +67,29 @@ class Maquina extends React.Component {
     this.fecharModalExcluir();
   };
 
-  //Atualizar dados da maquina
+  // Atualizar dados da maquina
   atualizarMaquina = (maquina) => {
     fetch("http://localhost:4000/produto/maquina/dev/" + maquina.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(maquina),
     }).then((resposta) => {
-      if(resposta.ok){
+      if (resposta.ok) {
         this.buscaMaquinas();
       } else {
-        alert("Não foi possivel atualizar a maquina")
+        alert("Não foi possível atualizar a maquina");
       }
-    })
-  }
+    });
+  };
 
-  //Carregar dados de uma maquina
+  // Carregar dados de uma maquina
   carregarDados = (id, requisicao) => {
     fetch("http://localhost:4000/produto/maquina/dev/" + id, { method: "GET" })
       .then((resposta) => resposta.json())
       .then((maquina) => {
         this.setState({
           id: id,
-          nºS: maquina.nºS,
+          numeroSerie: maquina.numeroSerie,
           nome: maquina.nome,
           empresa: maquina.empresa,
           colab: maquina.colab,
@@ -99,7 +97,7 @@ class Maquina extends React.Component {
           memoria: maquina.memoria,
           ram: maquina.ram,
           processador: maquina.processador,
-          oficce: maquina.oficce,
+          office: maquina.office,
           obs: maquina.obs
         });
 
@@ -111,11 +109,11 @@ class Maquina extends React.Component {
       });
   };
 
-  //Executa o cadastro ou a atualização da maquina
+  // Executa o cadastro ou a atualização da maquina
   submit = () => {
     const {
       id,
-      nºS,
+      numeroSerie,
       nome,
       empresa,
       colab,
@@ -123,18 +121,18 @@ class Maquina extends React.Component {
       memoria,
       ram,
       processador,
-      oficce,
+      office,
       obs,
     } = this.state;
 
-    if(nome === "" || empresa === "" || setor === ""){
-      alert("Os campos de Nome, Empresa, Setor são obrigatorios");
+    if (nome === "" || empresa === "" || setor === "") {
+      alert("Os campos de Nome, Empresa, Setor são obrigatórios");
       return;
     }
 
-    if(id === ""){
+    if (id === "") {
       const maquina = {
-        nºS,
+        numeroSerie,
         nome,
         empresa,
         colab,
@@ -142,15 +140,16 @@ class Maquina extends React.Component {
         memoria,
         ram,
         processador,
-        oficce,
+        office,
         obs,
       };
 
       this.cadastraMaquina(maquina);
       this.fecharModal();
-    }else{
+    } else {
       const maquina = {
-        nºS,
+        id,
+        numeroSerie,
         nome,
         empresa,
         colab,
@@ -158,7 +157,7 @@ class Maquina extends React.Component {
         memoria,
         ram,
         processador,
-        oficce,
+        office,
         obs,
       };
 
@@ -170,7 +169,7 @@ class Maquina extends React.Component {
   reset = () => {
     this.setState({
       id: "",
-      nºS: "",
+      numeroSerie: "",
       nome: "",
       empresa: "",
       colab: "",
@@ -178,33 +177,36 @@ class Maquina extends React.Component {
       memoria: "",
       ram: "",
       processador: "",
-      oficce: "",
+      office: "",
       obs: "",
     });
     this.abrirModal();
   };
 
-  //Abre o modal de exclusão
+  // Abre o modal de exclusão
   abrirModalExcluir = (id) => {
     this.setState({
       modalExcluirAberto: true,
       id: id,
     });
   };
-  //Fecha o modal da exclusão
-  fecharModalExcluir = (id) => {
+
+  // Fecha o modal da exclusão
+  fecharModalExcluir = () => {
     this.setState({
       modalExcluirAberto: false,
-      id: id,
+      id: "",
     });
   };
-  //abre o modal de cadastramento/edição
+
+  // Abre o modal de cadastramento/edição
   abrirModal = () => {
     this.setState({
       modalAberto: true,
     });
   };
-  //fecha o modal de cadastramento/edição
+
+  // Fecha o modal de cadastramento/edição
   fecharModal = () => {
     this.setState({
       modalAberto: false,
@@ -212,6 +214,13 @@ class Maquina extends React.Component {
   };
 
   renderTabela() {
+    const { maquinas, paginaAtual, itensPorPagina } = this.state;
+
+    // Calcula os índices dos itens a serem exibidos na página atual
+    const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+    const indiceFinal = indiceInicial + itensPorPagina;
+    const maquinasPaginadas = maquinas.slice(indiceInicial, indiceFinal);
+
     return (
       <Card>
         <Card.Body>
@@ -225,7 +234,7 @@ class Maquina extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.maquinas.map((maquina) => (
+              {maquinasPaginadas.map((maquina) => (
                 <tr key={maquina._id}>
                   <td>{maquina.nome}</td>
                   <td>{maquina.colab}</td>
@@ -249,14 +258,32 @@ class Maquina extends React.Component {
               ))}
             </tbody>
           </Table>
+
+          <Pagination className="page">
+            <Pagination.Prev
+              disabled={paginaAtual === 1}
+              onClick={() => this.atualizarPaginaAtual(paginaAtual - 1)}
+            />
+            <Pagination.Item>{paginaAtual}</Pagination.Item>
+            <Pagination.Next
+              disabled={paginaAtual === Math.ceil(maquinas.length / itensPorPagina)}
+              onClick={() => this.atualizarPaginaAtual(paginaAtual + 1)}
+            />
+          </Pagination>
         </Card.Body>
       </Card>
     );
   }
 
-  atualizarNºS  = (e) => {
+  atualizarPaginaAtual = (pagina) => {
     this.setState({
-      nºS: e.target.value,
+      paginaAtual: pagina,
+    });
+  };
+
+  atualizarNumeroSerie = (e) => {
+    this.setState({
+      numeroSerie: e.target.value,
     });
   };
 
@@ -294,11 +321,11 @@ class Maquina extends React.Component {
     this.setState({
       processador: e.target.value,
     });
-  }
+  };
 
-  atualizarOficce = (e) => {
+  atualizarOffice = (e) => {
     this.setState({
-      oficce: e.target.value,
+      office: e.target.value,
     });
   };
 
@@ -335,10 +362,10 @@ class Maquina extends React.Component {
                 <Col>
                   <Form.Label>Numero</Form.Label>
                   <Form.Control
-                    placeholder="NºS"
+                    placeholder="Número de Série"
                     type="text"
-                    value={this.state.nºS}
-                    onChange={this.atualizarNºS}
+                    value={this.state.numeroSerie}
+                    onChange={this.atualizarNumeroSerie}
                   />
                 </Col>
                 <Col>
@@ -356,7 +383,7 @@ class Maquina extends React.Component {
                 <Col>
                   <Form.Label>Setor</Form.Label>
                   <Form.Control
-                    placeholder="SETOR"
+                    placeholder="Setor"
                     type="text"
                     value={this.state.setor}
                     onChange={this.atualizarSetor}
@@ -405,30 +432,26 @@ class Maquina extends React.Component {
                   />
                 </Col>
                 <Col>
-                  <Form.Label>Oficce</Form.Label>
+                  <Form.Label>Office</Form.Label>
                   <Form.Control
                     placeholder="Ano - Chave"
                     type="text"
-                    value={this.state.oficce}
-                    onChange={this.atualizarOficce}
+                    value={this.state.office}
+                    onChange={this.atualizarOffice}
                   />
                 </Col>
               </Row>
 
-
               <Form.Group className="mb-3">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control
-                  placeholder="NOME DO COLABORADOR"
+                  placeholder="Nome do Colaborador"
                   value={this.state.colab}
                   onChange={this.atualizarColab}
                 />
               </Form.Group>
 
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Observação</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -474,17 +497,11 @@ class Maquina extends React.Component {
         </div>
 
         <div>
-          {" "}
-          <Modal
-            show={this.state.modalExcluirAberto}
-            onHide={this.fecharModalExcluir}
-          >
+          <Modal show={this.state.modalExcluirAberto} onHide={this.fecharModalExcluir}>
             <Modal.Header closeButton>
               <Modal.Title>Confirmação de Exclusão</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              Tem certeza que deseja excluir esta maquina?
-            </Modal.Body>
+            <Modal.Body>Tem certeza que deseja excluir esta maquina?</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={this.fecharModalExcluir}>
                 Cancelar
@@ -503,4 +520,5 @@ class Maquina extends React.Component {
     );
   }
 }
+
 export default Maquina;

@@ -170,9 +170,9 @@ router.get("/maquina/dev", async (req, res) => {
 
 //Leitura por Id
 router.get("/maquina/dev/:id", async (req, res) => {
-  const id = req.params._id;
+  const id = req.params.id;
   try {
-    const maquina = await Maquina.findOne({ id: id });
+    const maquina = await Maquina.findOne({ _id: id });
 
     if (!maquina) {
       res.status(422).json({ error: "A maquina não foi encontrada" });
@@ -227,7 +227,7 @@ router.post("/maquina/dev", async (req, res) => {
 });
 //Editando
 router.put("/maquina/dev/:id", async (req, res) => {
-  const id = req.params._id;
+  const id = req.params.id;
 
   const {
     nºS,
@@ -256,7 +256,7 @@ router.put("/maquina/dev/:id", async (req, res) => {
   };
 
   try {
-    const updateMaquina = await Maquina.updateOne({ id: id }, maquina);
+    const updateMaquina = await Maquina.updateOne({ _id: id }, maquina);
 
     if (updateMaquina.matchedCount === 0) {
       res.status(422).json({ error: "A maquina não foi encontrada" });
@@ -271,9 +271,9 @@ router.put("/maquina/dev/:id", async (req, res) => {
 
 //Excluir
 router.delete("/maquina/dev/:id", async (req, res) => {
-  const id = req.params._id;
+  const id = req.params.id;
 
-  const maquina = await Maquina.findOne({ id: id });
+  const maquina = await Maquina.findOne({ _id: id });
 
   if (!maquina) {
     res.status(422).json({ error: "A maquina não foi encontrada" });
@@ -281,7 +281,7 @@ router.delete("/maquina/dev/:id", async (req, res) => {
   }
 
   try {
-    await Maquina.deleteOne({ id: id });
+    await Maquina.deleteOne({ _id: id });
     res.status(200).json({ message: "Maquina excluida com sucesso" });
   } catch (error) {
     res.status(500).json({ error: error });
