@@ -356,7 +356,7 @@ class Produto extends React.Component {
   render() {
     return (
       <div>
-        <Modal show={this.state.modalAberto} onHide={this.fecharModal}>
+        <Modal show={this.state.modalAberto} onHide={this.fecharModal} className="custom-modal">
           <Modal.Header closeButton>
             <Modal.Title>Atrelamento de aparelho</Modal.Title>
           </Modal.Header>
@@ -491,14 +491,16 @@ class Produto extends React.Component {
         </Modal>
 
         <div className="novo">
+          <p className="frasepage">APARELHOS E LINHAS</p>
           <div className="pesquisa">
             <InputGroup>
               <Form.Control
                 placeholder="Pesquisar..."
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
+                type="Search"
               />
-              <Button variant="outline-secondary" id="button-addon2">
+              <Button variant="outline-secondary" id="button-addon2" >
                 Buscar
               </Button>
             </InputGroup>

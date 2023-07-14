@@ -1,5 +1,14 @@
 import React from "react";
-import { Table, Button, Form, Col, Row, Modal, Card, Pagination } from "react-bootstrap";
+import {
+  Table,
+  Button,
+  Form,
+  Col,
+  Row,
+  Modal,
+  Card,
+  Pagination,
+} from "react-bootstrap";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -23,7 +32,7 @@ class Maquina extends React.Component {
       modalAberto: false,
       modalExcluirAberto: false,
       paginaAtual: 1,
-      itensPorPagina: 9
+      itensPorPagina: 9,
     };
   }
 
@@ -98,7 +107,7 @@ class Maquina extends React.Component {
           ram: maquina.ram,
           processador: maquina.processador,
           office: maquina.office,
-          obs: maquina.obs
+          obs: maquina.obs,
         });
 
         if (requisicao === "editar") {
@@ -266,7 +275,9 @@ class Maquina extends React.Component {
             />
             <Pagination.Item>{paginaAtual}</Pagination.Item>
             <Pagination.Next
-              disabled={paginaAtual === Math.ceil(maquinas.length / itensPorPagina)}
+              disabled={
+                paginaAtual === Math.ceil(maquinas.length / itensPorPagina)
+              }
               onClick={() => this.atualizarPaginaAtual(paginaAtual + 1)}
             />
           </Pagination>
@@ -451,7 +462,10 @@ class Maquina extends React.Component {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
                 <Form.Label>Observação</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -473,12 +487,14 @@ class Maquina extends React.Component {
         </Modal>
 
         <div className="novo">
+          <p className="frasepage">MAQUINAS E LICENÇAS</p>
           <div className="pesquisa">
             <InputGroup>
               <Form.Control
                 placeholder="Pesquisar..."
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
+                type="Search"
               />
               <Button variant="outline-secondary" id="button-addon2">
                 Buscar
@@ -497,11 +513,16 @@ class Maquina extends React.Component {
         </div>
 
         <div>
-          <Modal show={this.state.modalExcluirAberto} onHide={this.fecharModalExcluir}>
+          <Modal
+            show={this.state.modalExcluirAberto}
+            onHide={this.fecharModalExcluir}
+          >
             <Modal.Header closeButton>
               <Modal.Title>Confirmação de Exclusão</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Tem certeza que deseja excluir esta maquina?</Modal.Body>
+            <Modal.Body>
+              Tem certeza que deseja excluir esta maquina?
+            </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={this.fecharModalExcluir}>
                 Cancelar

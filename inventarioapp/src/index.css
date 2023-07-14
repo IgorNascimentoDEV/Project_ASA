@@ -13,17 +13,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.modal-dialog {
+  min-width: 80%;
+  margin: 0 auto;
+}
 
 .novo{
   display: flex;
   justify-content: end; 
-  padding: 1rem; 
+  align-items: center;
 }
 
 .pesquisa{
   width: 30%;
   margin-right: 1rem;
 }
+
+.frasepage {
+  margin-right: 15%;
+  width: 40%;
+  white-space: nowrap;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 2rem;
+}
+
 
 .tabela{
   margin-top: 1rem;

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import Maquina from "./Maquina";
 import Celular from "./Celular";
+import Inicio from "./Inicio";
+import Utensilio from "./Utensilio";
+import Usuarios from "./Usuarios";
 import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../assets/Asa-1.png";
+import logoBranca from "../assets/logo-branca.png";
 import Card from "react-bootstrap/Card";
+import { BiAt } from "react-icons/bi";
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
@@ -24,7 +26,6 @@ function initialState() {
 function Home() {
   const [values, setValues] = useState(initialState);
   const [auth, setAuth] = useState("");
-
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -105,100 +106,114 @@ function Home() {
         </div>
       ) : (
         <div className="App">
-          <BrowserRouter>
-            <div
-              style={{
-                display: "flex",
-                height: "100vh",
-                overflow: "scrollinitial",
-                textAlign: "center",
-              }}
-            >
-              <CDBSidebar textColor="#333" backgroundColor="#0796f2">
-                <CDBSidebarHeader
-                  prefix={<i className="fa fa-bars fa-large"></i>}
-                  style={{ borderBottom: "none" }}
+          <div className="header">
+            <img className="logoAsa" src={logoBranca} alt="Logo" />
+            <div className="textoHeader">
+              <p className="fraseHeader"> Asa Industria e Comercio</p>
+            </div>
+          </div>
+
+          <div className="body">
+            <BrowserRouter>
+              <div
+                style={{
+                  display: "flex",
+                  textAlign: "center",
+                }}
+              >
+                <CDBSidebar
+                  textColor="#333"
+                  backgroundColor="rgb(240, 240, 240)"
+                  className="sidebar"
                 >
-                  <a
-                    href="/"
-                    className="text-decoration-none"
-                    style={{ color: "inherit" }}
+                  <CDBSidebarContent
+                    className="sidebar-content"
+                    style={{ textAlign: "center" }}
                   >
-                    Opções
-                  </a>
-                </CDBSidebarHeader>
-
-                <CDBSidebarContent
-                  className="sidebar-content"
-                  style={{ textAlign: "center" }}
-                >
-                  <CDBSidebarMenu>
-                    <CDBSidebarMenuItem>
-                      <Nav.Link
-                        exact
-                        as={Link}
-                        to="/"
-                        activeClassName="activeClicked"
-                      >
-                        <CDBSidebarMenuItem
-                          icon="columns"
-                          className="menu-item"
+                    <CDBSidebarMenu>
+                      <CDBSidebarMenuItem>
+                        <Nav.Link
+                          exact
+                          as={Link}
+                          to="/home"
+   
                         >
-                          Página Inicial
-                        </CDBSidebarMenuItem>
-                      </Nav.Link>
-                    </CDBSidebarMenuItem>
-                    <CDBSidebarMenuItem>
-                      <Nav.Link as={Link} to="/telefone" className="teste">
-                        <CDBSidebarMenuItem
-                          icon="exclamation-circle"
-                          className="menu-item"
-                        >
-                          Telefone
-                        </CDBSidebarMenuItem>
-                      </Nav.Link>
-                    </CDBSidebarMenuItem>
-                    <CDBSidebarMenuItem>
-                      <Nav.Link as={Link} to="/maquina">
-                        <CDBSidebarMenuItem
-                          icon="columns"
-                          className="menu-item"
-                        >
-                          Maquina
-                        </CDBSidebarMenuItem>
-                      </Nav.Link>
-                    </CDBSidebarMenuItem>
-                  </CDBSidebarMenu>
-                </CDBSidebarContent>
+                          <CDBSidebarMenuItem
+                            icon="columns"
+                            className="menu-item"
+                          >
+                            Página Inicial
+                          </CDBSidebarMenuItem>
+                        </Nav.Link>
+                      </CDBSidebarMenuItem>
+                      <CDBSidebarMenuItem>
+                        <Nav.Link as={Link} to="/telefone" className="teste">
+                          <CDBSidebarMenuItem
+                            icon="exclamation-circle"
+                            className="menu-item"
+                          >
+                            Telefone
+                          </CDBSidebarMenuItem>
+                        </Nav.Link>
+                      </CDBSidebarMenuItem>
+                      <CDBSidebarMenuItem>
+                        <Nav.Link as={Link} to="/maquina">
+                          <CDBSidebarMenuItem
+                            icon="columns"
+                            className="menu-item"
+                          >
+                            Maquina
+                          </CDBSidebarMenuItem>
+                        </Nav.Link>
+                      </CDBSidebarMenuItem>
+                      <CDBSidebarMenuItem>
+                        <Nav.Link as={Link} to="/utensilios">
+                          <CDBSidebarMenuItem
+                            className="menu-item"
+                          >
+                            <BiAt/>
+                            Utensilios
+                          </CDBSidebarMenuItem>
+                        </Nav.Link>
+                      </CDBSidebarMenuItem>
+                      <CDBSidebarMenuItem>
+                        <Nav.Link as={Link} to="/usuarios">
+                          <CDBSidebarMenuItem
+                            icon="columns"
+                            className="menu-item"
+                          >
+                            Usuarios
+                          </CDBSidebarMenuItem>
+                        </Nav.Link>
+                      </CDBSidebarMenuItem>
 
-                <CDBSidebarFooter style={{ textAlign: "center" }}>
-                  <div style={{ padding: "20px 5px" }}>Sidebar Footer</div>
-                </CDBSidebarFooter>
-              </CDBSidebar>
+                      <CDBSidebarMenuItem>
+                        <button className="menu-item" onClick={handleLogout}>
+                          Logout
+                        </button>
+                      </CDBSidebarMenuItem>
+                    </CDBSidebarMenu>
+                  </CDBSidebarContent>
+                </CDBSidebar>
 
-              <div className="content">
-                <div className="cabecalho">
-                  <img className="logo" src={logo} alt="Logo" />
-                  <h1>Sistema de Gestão e Controle</h1>
-                </div>
-                <div className="card">
-                  <Card>
-                    <Card.Body>
-                      <Routes>
-                        <Route path="/telefone" element={<Celular />} />
-                        <Route path="/maquina" element={<Maquina />} />
-                      </Routes>
-
-                     
-                    </Card.Body>
-                  </Card>
+                <div className="content">
+                  <div className="card">
+                    <Card>
+                      <Card.Body>
+                        <Routes>
+                          <Route path="/home" element={<Inicio />} />
+                          <Route path="/telefone" element={<Celular />} />
+                          <Route path="/maquina" element={<Maquina />} />
+                          <Route path="/utensilios" element={<Utensilio />} />
+                          <Route path="/usuarios" element={<Usuarios />} />
+                        </Routes>
+                      </Card.Body>
+                    </Card>
+                  </div>
                 </div>
               </div>
-            </div>
-          </BrowserRouter>
-          <button className="btn-logout" onClick={handleLogout}>
-            Logout
-          </button>
+            </BrowserRouter>
+          </div>
         </div>
       )}
     </div>
