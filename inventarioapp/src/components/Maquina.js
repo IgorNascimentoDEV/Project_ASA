@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
+import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
 
 class Maquina extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Maquina extends React.Component {
 
     this.state = {
       id: "",
-      numeroSerie: "",
+      nºS: "",
       nome: "",
       empresa: "",
       colab: "",
@@ -29,10 +30,12 @@ class Maquina extends React.Component {
       office: "",
       obs: "",
       maquinas: [],
+      maquinasFiltradas: [],
       modalAberto: false,
       modalExcluirAberto: false,
       paginaAtual: 1,
       itensPorPagina: 9,
+      termoBusca: "",
     };
   }
 
@@ -45,7 +48,7 @@ class Maquina extends React.Component {
     fetch("http://localhost:4000/produto/maquina/dev")
       .then((response) => response.json())
       .then((dados) => {
-        this.setState({ maquinas: dados });
+        this.setState({ maquinas: dados, maquinasFiltradas: dados });
       });
   };
 
@@ -98,7 +101,7 @@ class Maquina extends React.Component {
       .then((maquina) => {
         this.setState({
           id: id,
-          numeroSerie: maquina.numeroSerie,
+          nºS: maquina.nºS,
           nome: maquina.nome,
           empresa: maquina.empresa,
           colab: maquina.colab,
@@ -122,7 +125,7 @@ class Maquina extends React.Component {
   submit = () => {
     const {
       id,
-      numeroSerie,
+      nºS,
       nome,
       empresa,
       colab,
@@ -141,7 +144,7 @@ class Maquina extends React.Component {
 
     if (id === "") {
       const maquina = {
-        numeroSerie,
+        nºS,
         nome,
         empresa,
         colab,
@@ -158,7 +161,7 @@ class Maquina extends React.Component {
     } else {
       const maquina = {
         id,
-        numeroSerie,
+        nºS,
         nome,
         empresa,
         colab,
@@ -178,7 +181,7 @@ class Maquina extends React.Component {
   reset = () => {
     this.setState({
       id: "",
-      numeroSerie: "",
+      ie: "",
       nome: "",
       empresa: "",
       colab: "",
@@ -222,13 +225,45 @@ class Maquina extends React.Component {
     });
   };
 
+  // Atualizar o termo de busca
+  atualizarTermoBusca = (event) => {
+    const termoBusca = event.target.value;
+    const { maquinas } = this.state;
+
+    const maquinasFiltradas = maquinas.filter((maquina) =>
+      this.filtrarMaquina(maquina, termoBusca)
+    );
+
+    this.setState({
+      termoBusca,
+      maquinasFiltradas,
+    });
+  };
+
+  // Filtrar a máquina com base no termo de busca
+  filtrarMaquina = (maquina, termoBusca) => {
+    const { nome, colab, setor, nºS } = maquina;
+    const termoBuscaLowerCase = termoBusca.toLowerCase();
+
+    return (
+      (nome && nome.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (colab && colab.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (setor && setor.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (nºS && nºS.toLowerCase().includes(termoBuscaLowerCase))
+    );
+  };
+
   renderTabela() {
-    const { maquinas, paginaAtual, itensPorPagina } = this.state;
+    const { maquinasFiltradas, paginaAtual, itensPorPagina, termoBusca } =
+      this.state;
 
     // Calcula os índices dos itens a serem exibidos na página atual
     const indiceInicial = (paginaAtual - 1) * itensPorPagina;
     const indiceFinal = indiceInicial + itensPorPagina;
-    const maquinasPaginadas = maquinas.slice(indiceInicial, indiceFinal);
+    const maquinasPaginadas = maquinasFiltradas.slice(
+      indiceInicial,
+      indiceFinal
+    );
 
     return (
       <Card>
@@ -236,7 +271,7 @@ class Maquina extends React.Component {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Nome maquina</th>
+                <th>Nome máquina</th>
                 <th>Colab</th>
                 <th>Setor</th>
                 <th>Opções</th>
@@ -255,12 +290,14 @@ class Maquina extends React.Component {
                       style={{ marginRight: "1rem" }}
                     >
                       Atualizar
+                      <BiSolidPencil className="icon-list" />
                     </Button>
                     <Button
                       variant="danger"
                       onClick={() => this.carregarDados(maquina._id, "excluir")}
                     >
                       Excluir
+                      <BiSolidTrash className="icon-list" />
                     </Button>
                   </td>
                 </tr>
@@ -276,7 +313,8 @@ class Maquina extends React.Component {
             <Pagination.Item>{paginaAtual}</Pagination.Item>
             <Pagination.Next
               disabled={
-                paginaAtual === Math.ceil(maquinas.length / itensPorPagina)
+                paginaAtual ===
+                Math.ceil(maquinasFiltradas.length / itensPorPagina)
               }
               onClick={() => this.atualizarPaginaAtual(paginaAtual + 1)}
             />
@@ -292,9 +330,9 @@ class Maquina extends React.Component {
     });
   };
 
-  atualizarNumeroSerie = (e) => {
+  atualizarnºS = (e) => {
     this.setState({
-      numeroSerie: e.target.value,
+      nºS: e.target.value,
     });
   };
 
@@ -353,6 +391,8 @@ class Maquina extends React.Component {
   };
 
   render() {
+    const { termoBusca } = this.state;
+
     return (
       <div>
         <Modal show={this.state.modalAberto} onHide={this.fecharModal}>
@@ -375,8 +415,8 @@ class Maquina extends React.Component {
                   <Form.Control
                     placeholder="Número de Série"
                     type="text"
-                    value={this.state.numeroSerie}
-                    onChange={this.atualizarNumeroSerie}
+                    value={this.state.nºS}
+                    onChange={this.atualizarnºS}
                   />
                 </Col>
                 <Col>
@@ -494,7 +534,9 @@ class Maquina extends React.Component {
                 placeholder="Pesquisar..."
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
-                type="Search"
+                type="search"
+                value={termoBusca}
+                onChange={this.atualizarTermoBusca}
               />
               <Button variant="outline-secondary" id="button-addon2">
                 Buscar
@@ -514,6 +556,7 @@ class Maquina extends React.Component {
 
         <div>
           <Modal
+            className="modal-excluir"
             show={this.state.modalExcluirAberto}
             onHide={this.fecharModalExcluir}
           >

@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
+import {BiSolidPencil, BiSolidTrash} from "react-icons/bi";
 
 class Produto extends React.Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class Produto extends React.Component {
       modalAberto: false,
       modalExcluirAberto: false,
       paginaAtual: 1,
-      itensPorPagina: 9
+      itensPorPagina: 9,
+      termoBusca: "", // Termo de busca
     };
   }
 
@@ -116,12 +118,20 @@ class Produto extends React.Component {
 
   // Renderiza a tabela de produtos
   renderTabela() {
-    const { produtos, paginaAtual, itensPorPagina } = this.state;
+    const { produtos, paginaAtual, itensPorPagina, termoBusca } = this.state;
+
+    // Filtra os produtos com base no termo de busca
+    const produtosFiltrados = produtos.filter((produto) =>
+      this.filtrarProduto(produto, termoBusca)
+    );
 
     // Calcula os índices dos itens a serem exibidos na página atual
     const indiceInicial = (paginaAtual - 1) * itensPorPagina;
     const indiceFinal = indiceInicial + itensPorPagina;
-    const produtosesPaginados = produtos.slice(indiceInicial, indiceFinal);
+    const produtosesPaginados = produtosFiltrados.slice(
+      indiceInicial,
+      indiceFinal
+    );
 
     return (
       <Card>
@@ -148,12 +158,14 @@ class Produto extends React.Component {
                       style={{ marginRight: "1rem" }}
                     >
                       Atualizar
+                      <BiSolidPencil className="icon-list"/>
                     </Button>
                     <Button
                       variant="danger"
                       onClick={() => this.carregarDados(produto._id, "excluir")}
                     >
                       Excluir
+                      <BiSolidTrash className="icon-list" />
                     </Button>
                   </td>
                 </tr>
@@ -168,7 +180,10 @@ class Produto extends React.Component {
             />
             <Pagination.Item>{paginaAtual}</Pagination.Item>
             <Pagination.Next
-              disabled={paginaAtual === Math.ceil(produtos.length / itensPorPagina)}
+              disabled={
+                paginaAtual ===
+                Math.ceil(produtosFiltrados.length / itensPorPagina)
+              }
               onClick={() => this.atualizarPaginaAtual(paginaAtual + 1)}
             />
           </Pagination>
@@ -267,7 +282,7 @@ class Produto extends React.Component {
     } = this.state;
 
     if (modelo === "" || imei === "" || backup === "") {
-      alert("Os campo de Modelo, Imei e Backup são obrigatorios");
+      alert("Os campo de Modelo, Imei e Backup são obrigatórios");
       return;
     }
 
@@ -353,10 +368,39 @@ class Produto extends React.Component {
     });
   };
 
+  // Filtra os produtos com base no termo de busca
+  filtrarProduto = (produto, termoBusca) => {
+    const { modelo, linha, backup, setor, colaborador, imei } = produto;
+    const termoBuscaLowerCase = termoBusca.toLowerCase();
+
+    return (
+      (modelo && modelo.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (linha && linha.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (backup && backup.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (setor && setor.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (colaborador &&
+        colaborador.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (imei && imei.toLowerCase().includes(termoBuscaLowerCase))
+    );
+  };
+
+  // Atualiza o estado "termoBusca" com o valor do input de busca correspondente
+  atualizarTermoBusca = (e) => {
+    this.setState({
+      termoBusca: e.target.value,
+    });
+  };
+
   render() {
+    const { termoBusca } = this.state;
+
     return (
       <div>
-        <Modal show={this.state.modalAberto} onHide={this.fecharModal} className="custom-modal">
+        <Modal
+          show={this.state.modalAberto}
+          onHide={this.fecharModal}
+          className="custom-modal"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Atrelamento de aparelho</Modal.Title>
           </Modal.Header>
@@ -499,8 +543,10 @@ class Produto extends React.Component {
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
                 type="Search"
+                value={termoBusca}
+                onChange={this.atualizarTermoBusca}
               />
-              <Button variant="outline-secondary" id="button-addon2" >
+              <Button variant="outline-secondary" id="button-addon2">
                 Buscar
               </Button>
             </InputGroup>
@@ -519,6 +565,7 @@ class Produto extends React.Component {
         <div>
           {" "}
           <Modal
+            className="modal-excluir"
             show={this.state.modalExcluirAberto}
             onHide={this.fecharModalExcluir}
           >

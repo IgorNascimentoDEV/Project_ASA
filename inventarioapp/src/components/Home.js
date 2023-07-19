@@ -4,12 +4,19 @@ import Celular from "./Celular";
 import Inicio from "./Inicio";
 import Utensilio from "./Utensilio";
 import Usuarios from "./Usuarios";
-import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { BrowserRouter, Routes, Link, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoBranca from "../assets/logo-branca.png";
+import logo from "../assets/Asa-1.png";
 import Card from "react-bootstrap/Card";
-import { BiAt } from "react-icons/bi";
+import {
+  BiAt,
+  BiSolidPhoneCall,
+  BiUserPlus,
+  BiSolidHome,
+  BiDesktop,
+  BiArrowBack
+} from "react-icons/bi";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -79,7 +86,10 @@ function Home() {
     <div>
       {auth === "" ? (
         <div className="login-form-wrap">
-          <h2 className="login-h2">Login</h2>
+          <div className="logo-form">
+          <img  className="logo-header" src={logo} alt="Logo" />
+          </div>
+          <h2 className="login-h2">STOCKHUB</h2>
           <form className="login-form">
             <input
               className="login-input"
@@ -99,6 +109,7 @@ function Home() {
               required
               value={values.password}
             />
+
             <button type="submit" className="btn-login" onClick={handleLogin}>
               Login
             </button>
@@ -110,6 +121,12 @@ function Home() {
             <img className="logoAsa" src={logoBranca} alt="Logo" />
             <div className="textoHeader">
               <p className="fraseHeader"> Asa Industria e Comercio</p>
+            </div>
+            <div className="buttonHeader" variant="outline-secondary">
+              <button onClick={handleLogout}>
+                <BiArrowBack/>
+                Logout
+              </button>
             </div>
           </div>
 
@@ -132,65 +149,44 @@ function Home() {
                   >
                     <CDBSidebarMenu>
                       <CDBSidebarMenuItem>
-                        <Nav.Link
-                          exact
-                          as={Link}
-                          to="/home"
-   
-                        >
-                          <CDBSidebarMenuItem
-                            icon="columns"
-                            className="menu-item"
-                          >
+                        <NavLink exact as={Link} to="/home">
+                          <CDBSidebarMenuItem className="menu-item">
+                            <BiSolidHome className="icon" />
                             Página Inicial
                           </CDBSidebarMenuItem>
-                        </Nav.Link>
+                        </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <Nav.Link as={Link} to="/telefone" className="teste">
-                          <CDBSidebarMenuItem
-                            icon="exclamation-circle"
-                            className="menu-item"
-                          >
+                        <NavLink as={Link} to="/telefone">
+                          <CDBSidebarMenuItem className="menu-item">
+                            <BiSolidPhoneCall className="icon" />
                             Telefone
                           </CDBSidebarMenuItem>
-                        </Nav.Link>
+                        </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <Nav.Link as={Link} to="/maquina">
-                          <CDBSidebarMenuItem
-                            icon="columns"
-                            className="menu-item"
-                          >
+                        <NavLink as={Link} to="/maquina">
+                          <CDBSidebarMenuItem className="menu-item">
+                            <BiDesktop className="icon" />
                             Maquina
                           </CDBSidebarMenuItem>
-                        </Nav.Link>
+                        </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <Nav.Link as={Link} to="/utensilios">
-                          <CDBSidebarMenuItem
-                            className="menu-item"
-                          >
-                            <BiAt/>
+                        <NavLink as={Link} to="/utensilios">
+                          <CDBSidebarMenuItem className="menu-item">
+                            <BiAt className="icon" />
                             Utensilios
                           </CDBSidebarMenuItem>
-                        </Nav.Link>
+                        </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <Nav.Link as={Link} to="/usuarios">
-                          <CDBSidebarMenuItem
-                            icon="columns"
-                            className="menu-item"
-                          >
+                        <NavLink as={Link} to="/usuarios">
+                          <CDBSidebarMenuItem className="menu-item">
+                            <BiUserPlus className="icon" />
                             Usuarios
                           </CDBSidebarMenuItem>
-                        </Nav.Link>
-                      </CDBSidebarMenuItem>
-
-                      <CDBSidebarMenuItem>
-                        <button className="menu-item" onClick={handleLogout}>
-                          Logout
-                        </button>
+                        </NavLink>
                       </CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                   </CDBSidebarContent>
@@ -201,6 +197,7 @@ function Home() {
                     <Card>
                       <Card.Body>
                         <Routes>
+                          <Route path="/" element={<Inicio />} />
                           <Route path="/home" element={<Inicio />} />
                           <Route path="/telefone" element={<Celular />} />
                           <Route path="/maquina" element={<Maquina />} />
