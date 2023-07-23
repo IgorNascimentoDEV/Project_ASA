@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Maquina from "./Maquina";
-import Celular from "./Celular";
+import Colaborador from "./Colaborador";
 import Inicio from "./Inicio";
 import Utensilio from "./Utensilio";
 import Usuarios from "./Usuarios";
@@ -15,7 +15,7 @@ import {
   BiUserPlus,
   BiSolidHome,
   BiDesktop,
-  BiArrowBack
+  BiArrowBack,
 } from "react-icons/bi";
 import {
   CDBSidebar,
@@ -87,7 +87,7 @@ function Home() {
       {auth === "" ? (
         <div className="login-form-wrap">
           <div className="logo-form">
-          <img  className="logo-header" src={logo} alt="Logo" />
+            <img className="logo-header" src={logo} alt="Logo" />
           </div>
           <h2 className="login-h2">STOCKHUB</h2>
           <form className="login-form">
@@ -124,7 +124,7 @@ function Home() {
             </div>
             <div className="buttonHeader" variant="outline-secondary">
               <button onClick={handleLogout}>
-                <BiArrowBack/>
+                <BiArrowBack />
                 Logout
               </button>
             </div>
@@ -157,10 +157,10 @@ function Home() {
                         </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <NavLink as={Link} to="/telefone">
+                        <NavLink as={Link} to="/colaboradores">
                           <CDBSidebarMenuItem className="menu-item">
-                            <BiSolidPhoneCall className="icon" />
-                            Telefone
+                            <BiUserPlus className="icon" />
+                            Colaboradores
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenuItem>
@@ -199,7 +199,7 @@ function Home() {
                         <Routes>
                           <Route path="/" element={<Inicio />} />
                           <Route path="/home" element={<Inicio />} />
-                          <Route path="/telefone" element={<Celular />} />
+                          <Route path="/colaboradores" element={<Colaborador />} />
                           <Route path="/maquina" element={<Maquina />} />
                           <Route path="/utensilios" element={<Utensilio />} />
                           <Route path="/usuarios" element={<Usuarios />} />
