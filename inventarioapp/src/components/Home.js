@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Maquina from "./Maquina";
+import Equipamento from "./Equipamento";
 import Colaborador from "./Colaborador";
 import Inicio from "./Inicio";
 import Utensilio from "./Utensilio";
@@ -165,10 +165,10 @@ function Home() {
                         </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <NavLink as={Link} to="/maquina">
+                        <NavLink as={Link} to="/equipamento">
                           <CDBSidebarMenuItem className="menu-item">
                             <BiDesktop className="icon" />
-                            Maquina
+                            Equipamentos
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenuItem>
@@ -200,7 +200,7 @@ function Home() {
                           <Route path="/" element={<Inicio />} />
                           <Route path="/home" element={<Inicio />} />
                           <Route path="/colaboradores" element={<Colaborador />} />
-                          <Route path="/maquina" element={<Maquina />} />
+                          <Route path="/equipamento" element={<Equipamento />} />
                           <Route path="/utensilios" element={<Utensilio />} />
                           <Route path="/usuarios" element={<Usuarios />} />
                         </Routes>
