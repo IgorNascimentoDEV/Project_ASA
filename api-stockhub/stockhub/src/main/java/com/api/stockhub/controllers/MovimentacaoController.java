@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -83,5 +84,15 @@ public class MovimentacaoController {
     @GetMapping("/movimentacoes")
     public ResponseEntity<List<MovimentacaoModel>> getAllMovimentacoes() {
         return ResponseEntity.status(HttpStatus.OK).body(movimentacaoRepository.findAll());
+    }
+
+    @GetMapping("/movimentacoes/{id}")
+    public ResponseEntity<Object> movimentatacaoById(@PathVariable(value = "id") Long id){
+        Optional<MovimentacaoModel> movimentacao0 = movimentacaoRepository.findById(id);
+
+        if(movimentacao0.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("movimentação não encontardo");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(movimentacao0.get());
     }
 }

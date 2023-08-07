@@ -287,7 +287,7 @@ class Colaborador extends React.Component {
       funcao: "",
       setor: "",
       licenca: "",
-      requisicao: ""
+      requisicao: "",
     });
     this.abrirModal();
   };
@@ -322,19 +322,24 @@ class Colaborador extends React.Component {
     });
   };
 
-  // Filtra os colaboradores com base no termo de busca
-  filtrarColaborador = (colaborador, termoBusca) => {
-    const { nome, empresa, funcao, setor, matricula } = colaborador;
-    const termoBuscaLowerCase = termoBusca.toLowerCase();
+// Filtra os colaboradores com base no termo de busca
+filtrarColaborador = (colaborador, termoBusca) => {
+  const { nome, empresa, funcao, setor, matricula } = colaborador;
+  const termoBuscaLowerCase = termoBusca.toLowerCase();
 
-    return (
-      (nome && nome.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (empresa && empresa.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (funcao && funcao.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (setor && setor.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (matricula && matricula.toLowerCase().includes(termoBuscaLowerCase))
-    );
-  };
+  // Função utilitária para verificar se o valor é uma string
+  const isString = (value) => typeof value === 'string';
+
+  return (
+    (isString(nome) && nome.toLowerCase().includes(termoBuscaLowerCase)) ||
+    (isString(empresa) && empresa.toLowerCase().includes(termoBuscaLowerCase)) ||
+    (isString(funcao) && funcao.toLowerCase().includes(termoBuscaLowerCase)) ||
+    (isString(setor) && setor.toLowerCase().includes(termoBuscaLowerCase)) ||
+    (typeof matricula === 'number' && matricula.toString().includes(termoBuscaLowerCase))
+  );
+};
+
+
 
   // Atualiza o estado "termoBusca" com o valor do input de busca correspondente
   atualizarTermoBusca = (e) => {

@@ -301,7 +301,7 @@ class Equipamento extends React.Component {
       (tipoAtivoStr && tipoAtivoStr.toLowerCase().includes(termoBuscaLowerCase)) ||
       (nomeMaquinaStr && nomeMaquinaStr.toLowerCase().includes(termoBuscaLowerCase))
     );
-  };
+  }; 
 
   // Atualizar o estado de emprestimo
   atualizarEmprestimo = (e) => {
@@ -665,7 +665,7 @@ class Equipamento extends React.Component {
         </Modal>
 
         <div className="novo">
-          <p className="frasepage">MÁQUINAS E LICENÇAS</p>
+          <p className="frasepage">CADASTRAMENTO DE ATIVOS</p>
           <div className="pesquisa">
             <InputGroup>
               <Form.Control

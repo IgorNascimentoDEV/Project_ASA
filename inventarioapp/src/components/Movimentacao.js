@@ -14,11 +14,13 @@ class MovimentacaoEquipamento extends React.Component {
     super(props);
 
     this.state = {
+      id: "",
       dataMovimentacao: "",
       codigoColaborador: "",
       codigoEquipamento: "",
       tipo: "",
       movimentacoes: [],
+      movimentacaoFiltrados: [],
       modalAberto: false,
       paginaAtual: 1,
       itensPorPagina: 9,
@@ -47,6 +49,24 @@ class MovimentacaoEquipamento extends React.Component {
       // Aqui você pode adotar alguma estratégia para lidar com o erro,
       // como mostrar uma mensagem de erro na interface do usuário.
     }
+  };
+
+  // Carregar dados de um equipamento
+  carregarDados = (id) => {
+    fetch("http://localhost:8080/movimentacoes/" + id, {
+      method: "GET",
+    })
+      .then((resposta) => resposta.json())
+      .then((movimentacao) => {
+        this.setState({
+          id : id,
+          dataMovimentacao: movimentacao.dataMovimentacao,
+          codigoColaborador: movimentacao.codigoColaborador,
+          codigoEquipamento: movimentacao.codigoEquipamento,
+          tipo: movimentacao.tipo,
+        });
+        this.abrirModal();
+      });
   };
 
   // Cadastra uma nova movimentação no servidor
@@ -97,11 +117,24 @@ class MovimentacaoEquipamento extends React.Component {
             <tbody>
               {movimentacoesPaginadas.map((movimentacao) => (
                 <tr key={movimentacao.codigoMovimentacao}>
-                <td>{movimentacao.dataMovimentacao}</td>
-                <td>{movimentacao.colaborador && movimentacao.colaborador.nome}</td>
-                <td>{movimentacao.equipamento && movimentacao.equipamento.tipo}</td>
-                <td>{movimentacao.tipo}</td>
-              </tr>
+                  <td>{movimentacao.dataMovimentacao}</td>
+                  <td>
+                    {movimentacao.colaborador && movimentacao.colaborador.nome}
+                  </td>
+                  <td>
+                    {movimentacao.equipamento && movimentacao.equipamento.tipo}
+                  </td>
+                  <td>{movimentacao.tipo}</td>
+                  <td>
+                    <Button
+                      variant="warning"
+                      onClick={() => this.carregarDados(movimentacao.idMovimentacao)}
+                      style={{ marginRight: "1rem" }}
+                    >
+                      Visualizar
+                    </Button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </Table>
@@ -219,7 +252,7 @@ class MovimentacaoEquipamento extends React.Component {
 
   // Filtra as movimentações com base no termo de busca
   filtrarMovimentacao = (movimentacao, termoBusca) => {
-    const { dataMovimentacao, tipo, colaborador, equipamento } = movimentacao;
+    const {id, dataMovimentacao, tipo, colaborador, equipamento } = movimentacao;
     const termoBuscaLowerCase = termoBusca.toLowerCase();
 
     return (
@@ -229,7 +262,7 @@ class MovimentacaoEquipamento extends React.Component {
         colaborador.nome.toLowerCase().includes(termoBuscaLowerCase)) ||
       (equipamento &&
         equipamento.tipo.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (tipo && tipo.toLowerCase().includes(termoBuscaLowerCase))
+      (tipo && tipo.toLowerCase().includes(termoBuscaLowerCase)) 
     );
   };
 
@@ -285,13 +318,17 @@ class MovimentacaoEquipamento extends React.Component {
                   />
                 </Col>
                 <Col>
-                  <Form.Label>Tipo de Movimentação</Form.Label>
+                  <Form.Label>Tipo de movimentação</Form.Label>
                   <Form.Control
+                    as="select"
                     placeholder="Tipo de Movimentação"
-                    type="text"
                     value={this.state.tipo}
                     onChange={this.atualizarTipo}
-                  />
+                  >
+                    <option value="">Selecione a movimentação</option>
+                    <option value="Maquina">SAIDA</option>
+                    <option value="Telefone">ENTRADA</option>
+                  </Form.Control>
                 </Col>
               </Row>
             </Form>

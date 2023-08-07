@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Equipamento from "./Equipamento";
 import Colaborador from "./Colaborador";
 import Inicio from "./Inicio";
-import Utensilio from "./Utensilio";
+import Movimentacao from "./Movimentacao";
 import Usuarios from "./Usuarios";
 import { BrowserRouter, Routes, Link, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -173,10 +173,10 @@ function Home() {
                         </NavLink>
                       </CDBSidebarMenuItem>
                       <CDBSidebarMenuItem>
-                        <NavLink as={Link} to="/utensilios">
+                        <NavLink as={Link} to="/movimentacao">
                           <CDBSidebarMenuItem className="menu-item">
                             <BiAt className="icon" />
-                            Utensilios
+                            Movimentacão
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenuItem>
@@ -201,7 +201,7 @@ function Home() {
                           <Route path="/home" element={<Inicio />} />
                           <Route path="/colaboradores" element={<Colaborador />} />
                           <Route path="/equipamento" element={<Equipamento />} />
-                          <Route path="/utensilios" element={<Utensilio />} />
+                          <Route path="/movimentacao" element={<Movimentacao />} />
                           <Route path="/usuarios" element={<Usuarios />} />
                         </Routes>
                       </Card.Body>
