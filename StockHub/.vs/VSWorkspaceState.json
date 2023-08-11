@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\StockHub",
+    "\\StockHub\\Controllers",
+    "\\StockHub\\Infrastructure",
+    "\\StockHub\\Infrastructure\\Persistence"
+  ],
+  "SelectedNode": "\\StockHub\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}
