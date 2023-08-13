@@ -1,6 +1,9 @@
 ﻿namespace StockHub.Domain.DTOs
 {
-    public class MovimentacaoRecordDto
-    {
-    }
+    public record MovimentacaoRecordDto(
+        string DataMovimentacao,
+        long CodigoColaborador,
+        long CodigoEquipamento,
+        string Tipo
+    );
 }

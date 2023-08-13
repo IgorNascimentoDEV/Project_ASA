@@ -1,6 +1,12 @@
-﻿namespace StockHub.Domain.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+namespace StockHub.Domain.DTOs
 {
-    public class ColaboradorRecordDto
-    {
-    }
+   public record ColaboradorRecordDto(
+        long Matricula,
+        [Required] string Nome,
+        [Required] string Empresa,
+        [Required] string Licenca,
+        [Required] string Funcao,
+        [Required] string Setor
+    );
 }
