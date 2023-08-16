@@ -1,0 +1,7 @@
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.csproj.AssemblyReference.cache
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.AssemblyInfoInputs.cache
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.AssemblyInfo.cs
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.csproj.CoreCompileInputs.cache
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\WTINFO PC\Desktop\Project_ASA\StockHub\StockHub\obj\Debug\net7.0\StockHub.MvcApplicationPartsAssemblyInfo.cache

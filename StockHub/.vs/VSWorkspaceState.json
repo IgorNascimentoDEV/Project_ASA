@@ -3,9 +3,11 @@
     "",
     "\\StockHub",
     "\\StockHub\\Controllers",
+    "\\StockHub\\Domain",
+    "\\StockHub\\Domain\\Models",
     "\\StockHub\\Infrastructure",
     "\\StockHub\\Infrastructure\\Persistence"
   ],
-  "SelectedNode": "\\StockHub\\Program.cs",
+  "SelectedNode": "\\StockHub\\Infrastructure\\Persistence\\ConnectionContext.cs",
   "PreviewInSolutionExplorer": false
 }
