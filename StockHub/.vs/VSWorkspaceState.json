@@ -8,6 +8,10 @@
     "\\StockHub\\Infrastructure",
     "\\StockHub\\Infrastructure\\Persistence"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\StockHub\\Infrastructure\\Persistence\\ConnectionContext.cs",
+=======
+  "SelectedNode": "\\StockHub\\StockHub.csproj",
+>>>>>>> 9d3c7908c1eb6b9a359123339c1c65a9be50735b
   "PreviewInSolutionExplorer": false
 }

@@ -3,12 +3,21 @@ using StockHub.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();// Capturando string de conexão do appsettings
+var connectionString = builder.Configuration.GetConnectionString("Default");
+
+// Configurando o DbContext
+builder.Services.AddDbContext<ConnectionContext>(options =>
+{
+    options.UseNpgsql(connectionString,
+        b => b.MigrationsAssembly(typeof(ConnectionContext).Assembly.FullName));
+});
 
 var app = builder.Build();
 
@@ -19,18 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//Capturando string de conexão do Banco de dados
-var connectionString = builder.Configuration.GetConnectionString("Default");
-//Realizando a config com o banco
-builder.Services.AddDbContext<ConnectionContext>(options =>
-{
-    options.UseNpgsql(connectionString,
-        b => b.MigrationsAssembly(typeof(ConnectionContext).Assembly.FullName));
-});
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

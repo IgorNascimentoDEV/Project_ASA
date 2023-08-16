@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "2hG5L/pL23B6n59awCb+PkQ7Phf9Tap2YaeimAmEjwiWrZ/lv3mwRrC1gmlR4ZsMnamtkJWkMcJmahnhD4EiPQ==",
+=======
+  "dgSpecHash": "W6Gg/vPrbDrZkg2+IVpVRt1G2XU4ngvsj3yKIQ55CyrDaXRTThtY//aAeQ3FWKieCNxmvDvtOJcUdPmI8Getqg==",
+>>>>>>> 9d3c7908c1eb6b9a359123339c1c65a9be50735b
   "success": true,
   "projectFilePath": "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
   "expectedPackageFiles": [

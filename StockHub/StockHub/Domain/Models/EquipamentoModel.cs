@@ -2,7 +2,7 @@
 {
     public class EquipamentoModel : Base
     {
-        public long IdEquipamento { get; set; }
+        public string IdEquipamento { get; set; }
         public string Data { get; set; }
         public string Modelo { get; set; }
         public string Armazenamento { get; set; }

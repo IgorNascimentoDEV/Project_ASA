@@ -20,3 +20,4 @@ namespace StockHub.Map
             builder.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
         }
     }
+}
