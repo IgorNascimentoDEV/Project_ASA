@@ -41,3 +41,7 @@ C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Mono.TextTemplat
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Npgsql.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll

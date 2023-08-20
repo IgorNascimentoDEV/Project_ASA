@@ -23,158 +23,190 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Domain.Models.ColaboradorModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Empresa")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("empresa");
 
                     b.Property<string>("Funcao")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("varchar(50)");
 
                     b.Property<string>("Licenca")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("licenca");
 
-                    b.Property<long>("Matricula")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Matricula")
+                        .HasColumnType("int")
+                        .HasColumnName("matricula");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("nome");
 
                     b.Property<string>("Setor")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("setor");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colaboradores");
+                    b.ToTable("tb_colaborador", (string)null);
                 });
 
             modelBuilder.Entity("Api.Domain.Models.EquipamentoModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Armazenamento")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("armazenamento");
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("data");
 
                     b.Property<bool>("Emprestimo")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("emprestimo");
 
                     b.Property<string>("IdEquipamento")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("id_equipamento");
 
                     b.Property<string>("Linha")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("linha");
 
                     b.Property<string>("MemoriaRam")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("memoria_ram");
 
                     b.Property<string>("Modelo")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("modelo");
 
                     b.Property<string>("NomeMaquina")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("nome_maquina");
 
                     b.Property<string>("NumeroDeSerie")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("numero_serie");
 
                     b.Property<string>("Observacao")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("observação");
 
                     b.Property<string>("Office")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("office");
 
                     b.Property<string>("Processador")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("processador");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("tipo");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipamentos");
+                    b.ToTable("tb_equipamento", (string)null);
                 });
 
             modelBuilder.Entity("Api.Domain.Models.MovimentacaoModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<long>("CodigoColaborador")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CodigoEquipamento")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ColaboradorId")
-                        .HasColumnType("integer");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("DataMovimentacao")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("data_movimentacao");
 
-                    b.Property<int>("EquipamentoId")
-                        .HasColumnType("integer");
+                    b.Property<string>("EquipamentoIdEquipamento")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<long>("IdColaborador")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_colaborador");
+
+                    b.Property<long>("IdEquipamento")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_equipamento");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("tipo_movimentacao");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ColaboradorId");
+                    b.HasIndex("EquipamentoIdEquipamento");
 
-                    b.HasIndex("EquipamentoId");
+                    b.HasIndex("IdColaborador");
 
-                    b.ToTable("Movimentacoes");
+                    b.ToTable("tb_movimentacao", (string)null);
                 });
 
             modelBuilder.Entity("Api.Domain.Models.MovimentacaoModel", b =>
                 {
-                    b.HasOne("Api.Domain.Models.ColaboradorModel", "Colaborador")
-                        .WithMany()
-                        .HasForeignKey("ColaboradorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Api.Domain.Models.EquipamentoModel", "Equipamento")
-                        .WithMany()
-                        .HasForeignKey("EquipamentoId")
+                        .WithMany("Movimentacao")
+                        .HasForeignKey("EquipamentoIdEquipamento")
+                        .HasPrincipalKey("IdEquipamento");
+
+                    b.HasOne("Api.Domain.Models.ColaboradorModel", "Colaborado")
+                        .WithMany("Movimentacao")
+                        .HasForeignKey("IdColaborador")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Colaborador");
+                    b.Navigation("Colaborado");
 
                     b.Navigation("Equipamento");
+                });
+
+            modelBuilder.Entity("Api.Domain.Models.ColaboradorModel", b =>
+                {
+                    b.Navigation("Movimentacao");
+                });
+
+            modelBuilder.Entity("Api.Domain.Models.EquipamentoModel", b =>
+                {
+                    b.Navigation("Movimentacao");
                 });
 #pragma warning restore 612, 618
         }

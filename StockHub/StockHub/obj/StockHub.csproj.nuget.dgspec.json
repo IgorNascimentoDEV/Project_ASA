@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj": {}
+    "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj": {}
   },
   "projects": {
-    "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj": {
+    "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
+        "projectUniqueName": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
         "projectName": "StockHub",
-        "projectPath": "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
+        "projectPath": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
         "packagesPath": "C:\\Users\\WTINFO PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\obj\\",
+        "outputPath": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

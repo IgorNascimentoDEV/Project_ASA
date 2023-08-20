@@ -1,12 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "2hG5L/pL23B6n59awCb+PkQ7Phf9Tap2YaeimAmEjwiWrZ/lv3mwRrC1gmlR4ZsMnamtkJWkMcJmahnhD4EiPQ==",
-=======
-  "dgSpecHash": "W6Gg/vPrbDrZkg2+IVpVRt1G2XU4ngvsj3yKIQ55CyrDaXRTThtY//aAeQ3FWKieCNxmvDvtOJcUdPmI8Getqg==",
->>>>>>> 9d3c7908c1eb6b9a359123339c1c65a9be50735b
+  "dgSpecHash": "Ka3ANX6RGiPsyGNbx0QMeZIdyyOQpvfRd62GRmUiIXk86fepA2ztS81bolVQe0rXHZmb6sBDblVQ9s57Yk4baw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
+  "projectFilePath": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\WTINFO PC\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\WTINFO PC\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -46,5 +42,12 @@
     "C:\\Users\\WTINFO PC\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\WTINFO PC\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema ao ler o arquivo de cache c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

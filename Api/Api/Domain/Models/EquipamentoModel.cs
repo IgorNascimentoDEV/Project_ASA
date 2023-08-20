@@ -15,5 +15,7 @@
         public bool Emprestimo { get; set; }
         public string Tipo { get; set; }
         public string Observacao { get; set; }
+
+        public List<MovimentacaoModel> Movimentacao { get; set; }
     }
 }

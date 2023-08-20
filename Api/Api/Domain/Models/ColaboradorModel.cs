@@ -8,5 +8,7 @@
         public string Licenca { get; set; }
         public string Funcao { get; set; }
         public string Setor { get; set; }
+
+        public List<MovimentacaoModel> Movimentacao { get; set; }
     }
 }
