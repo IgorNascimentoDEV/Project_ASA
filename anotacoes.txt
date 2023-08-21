@@ -1,0 +1,4 @@
+Atualmente em colaborador e equipamento estão sendo salvos todas as movimentações, pensando nisso no front devemos usar o endpoint de equipamento e colaborador caso a gente queira pesquisar as movimentações por colaborador ou por equipamento
+
+
+---É necessario cria uma DTO para realizar o cadastro de colaborador pois na model esta com a lista de movimentações, e na hora de realizar o post ele exige os dados de movimentação e equipamento

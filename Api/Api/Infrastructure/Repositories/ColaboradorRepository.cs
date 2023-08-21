@@ -16,7 +16,7 @@ namespace Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<ColaboradorModel>> GetColaboradorAsync()
         {
-            return await _context.Colaboradores.Include(x => x.Movimentacao).ToListAsync();
+            return await _context.Colaboradores.Include(x => x.Movimentacao).ThenInclude(m => m.Equipamento).ToListAsync();
         }
 
         public async Task<ColaboradorModel> GetColaboradorByIdAsync(long id)

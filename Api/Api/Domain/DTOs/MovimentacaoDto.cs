@@ -1,6 +1,6 @@
 ﻿namespace Api.Domain.DTOs
 {
-    public class MovimentacaoRecordDto
+    public class MovimentacaoDto
     {
     }
 }

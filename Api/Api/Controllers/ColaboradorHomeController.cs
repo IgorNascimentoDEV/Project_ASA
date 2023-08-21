@@ -1,4 +1,6 @@
-﻿using Api.Domain.Interfaces;
+﻿using Api.Domain.DTOs;
+using Api.Domain.Interfaces;
+using Api.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -27,6 +29,16 @@ namespace Api.Controllers
             var colaborador = await _repository.GetColaboradorByIdAsync(id);
 
             return colaborador == null ? NotFound() : Ok(colaborador);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostColaborador(ColaboradorModel colaborador)
+        {
+            if (colaborador == null) return BadRequest("dados invalidos"); 
+            
+            _repository.Add(colaborador);
+
+            return await _repository.SaveChangesAsync() ? Ok(colaborador) : BadRequest("error ao salvar ao colaborador");
         }
     } 
 }

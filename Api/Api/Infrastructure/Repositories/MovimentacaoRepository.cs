@@ -17,7 +17,7 @@ namespace Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<MovimentacaoModel>> GetMovimentacaoAsync()
         {
-            return await _context.Movimentacoes.Include(x => x.Colaborado).ToListAsync();
+            return await _context.Movimentacoes.Include(x => x.Colaborado).Include(x => x.Equipamento).ToListAsync();
         }
 
         public Task<MovimentacaoModel> GetMovimentacaoByIdAsync(long id)
