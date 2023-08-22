@@ -5,14 +5,11 @@ namespace Api.Domain.DTOs
 {
     public class ColaboradorDto
     {
-        long Id { get; set; }
-        [Required] long Matricula { get; set; }
-        [Required] string Nome { get; set; }
-        [Required] string Empresa { get; set; }
-        [Required] string Licenca { get; set; }
-        [Required] string Funcao { get; set; }
-        [Required] string Setor { get; set; }
-        [Required] List<MovimentacaoModel> Movimentacoes { get; set; }
+        public long Matricula { get; set; }
+        public string Nome { get; set; }
+        public string Empresa { get; set; }
+        public string Licenca { get; set; }
+        public string Funcao { get; set; }
+        public string Setor { get; set; }
     }
 }
-

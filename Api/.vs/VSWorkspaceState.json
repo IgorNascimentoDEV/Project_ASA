@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Api"
+    "\\Api",
+    "\\Api\\Controllers"
   ],
-  "SelectedNode": "\\Api\\Program.cs",
+  "SelectedNode": "\\Api\\Controllers\\MovimentacaoController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -20,12 +20,12 @@ namespace Api.Infrastructure.Repositories
 
         public void Delete<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            _context.Remove(entity);
         }
 
         public void Update<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
         }
 
         public async Task<bool> SaveChangesAsync()

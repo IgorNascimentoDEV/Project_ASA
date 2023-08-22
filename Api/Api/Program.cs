@@ -27,6 +27,9 @@ builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
 builder.Services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
 
+//Configurando autoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
 //Capturando string de conexão do Banco de dados
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
