@@ -2,6 +2,7 @@
 using Api.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230822234334_MudandoIdEquipamento")]
+    partial class MudandoIdEquipamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,6 +159,9 @@ namespace Api.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("data_movimentacao");
 
+                    b.Property<string>("EquipamentoIdentificador")
+                        .HasColumnType("varchar(50)");
+
                     b.Property<long>("IdColaborador")
                         .HasColumnType("bigint")
                         .HasColumnName("id_colaborador");
@@ -171,24 +177,23 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdColaborador");
+                    b.HasIndex("EquipamentoIdentificador");
 
-                    b.HasIndex("IdEquipamento");
+                    b.HasIndex("IdColaborador");
 
                     b.ToTable("tb_movimentacao", (string)null);
                 });
 
             modelBuilder.Entity("Api.Domain.Models.MovimentacaoModel", b =>
                 {
+                    b.HasOne("Api.Domain.Models.EquipamentoModel", "Equipamento")
+                        .WithMany("Movimentacao")
+                        .HasForeignKey("EquipamentoIdentificador")
+                        .HasPrincipalKey("Identificador");
+
                     b.HasOne("Api.Domain.Models.ColaboradorModel", "Colaborado")
                         .WithMany("Movimentacao")
                         .HasForeignKey("IdColaborador")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Domain.Models.EquipamentoModel", "Equipamento")
-                        .WithMany("Movimentacao")
-                        .HasForeignKey("IdEquipamento")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

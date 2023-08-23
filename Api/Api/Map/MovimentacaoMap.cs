@@ -23,7 +23,7 @@ namespace Api.Map
 
             // Relacionamento com Equipamento
             builder.Property(x => x.IdEquipamento).HasColumnName("id_equipamento").IsRequired();
-            builder.HasOne(x => x.Equipamento).WithMany(x => x.Movimentacao).HasPrincipalKey(x => x.IdEquipamento);
+            builder.HasOne(x => x.Equipamento).WithMany(x => x.Movimentacao).HasForeignKey(x => x.IdEquipamento);
         }
     }
 }

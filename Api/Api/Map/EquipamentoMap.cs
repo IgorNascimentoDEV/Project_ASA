@@ -13,7 +13,7 @@ namespace Api.Map
             base.Configure(builder);
 
             builder.ToTable("tb_equipamento");
-            builder.Property(x => x.IdEquipamento).HasColumnName("id_equipamento").HasColumnType("varchar(50)").IsRequired();
+            builder.Property(x => x.Identificador).HasColumnName("identificador").HasColumnType("varchar(50)").IsRequired();
             builder.Property(x => x.Data).HasColumnName("data").HasColumnType("varchar(50)").IsRequired();
             builder.Property(x => x.Modelo).HasColumnName("modelo").HasColumnType("varchar(50)");
             builder.Property(x => x.Armazenamento).HasColumnName("armazenamento").HasColumnType("varchar(50)");

@@ -26,6 +26,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
 builder.Services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
+builder.Services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
 
 //Configurando autoMapper
 builder.Services.AddAutoMapper(typeof(Program));

@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Api",
-    "\\Api\\Controllers"
+    "\\Api\\Controllers",
+    "\\Api\\Infrastructure",
+    "\\Api\\Infrastructure\\Repositories"
   ],
-  "SelectedNode": "\\Api\\Controllers\\MovimentacaoController.cs",
+  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\BaseRepository.cs",
   "PreviewInSolutionExplorer": false
 }
