@@ -6,8 +6,9 @@
     "\\Api\\Domain",
     "\\Api\\Domain\\Models",
     "\\Api\\Infrastructure",
-    "\\Api\\Infrastructure\\Repositories"
+    "\\Api\\Infrastructure\\Repositories",
+    "\\Api\\Servico"
   ],
-  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\MovimentacaoRepository.cs",
+  "SelectedNode": "\\Api\\Servico\\GeradorTermos.cs",
   "PreviewInSolutionExplorer": false
 }
