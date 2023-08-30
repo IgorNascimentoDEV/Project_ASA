@@ -3,9 +3,11 @@
     "",
     "\\Api",
     "\\Api\\Controllers",
+    "\\Api\\Domain",
+    "\\Api\\Domain\\Models",
     "\\Api\\Infrastructure",
     "\\Api\\Infrastructure\\Repositories"
   ],
-  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\BaseRepository.cs",
+  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\MovimentacaoRepository.cs",
   "PreviewInSolutionExplorer": false
 }

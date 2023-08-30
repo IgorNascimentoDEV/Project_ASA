@@ -94,3 +94,5 @@ C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\obj\Debug\net7.0\Api.genru
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\obj\Debug\net7.0\ref\Api.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\AutoMapper.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\itextsharp.dll

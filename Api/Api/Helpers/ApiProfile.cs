@@ -16,6 +16,9 @@ namespace Api.Helpers
             CreateMap<EquipamentoDto, EquipamentoModel>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
+            CreateMap<MovimentacaoDto, MovimentacaoModel>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
         }
     }
 }

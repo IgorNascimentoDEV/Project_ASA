@@ -1,6 +1,7 @@
 using Api.Domain.Interfaces;
 using Api.Infrastructure.Context;
 using Api.Infrastructure.Repositories;
+using Api.Servico;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
 builder.Services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
 builder.Services.AddScoped<IEquipamentoRepository, EquipamentoRepository>();
+builder.Services.AddScoped<GeradorTermos, GeradorTermos>();
 
 //Configurando autoMapper
 builder.Services.AddAutoMapper(typeof(Program));

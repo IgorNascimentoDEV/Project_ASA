@@ -13,7 +13,7 @@ namespace Api.Infrastructure.Repositories
             this._context = context;
         }
 
-        public async Task<EquipamentoModel> GetEquipamentoByIdAsync(int id)
+        public async Task<EquipamentoModel> GetEquipamentoByIdAsync(long id)
         {
             return await _context.Equipamentos.Include(x => x.Movimentacao).Where(x => x.Id == id).FirstOrDefaultAsync();    
         }

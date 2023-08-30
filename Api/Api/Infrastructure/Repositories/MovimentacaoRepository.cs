@@ -20,9 +20,9 @@ namespace Api.Infrastructure.Repositories
             return await _context.Movimentacoes.Include(x => x.Colaborado).Include(x => x.Equipamento).ToListAsync();
         }
 
-        public Task<MovimentacaoModel> GetMovimentacaoByIdAsync(long id)
+        public async Task<MovimentacaoModel> GetMovimentacaoByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _context.Movimentacoes.Include(x => x.Colaborado).Include(x => x.Equipamento).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }
