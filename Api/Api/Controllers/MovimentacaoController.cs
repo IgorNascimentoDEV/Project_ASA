@@ -44,16 +44,16 @@ namespace Api.Controllers
 
             var movimentacaoModel = _mapper.Map<MovimentacaoModel>(movimentacaoDto);
 
-            var colaborador = await _colaboradorRepository.GetColaboradorByIdAsync(movimentacaoModel.IdColaborador);
+            var colaborador = await _colaboradorRepository.GetColaboradorByMatriculaAsync(movimentacaoModel.IdColaborador);
             if (colaborador == null)
                 return NotFound("Colaborador não encontrado");
 
-            var equipamento = await _equipamentoRepository.GetEquipamentoByIdAsync(movimentacaoModel.IdEquipamento);
+            var equipamento = await _equipamentoRepository.GetEquipamentoByIdentificadorAsync(movimentacaoDto.identificador);
             if (equipamento == null)
                 return NotFound("Equipamento não encontrado");
 
             movimentacaoModel.Equipamento = equipamento;
-            movimentacaoModel.Colaborado = colaborador;
+            movimentacaoModel.Colaborador = colaborador;
 
             bool concluidaComSucesso = true;
 
@@ -93,7 +93,7 @@ namespace Api.Controllers
             // Gerar o PDF
             byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, equipamento.Tipo, movimentacaoModel.Tipo);
 
-            // Retornar o PDF como parte da resposta HTTP
+            // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
             return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
         }
 

@@ -7,7 +7,6 @@ import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
-import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
 
 class MovimentacaoEquipamento extends React.Component {
   constructor(props) {
@@ -16,16 +15,20 @@ class MovimentacaoEquipamento extends React.Component {
     this.state = {
       id: "",
       dataMovimentacao: "",
-      codigoColaborador: "",
-      codigoEquipamento: "",
+      idColaborador: 0,
+      identificador: "",
       tipo: "",
+      colaborador: {},
+      equipamento: {},
       movimentacoes: [],
       movimentacaoFiltrados: [],
       modalAberto: false,
+      modalAbertoVisualiza: false,
       paginaAtual: 1,
       itensPorPagina: 9,
       termoBusca: "", // Termo de busca
       requisicao: "", // para edição
+      endpoint: "http://localhost:5062/movimentacao/api/Movimentacao"
     };
   }
 
@@ -35,25 +38,25 @@ class MovimentacaoEquipamento extends React.Component {
 
   buscarMovimentacoes = async () => {
     try {
-      const response = await fetch("http://localhost:8080/movimentacoes");
+      const response = await fetch(this.state.endpoint);
 
       if (!response.ok) {
         throw new Error("Erro ao buscar movimentações.");
       }
 
       const dados = await response.json();
-      console.log(dados);
       this.setState({ movimentacoes: dados });
     } catch (error) {
       console.error("Erro na busca de movimentações:", error.message);
       // Aqui você pode adotar alguma estratégia para lidar com o erro,
       // como mostrar uma mensagem de erro na interface do usuário.
     }
+    console.log(this.state.equipamento)
   };
 
   // Carregar dados de um equipamento
   carregarDados = (id) => {
-    fetch("http://localhost:8080/movimentacoes/" + id, {
+    fetch(this.state.endpoint + "/" + id, {
       method: "GET",
     })
       .then((resposta) => resposta.json())
@@ -61,28 +64,51 @@ class MovimentacaoEquipamento extends React.Component {
         this.setState({
           id : id,
           dataMovimentacao: movimentacao.dataMovimentacao,
-          codigoColaborador: movimentacao.codigoColaborador,
-          codigoEquipamento: movimentacao.codigoEquipamento,
-          tipo: movimentacao.tipo,
+          idColaborador: movimentacao.idColaborador,
+          identificador: movimentacao.identificador,
         });
-        this.abrirModal();
+        this.state.tipo = movimentacao.tipo
+        this.state.colaborador = movimentacao.colaborador
+        this.state.equipamento = movimentacao.equipamento
+        this.abrirModalVisualiza();
       });
   };
 
   // Cadastra uma nova movimentação no servidor
-  cadastraMovimentacao = (movimentacao) => {
-    fetch("http://localhost:8080/movimentacoes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(movimentacao),
-    }).then((response) => {
+cadastraMovimentacao = (movimentacao) => {
+  fetch(this.state.endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(movimentacao),
+  })
+    .then(async (response) => {
       if (response.ok) {
+        // Se a movimentação foi adicionada com sucesso, solicite o download do termo gerado
+        const pdfBlob = await response.blob();
+        const url = window.URL.createObjectURL(pdfBlob);
+
+        // Crie um link <a> para iniciar o download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'termo_responsabilidade.pdf';
+
+        // Adicione o link <a> ao DOM e clique nele para iniciar o download
+        document.body.appendChild(a);
+        a.click();
+
+        // Limpe o objeto URL
+        window.URL.revokeObjectURL(url);
+
+        // Em seguida, atualize a lista de movimentações
         this.buscarMovimentacoes();
       } else {
         alert("Não foi possível adicionar a movimentação.");
       }
+    })
+    .catch((error) => {
+      console.error("Erro ao cadastrar a movimentação:", error);
     });
-  };
+};
 
   // Renderiza a tabela de movimentações
   renderTabela() {
@@ -128,7 +154,7 @@ class MovimentacaoEquipamento extends React.Component {
                   <td>
                     <Button
                       variant="warning"
-                      onClick={() => this.carregarDados(movimentacao.idMovimentacao)}
+                      onClick={() => this.carregarDados(movimentacao.id)}
                       style={{ marginRight: "1rem" }}
                     >
                       Visualizar
@@ -171,17 +197,17 @@ class MovimentacaoEquipamento extends React.Component {
     });
   };
 
-  // Atualiza o estado "codigoColaborador" com o valor do input correspondente
-  atualizarCodigoColaborador = (e) => {
+  // Atualiza o estado "idColaborador" com o valor do input correspondente
+  atualizaridColaborador = (e) => {
     this.setState({
-      codigoColaborador: e.target.value,
+      idColaborador: e.target.value,
     });
   };
 
-  // Atualiza o estado "codigoEquipamento" com o valor do input correspondente
-  atualizarCodigoEquipamento = (e) => {
+  // Atualiza o estado "identificador" com o valor do input correspondente
+  atualizarIdentificador = (e) => {
     this.setState({
-      codigoEquipamento: e.target.value,
+      identificador: e.target.value,
     });
   };
 
@@ -194,13 +220,13 @@ class MovimentacaoEquipamento extends React.Component {
 
   // Executa o cadastro ou atualização da movimentação
   submit = () => {
-    const { dataMovimentacao, codigoColaborador, codigoEquipamento, tipo } =
+    const { dataMovimentacao, idColaborador, identificador, tipo } =
       this.state;
 
     if (
       dataMovimentacao === "" ||
-      codigoColaborador === "" ||
-      codigoEquipamento === "" ||
+      idColaborador === 0 ||
+      identificador === 0 ||
       tipo === ""
     ) {
       alert("Todos os campos são obrigatórios");
@@ -209,8 +235,8 @@ class MovimentacaoEquipamento extends React.Component {
 
     const movimentacao = {
       dataMovimentacao,
-      codigoColaborador,
-      codigoEquipamento,
+      idColaborador,
+      identificador,
       tipo,
     };
 
@@ -227,26 +253,43 @@ class MovimentacaoEquipamento extends React.Component {
   reset = () => {
     this.setState({
       dataMovimentacao: "",
-      codigoColaborador: "",
-      codigoEquipamento: "",
+      idColaborador: "",
+      identificador: "",
       tipo: "",
-      requisicao: "",
+      colaborador: null,
+      equipamento: null,
+      requisicao: ""
     });
     this.abrirModal();
   };
 
-  // Fecha o modal de edição
+  // Fecha o modal de cadastro
   fecharModal = () => {
     this.setState({
       modalAberto: false,
     });
   };
 
-  // Abre o modal de edição
+  // Abre o modal de cadastro
   abrirModal = (requisicao) => {
     this.setState({
       modalAberto: true,
       requisicao: requisicao,
+    });
+  };
+
+
+   // Fecha o modal de visualização
+   fecharModalVisualiza = () => {
+    this.setState({
+      modalAbertoVisualiza: false,
+    });
+  };
+
+  // Abre o modal de visualização
+  abrirModalVisualiza = () => {
+    this.setState({
+      modalAbertoVisualiza: true,
     });
   };
 
@@ -302,8 +345,8 @@ class MovimentacaoEquipamento extends React.Component {
                   <Form.Control
                     placeholder="Código do Colaborador"
                     type="text"
-                    value={this.state.codigoColaborador}
-                    onChange={this.atualizarCodigoColaborador}
+                    value={this.state.idColaborador}
+                    onChange={this.atualizaridColaborador}
                   />
                 </Col>
               </Row>
@@ -313,8 +356,8 @@ class MovimentacaoEquipamento extends React.Component {
                   <Form.Control
                     placeholder="Código do Equipamento"
                     type="text"
-                    value={this.state.codigoEquipamento}
-                    onChange={this.atualizarCodigoEquipamento}
+                    value={this.state.identificador}
+                    onChange={this.atualizarIdentificador}
                   />
                 </Col>
                 <Col>
@@ -326,8 +369,8 @@ class MovimentacaoEquipamento extends React.Component {
                     onChange={this.atualizarTipo}
                   >
                     <option value="">Selecione a movimentação</option>
-                    <option value="Maquina">SAIDA</option>
-                    <option value="Telefone">ENTRADA</option>
+                    <option value="SAIDA">SAIDA</option>
+                    <option value="ENTRADA">ENTRADA</option>
                   </Form.Control>
                 </Col>
               </Row>
@@ -343,8 +386,109 @@ class MovimentacaoEquipamento extends React.Component {
           </Modal.Footer>
         </Modal>
 
+
+        <Modal
+          show={this.state.modalAbertoVisualiza}
+          onHide={this.fecharModalVisualiza}
+          className="custom-modal"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Movimentação de Equipamento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Row>
+                <Col>
+                  <Form.Label>Data da Movimentação</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={this.state.dataMovimentacao}
+                    onChange={this.atualizarDataMovimentacao}
+                  />
+                </Col>
+                
+                <Col>
+                  <Form.Label>Tipo de movimentação</Form.Label>
+                  <Form.Control
+                    as="select"
+                    placeholder="Tipo de Movimentação"
+                    value={this.state.tipo}
+                    onChange={this.atualizarTipo}
+                  >
+                    <option value="">Selecione a movimentação</option>
+                    <option value="SAIDA">SAIDA</option>
+                    <option value="ENTRADA">ENTRADA</option>
+                  </Form.Control>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Código do Equipamento</Form.Label>
+                  <Form.Control
+                    placeholder="Código do Equipamento"
+                    type="text"
+                    value={this.state.equipamento ? this.state.equipamento.identificador : ""}
+                  />
+                </Col>
+                
+                <Col>
+                  <Form.Label>Código do Colaborador</Form.Label>
+                  <Form.Control
+                    placeholder="Código do Colaborador"
+                    type="text"
+                    value={this.state.colaborador ? this.state.colaborador.matricula : ""}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Equipamento</Form.Label>
+                  <Form.Control
+                    placeholder="Equipamento"
+                    type="text"
+                    value={this.state.equipamento ? this.state.equipamento.tipo : ""}
+                  />
+                </Col>
+                
+                <Col>
+                  <Form.Label>Colaborador</Form.Label>
+                  <Form.Control
+                    placeholder="Colaborador"
+                    type="text"
+                    value={this.state.colaborador ? this.state.colaborador.nome : ""}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Equipamento Modelo</Form.Label>
+                  <Form.Control
+                    placeholder="Equipamento Modelo"
+                    type="text"
+                    value={this.state.equipamento ? this.state.equipamento.modelo : ""}
+                  />
+                </Col>
+                
+                <Col>
+                  <Form.Label>Colaborador Setor</Form.Label>
+                  <Form.Control
+                    placeholder="Colaborador"
+                    type="text"
+                    value={this.state.colaborador ? this.state.colaborador.setor : ""}
+                  />
+                </Col>
+              </Row>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.fecharModalVisualiza}>
+              Sair
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <div className="novo">
-          <p className="frasepage">CADASTRO DE MOVIMENTAÇÃO DE EQUIPAMENTO</p>
+          <p className="frasepage">MOVIMENTAÇÕES DE ATIVOS</p>
           <div className="pesquisa">
             <InputGroup>
               <Form.Control

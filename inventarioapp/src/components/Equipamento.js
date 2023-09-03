@@ -18,8 +18,9 @@ class Equipamento extends React.Component {
     super(props);
 
     this.state = {
-      idEquipamento: "",
-      tipoAtivo: "",
+      id: 0,
+      identificador: "",
+      tipo: "",
       data: "",
       modelo: "",
       nomeMaquina: "",
@@ -30,6 +31,7 @@ class Equipamento extends React.Component {
       processador: "",
       office: "",
       observacao: "",
+      movimentacao :[],
       equipamentos: [],
       equipamentosFiltrados: [],
       modalAberto: false,
@@ -39,6 +41,7 @@ class Equipamento extends React.Component {
       termoBusca: "",
       emprestimo: false,
       requisicao: "",
+      endpoint : "http://localhost:5062/equipamento/api/Equipamento"
     };
   }
 
@@ -48,7 +51,7 @@ class Equipamento extends React.Component {
 
   // Buscar equipamentos do servidor
   buscaEquipamentos = () => {
-    fetch("http://localhost:8080/equipamentos")
+    fetch(this.state.endpoint)
       .then((response) => response.json())
       .then((dados) => {
         this.setState({ equipamentos: dados, equipamentosFiltrados: dados });
@@ -57,7 +60,8 @@ class Equipamento extends React.Component {
 
   // Cadastrar um novo equipamento no servidor
   cadastraEquipamento = (equipamento) => {
-    fetch("http://localhost:8080/equipamentos", {
+    equipamento.emprestimo = false;
+    fetch(this.state.endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(equipamento),
@@ -73,7 +77,7 @@ class Equipamento extends React.Component {
   // Deletar equipamento no servidor
   deletarEquipamento = (id) => {
     try {
-      fetch("http://localhost:8080/equipamentos/" + id, {
+      fetch(this.state.endpoint + "/" + id, {
         method: "DELETE",
       }).then((resposta) => {
         if (resposta.ok) {
@@ -96,7 +100,7 @@ class Equipamento extends React.Component {
 
   // Atualizar dados do equipamento
   atualizarEquipamento = (equipamento) => {
-    fetch("http://localhost:8080/equipamentos/" + equipamento.idEquipamento, {
+    fetch(this.state.endpoint + "/" + equipamento.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(equipamento),
@@ -111,13 +115,13 @@ class Equipamento extends React.Component {
 
   // Carregar dados de um equipamento
   carregarDados = (id, requisicao) => {
-    fetch("http://localhost:8080/equipamentos/" + id, {
+    fetch(this.state.endpoint + "/" + id, {
       method: "GET",
     })
       .then((resposta) => resposta.json())
       .then((equipamento) => {
         this.setState({
-          idEquipamento: id,
+          identificador: equipamento.identificador,
           data: equipamento.data,
           modelo: equipamento.modelo,
           armazenamento: equipamento.armazenamento,
@@ -143,7 +147,7 @@ class Equipamento extends React.Component {
   // Executar o cadastro ou a atualização do equipamento
   submit = () => {
     const {
-      idEquipamento,
+      identificador,
       data,
       modelo,
       armazenamento,
@@ -158,14 +162,14 @@ class Equipamento extends React.Component {
       observacao,
     } = this.state;
 
-    if (tipo === "" || idEquipamento === "" || data === "") {
+    if (tipo === "" || identificador === "" || data === "") {
       alert("Os campos Tipo de Ativo, ID Equipamento e Data são obrigatórios");
       return;
     }
 
     if (this.state.requisicao === "editar") {
       const equipamento = {
-        idEquipamento,
+        identificador,
         data,
         modelo,
         armazenamento,
@@ -184,7 +188,7 @@ class Equipamento extends React.Component {
       this.fecharModal();
     } else {
       const equipamento = {
-        idEquipamento,
+        identificador,
         data,
         modelo,
         armazenamento,
@@ -206,7 +210,7 @@ class Equipamento extends React.Component {
 
   reset = () => {
     this.setState({
-      idEquipamento: "",
+      identificador: "",
       data: "",
       modelo: "",
       armazenamento: "",
@@ -236,7 +240,7 @@ class Equipamento extends React.Component {
   abrirModalExcluir = (id) => {
     this.setState({
       modalExcluirAberto: true,
-      idEquipamento: id,
+      identificador: id,
     });
   };
 
@@ -244,7 +248,7 @@ class Equipamento extends React.Component {
   fecharModalExcluir = () => {
     this.setState({
       modalExcluirAberto: false,
-      idEquipamento: "",
+      identificador: "",
     });
   };
 
@@ -279,23 +283,23 @@ class Equipamento extends React.Component {
 
   filtrarEquipamento = (equipamento, termoBusca) => {
     const {
-      idEquipamento,
+      identificador,
       modelo,
       linha,
-      tipoAtivo,
+      tipo,
       nomeMaquina,
     } = equipamento;
     const termoBuscaLowerCase = termoBusca.toLowerCase();
   
     // Verifica se os valores são strings antes de chamar o toLowerCase
-    const idEquipamentoStr = idEquipamento ? idEquipamento.toString() : "";
+    const identificadorStr = identificador ? identificador.toString() : "";
     const modeloStr = modelo ? modelo.toString() : "";
     const linhaStr = linha ? linha.toString() : "";
-    const tipoAtivoStr = tipoAtivo ? tipoAtivo.toString() : "";
+    const tipoAtivoStr = tipo ? tipo.toString() : "";
     const nomeMaquinaStr = nomeMaquina ? nomeMaquina.toString() : "";
   
     return (
-      (idEquipamentoStr && idEquipamentoStr.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (identificadorStr && identificadorStr.toLowerCase().includes(termoBuscaLowerCase)) ||
       (modeloStr && modeloStr.toLowerCase().includes(termoBuscaLowerCase)) ||
       (linhaStr && linhaStr.toLowerCase().includes(termoBuscaLowerCase)) ||
       (tipoAtivoStr && tipoAtivoStr.toLowerCase().includes(termoBuscaLowerCase)) ||
@@ -311,9 +315,9 @@ class Equipamento extends React.Component {
   };
 
   // Atualizar o estado dos campos do equipamento
-  atualizarIdEquipamento = (e) => {
+  atualizaridentificador = (e) => {
     this.setState({
-      idEquipamento: e.target.value,
+      identificador: e.target.value,
     });
   };
 
@@ -402,15 +406,15 @@ class Equipamento extends React.Component {
             </thead>
             <tbody>
               {equipamentosPaginados.map((equipamento) => (
-                <tr key={equipamento.idEquipamento}>
+                <tr key={equipamento.identificador}>
                   <td>{equipamento.tipo}</td>
-                  <td>{equipamento.idEquipamento}</td>
+                  <td>{equipamento.identificador}</td>
                   <td>{equipamento.data}</td>
                   <td>
                     <Button
                       variant="warning"
                       onClick={() =>
-                        this.carregarDados(equipamento.idEquipamento, "editar")
+                        this.carregarDados(equipamento.id, "editar")
                       }
                       style={{ marginRight: "1rem" }}
                     >
@@ -420,7 +424,7 @@ class Equipamento extends React.Component {
                     <Button
                       variant="danger"
                       onClick={() =>
-                        this.carregarDados(equipamento.idEquipamento, "excluir")
+                        this.carregarDados(equipamento.id, "excluir")
                       }
                     >
                       Excluir
@@ -494,9 +498,9 @@ class Equipamento extends React.Component {
                   <Form.Control
                     placeholder="ID do Equipamento"
                     type="text"
-                    value={this.state.idEquipamento}
+                    value={this.state.identificador}
                     onChange={(e) =>
-                      this.setState({ idEquipamento: e.target.value })
+                      this.setState({ identificador: e.target.value })
                     }
                   />
                 </Col>
@@ -711,7 +715,7 @@ class Equipamento extends React.Component {
               <Button
                 variant="primary"
                 onClick={() =>
-                  this.deletarEquipamento(this.state.idEquipamento)
+                  this.deletarEquipamento(this.state.identificador)
                 }
               >
                 Excluir

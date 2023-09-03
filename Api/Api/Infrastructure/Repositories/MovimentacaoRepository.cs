@@ -17,12 +17,12 @@ namespace Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<MovimentacaoModel>> GetMovimentacaoAsync()
         {
-            return await _context.Movimentacoes.Include(x => x.Colaborado).Include(x => x.Equipamento).ToListAsync();
+            return await _context.Movimentacoes.Include(x => x.Colaborador).Include(x => x.Equipamento).ToListAsync();
         }
 
         public async Task<MovimentacaoModel> GetMovimentacaoByIdAsync(long id)
         {
-            return await _context.Movimentacoes.Include(x => x.Colaborado).Include(x => x.Equipamento).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.Movimentacoes.Include(x => x.Colaborador).Include(x => x.Equipamento).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

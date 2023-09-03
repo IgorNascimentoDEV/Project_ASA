@@ -16,26 +16,21 @@ class Inicio extends React.Component {
 
   componentDidMount() {
     this.buscarMaquinas();
-    this.buscarProduto();
   }
 
   // Buscar máquinas do servidor
   buscarMaquinas = () => {
-    fetch("http://localhost:4000/produto/maquina/dev")
+    fetch("http://localhost:5062/equipamento/api/Equipamento")
       .then((response) => response.json())
       .then((dados) => {
-        this.setState({ maquinas: dados });
+        if(dados.tipo == "Maquina"){
+          this.setState({ maquinas: dados });
+        }else{
+          this.setState({ produtos: dados });
+        }
       });
   };
 
-  // Buscar os produtos do servidor
-  buscarProduto = () => {
-    fetch("http://localhost:4000/produto/")
-      .then((resposta) => resposta.json())
-      .then((dados) => {
-        this.setState({ produtos: dados });
-      });
-  };
 
   renderCards() {
     const { maquinas, produtos } = this.state;

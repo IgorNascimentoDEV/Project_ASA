@@ -6,6 +6,7 @@ namespace Api.Domain.Interfaces
     {
         Task<IEnumerable<EquipamentoModel>> GetEquipamentosAsync();
         Task<EquipamentoModel> GetEquipamentoByIdAsync(long id);
+        Task<EquipamentoModel> GetEquipamentoByIdentificadorAsync(string identificador);
 
     }
 }

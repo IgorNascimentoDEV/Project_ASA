@@ -23,5 +23,12 @@ namespace Api.Infrastructure.Repositories
         {
             return await _context.Colaboradores.Include(x => x.Movimentacao).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
+        public async Task<ColaboradorModel> GetColaboradorByMatriculaAsync(long matricula)
+        {
+            return await _context.Colaboradores
+                .Include(x => x.Movimentacao)
+                .Where(x => x.Matricula == matricula)
+                .FirstOrDefaultAsync();
+        }
     }
 }

@@ -18,9 +18,14 @@ namespace Api.Infrastructure.Repositories
             return await _context.Equipamentos.Include(x => x.Movimentacao).Where(x => x.Id == id).FirstOrDefaultAsync();    
         }
 
+        public async Task<EquipamentoModel> GetEquipamentoByIdentificadorAsync(string identificador)
+        {
+            return await _context.Equipamentos.Include(x => x.Movimentacao).Where(x => x.Identificador == identificador).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<EquipamentoModel>> GetEquipamentosAsync()
         {
-            return await _context.Equipamentos.Include(x => x.Movimentacao).ThenInclude(m => m.Colaborado).ToListAsync(); ;
+            return await _context.Equipamentos.Include(x => x.Movimentacao).ThenInclude(m => m.Colaborador).ToListAsync(); ;
         }
     }
 }

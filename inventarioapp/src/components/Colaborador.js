@@ -14,12 +14,14 @@ class Colaborador extends React.Component {
     super(props);
 
     this.state = {
+      id: 0,
       matricula: 0,
       nome: "",
       empresa: "",
       funcao: "",
       licenca: "",
       setor: "",
+      movimentacao: [],
       colaboradores: [],
       modalAberto: false,
       modalExcluirAberto: false,
@@ -27,6 +29,7 @@ class Colaborador extends React.Component {
       itensPorPagina: 9,
       termoBusca: "", // Termo de busca
       requisicao: "", //para edição
+      endoint : "http://localhost:5062/api/colaborador"
     };
   }
 
@@ -36,7 +39,7 @@ class Colaborador extends React.Component {
 
   buscarColaboradores = async () => {
     try {
-      const response = await fetch("http://localhost:8080/colaboradores");
+      const response = await fetch(this.state.endoint);
 
       if (!response.ok) {
         throw new Error("Erro ao buscar colaboradores.");
@@ -53,7 +56,7 @@ class Colaborador extends React.Component {
 
   // Deleta um colaborador do servidor
   deletarColaborador = () => {
-    fetch("http://localhost:8080/colaboradores/" + this.state.matricula, {
+    fetch(this.state.endoint + "/" + this.state.id, {
       method: "DELETE",
     }).then((resposta) => {
       if (resposta.ok) {
@@ -64,12 +67,14 @@ class Colaborador extends React.Component {
   };
 
   // Carrega os dados de um colaborador
-  carregarDados = (matricula, requisicao) => {
-    fetch("http://localhost:8080/colaboradores/" + matricula, { method: "GET" })
+  carregarDados = (id, requisicao) => {
+    fetch(this.state.endoint + "/" + id, { method: "GET" })
       .then((resposta) => resposta.json())
       .then((colaborador) => {
+        console.log(colaborador)
         this.setState({
-          matricula: matricula,
+          id : colaborador.id,
+          matricula: colaborador.matricula,
           nome: colaborador.nome,
           empresa: colaborador.empresa,
           funcao: colaborador.funcao,
@@ -80,14 +85,14 @@ class Colaborador extends React.Component {
         if (requisicao === "editar") {
           this.abrirModal(requisicao);
         } else {
-          this.abrirModalExcluir(matricula);
+          this.abrirModalExcluir(id);
         }
       });
   };
 
   // Cadastra um novo colaborador no servidor
   cadastraColaborador = (colaborador) => {
-    fetch("http://localhost:8080/colaboradores", {
+    fetch(this.state.endoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(colaborador),
@@ -95,14 +100,14 @@ class Colaborador extends React.Component {
       if (response.ok) {
         this.buscarColaboradores();
       } else {
-        alert("Não foi possível adicionar o colaborador.");
+        alert("Matricula já existente");
       }
     });
   };
 
   // Atualiza um colaborador no servidor
   atualizarColaborador = (colaborador) => {
-    fetch("http://localhost:8080/colaboradores/" + colaborador.matricula, {
+    fetch(this.state.endoint + "/" + colaborador.matricula, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(colaborador),
@@ -157,7 +162,7 @@ class Colaborador extends React.Component {
                     <Button
                       variant="warning"
                       onClick={() =>
-                        this.carregarDados(colaborador.matricula, "editar")
+                        this.carregarDados(colaborador.id, "editar")
                       }
                       style={{ marginRight: "1rem" }}
                     >
@@ -167,7 +172,7 @@ class Colaborador extends React.Component {
                     <Button
                       variant="danger"
                       onClick={() =>
-                        this.carregarDados(colaborador.matricula, "excluir")
+                        this.carregarDados(colaborador.id, "excluir")
                       }
                     >
                       Excluir
@@ -359,7 +364,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
           className="custom-modal"
         >
           <Modal.Header closeButton>
-            <Modal.Title>Atrelamento de aparelho</Modal.Title>
+            <Modal.Title>Colaborador</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>

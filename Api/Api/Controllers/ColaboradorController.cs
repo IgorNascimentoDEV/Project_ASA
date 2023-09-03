@@ -37,13 +37,24 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> PostColaborador(ColaboradorDto colaborador)
         {
-            if (colaborador == null) return BadRequest("dados invalidos");
+            if (colaborador == null)
+            {
+                return BadRequest("Dados inválidos");
+            }
+
+            // Verificar se já existe um colaborador com a mesma matrícula
+            var existingColaborador = await _repository.GetColaboradorByMatriculaAsync(colaborador.Matricula);
+
+            if (existingColaborador != null)
+            {
+                return BadRequest("Já existe um colaborador com a mesma matrícula.");
+            }
 
             var colaboradorAdicionar = _mapper.Map<ColaboradorModel>(colaborador);
-            
+
             _repository.Add(colaboradorAdicionar);
 
-            return await _repository.SaveChangesAsync() ? Ok(colaboradorAdicionar) : BadRequest("error ao salvar ao colaborador");
+            return await _repository.SaveChangesAsync() ? Ok(colaboradorAdicionar) : BadRequest("Erro ao salvar o colaborador.");
         }
 
         [HttpPut("{id}")]
@@ -58,6 +69,14 @@ namespace Api.Controllers
             _repository.Update(colaboradorAtualizar);
 
             return await _repository.SaveChangesAsync() ? Ok(colaboradorAtualizar) : BadRequest("error ao atualizar");
+        }
+
+        [HttpGet("matricula/{matricula}")]
+        public async Task<IActionResult> GetColaboradorByMatricula(long matricula)
+        {
+            var colaborador = await _repository.GetColaboradorByMatriculaAsync(matricula);
+
+            return colaborador == null ? NotFound() : Ok(colaborador);
         }
 
         [HttpDelete("{id}")]

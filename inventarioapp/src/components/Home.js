@@ -3,7 +3,6 @@ import Equipamento from "./Equipamento";
 import Colaborador from "./Colaborador";
 import Inicio from "./Inicio";
 import Movimentacao from "./Movimentacao";
-import Usuarios from "./Usuarios";
 import { BrowserRouter, Routes, Link, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoBranca from "../assets/logo-branca.png";
@@ -11,7 +10,6 @@ import logo from "../assets/Asa-1.png";
 import Card from "react-bootstrap/Card";
 import {
   BiAt,
-  BiSolidPhoneCall,
   BiUserPlus,
   BiSolidHome,
   BiDesktop,
@@ -180,14 +178,6 @@ function Home() {
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenuItem>
-                      <CDBSidebarMenuItem>
-                        <NavLink as={Link} to="/usuarios">
-                          <CDBSidebarMenuItem className="menu-item">
-                            <BiUserPlus className="icon" />
-                            Usuarios
-                          </CDBSidebarMenuItem>
-                        </NavLink>
-                      </CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                   </CDBSidebarContent>
                 </CDBSidebar>
@@ -202,7 +192,6 @@ function Home() {
                           <Route path="/colaboradores" element={<Colaborador />} />
                           <Route path="/equipamento" element={<Equipamento />} />
                           <Route path="/movimentacao" element={<Movimentacao />} />
-                          <Route path="/usuarios" element={<Usuarios />} />
                         </Routes>
                       </Card.Body>
                     </Card>

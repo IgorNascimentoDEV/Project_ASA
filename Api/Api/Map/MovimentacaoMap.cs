@@ -19,7 +19,7 @@ namespace Api.Map
 
             // Relacionamento com Colaborador
             builder.Property(x => x.IdColaborador).HasColumnName("id_colaborador").IsRequired();
-            builder.HasOne(x => x.Colaborado).WithMany(x => x.Movimentacao).HasForeignKey(x => x.IdColaborador);
+            builder.HasOne(x => x.Colaborador).WithMany(x => x.Movimentacao).HasForeignKey(x => x.IdColaborador);
 
             // Relacionamento com Equipamento
             builder.Property(x => x.IdEquipamento).HasColumnName("id_equipamento").IsRequired();
