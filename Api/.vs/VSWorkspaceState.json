@@ -9,6 +9,6 @@
     "\\Api\\Infrastructure\\Repositories",
     "\\Api\\Servico"
   ],
-  "SelectedNode": "\\Api\\Servico\\GeradorTermos.cs",
+  "SelectedNode": "\\Api\\Controllers\\MovimentacaoController.cs",
   "PreviewInSolutionExplorer": false
 }

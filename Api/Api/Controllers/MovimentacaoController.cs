@@ -54,6 +54,7 @@ namespace Api.Controllers
 
             movimentacaoModel.Equipamento = equipamento;
             movimentacaoModel.Colaborador = colaborador;
+            movimentacaoModel.IdEquipamento = equipamento.Id;
 
             bool concluidaComSucesso = true;
 
