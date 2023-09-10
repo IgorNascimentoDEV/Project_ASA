@@ -92,7 +92,7 @@ namespace Api.Controllers
             await _equipamentoRepository.SaveChangesAsync();
 
             // Gerar o PDF
-            byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, equipamento.Tipo, movimentacaoModel.Tipo);
+            byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
 
             // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
             return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");

@@ -9,6 +9,6 @@
     "\\Api\\Infrastructure\\Repositories",
     "\\Api\\Servico"
   ],
-  "SelectedNode": "\\Api\\Controllers\\MovimentacaoController.cs",
+  "SelectedNode": "\\Api\\Controllers\\EquipamentoController.cs",
   "PreviewInSolutionExplorer": false
 }
