@@ -69,7 +69,7 @@ class Equipamento extends React.Component {
       if (response.ok) {
         this.buscaEquipamentos();
       } else {
-        alert("Não foi possível adicionar o produto");
+        alert("Já existe uma maquina cadastrada com essa identificação");
       }
     });
   };
@@ -524,6 +524,7 @@ class Equipamento extends React.Component {
                       onChange={(e) =>
                         this.setState({ emprestimo: e.target.checked })
                       }
+                      disabled
                     />
                   </Form.Group>
                 </Col>

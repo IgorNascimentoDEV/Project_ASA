@@ -96,3 +96,11 @@ C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\AutoMapper.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\BouncyCastle.Crypto.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\itextsharp.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

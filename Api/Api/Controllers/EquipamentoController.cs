@@ -38,6 +38,13 @@ namespace Api.Controllers
             {
             if (equipamento == null) return BadRequest("dados invalidos");
 
+            //Verificar se já existe um equipamento cadastrado com a mesma Identificação
+            var existingEquipamento = await _repository.GetEquipamentoByIdentificadorAsync(equipamento.Identificador);
+            if (existingEquipamento != null)
+            {
+                return BadRequest("Já existe uma maquina cadastrada com essa identificação");
+            }
+
             var equipamentoAdicionar = _mapper.Map<EquipamentoModel>(equipamento);
 
             _repository.Add(equipamentoAdicionar);

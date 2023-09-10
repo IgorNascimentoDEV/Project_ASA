@@ -4,7 +4,7 @@ import StoreContext from "../contexts/context";
 import Home from "./Home";
 
 function initialState() {
-  return { email: "", password: "" };
+  return { user: "", password: "" };
 }
 
 function initialAuth(){
@@ -19,9 +19,9 @@ const Login = ({ navigate }) => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const { email, password } = values; // Desestruturação para obter apenas os campos necessários
+    const { user, password } = values; 
 
-    const usuario = { email, password };
+    const usuario = { user, password };
     console.log(usuario);
 
     fetch("http://localhost:4000/produto/login", {
@@ -71,11 +71,11 @@ const Login = ({ navigate }) => {
            <input
              className="login-input"
              onChange={onChange}
-             type="email"
-             name="email" // Alterado para "email"
-             placeholder="email"
+             type="user"
+             name="user" // Alterado para "user"
+             placeholder="user"
              required
-             value={values.email}
+             value={values.user}
            />
            <input
              className="login-input"

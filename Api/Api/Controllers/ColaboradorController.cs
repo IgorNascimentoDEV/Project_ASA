@@ -2,6 +2,7 @@
 using Api.Domain.Interfaces;
 using Api.Domain.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -12,10 +13,11 @@ namespace Api.Controllers
     {
         private readonly IColaboradorRepository _repository;
         private readonly IMapper _mapper;
-        public ColaboradorController(IColaboradorRepository repository, IMapper mapper)
+
+        public ColaboradorController(IColaboradorRepository repository, IMapper mapper, ILogger<ColaboradorModel> logger)
         {
-            this._repository = repository;
-            this._mapper = mapper; 
+            _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]

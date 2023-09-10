@@ -25,25 +25,24 @@ import {
 import "../App.css";
 
 function initialState() {
-  return { email: "", password: "" };
+  return { user: "", password: "" };
 }
 
 function Home() {
   const [values, setValues] = useState(initialState);
-  const [auth, setAuth] = useState("");
+  const [token, setToken] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const { email, password } = values; // Desestruturação para obter apenas os campos necessários
+    const { user , password } = values; // Desestruturação para obter apenas os campos necessários
 
-    const usuario = { email, password };
-    console.log(usuario);
+    const usuario = { user , password };
 
-    fetch("http://localhost:4000/produto/login", {
+    fetch(`http://localhost:5062/api/v1/auth?username=${user}&password=${password}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(usuario),
+      //body: JSON.stringify(usuario),
     })
       .then((response) => {
         if (response.ok) {
@@ -54,16 +53,16 @@ function Home() {
           throw new Error("Credenciais inválidas");
         } else {
           // Se ocorrer algum outro erro na requisição, lança um erro genérico
-          throw new Error("Erro ao realizar login");
+          throw new Error("Credenciais inválidas");
         }
       })
       .then((data) => {
-        setAuth(data);
+        setToken(data);
         console.log(data);
       })
       .catch((error) => {
         // Em caso de erro, atualiza o estado com a mensagem de erro
-        alert("Erro ao acessar o servidor");
+        alert("Credenciais inválidas");
       });
   };
 
@@ -77,26 +76,26 @@ function Home() {
   }
 
   const handleLogout = () => {
-    setAuth("");
+    setToken("");
   };
 
   return (
     <div>
-      {auth === "" ? (
+      {token === "" ? (
         <div className="login-form-wrap">
           <div className="logo-form">
             <img className="logo-header" src={logo} alt="Logo" />
           </div>
           <h2 className="login-h2">STOCKHUB</h2>
           <form className="login-form">
-            <input
+          <input
               className="login-input"
               onChange={onChange}
-              type="email"
-              name="email" // Alterado para "email"
-              placeholder="email"
+              type="text"
+              name="user" 
+              placeholder="usuario"
               required
-              value={values.email}
+              value={values.user}
             />
             <input
               className="login-input"

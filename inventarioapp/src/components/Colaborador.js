@@ -478,7 +478,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
               <Modal.Title>Confirmação de Exclusão</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Tem certeza que deseja excluir este produto?
+              Tem certeza que deseja excluir este colaborador?
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={this.fecharModalExcluir}>
