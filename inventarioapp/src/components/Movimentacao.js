@@ -25,7 +25,7 @@ class MovimentacaoEquipamento extends React.Component {
       modalAberto: false,
       modalAbertoVisualiza: false,
       paginaAtual: 1,
-      itensPorPagina: 9,
+      itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", // para edição
       endpoint: "http://localhost:5062/movimentacao/api/Movimentacao"

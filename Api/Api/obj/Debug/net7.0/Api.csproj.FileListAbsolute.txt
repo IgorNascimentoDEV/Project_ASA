@@ -104,3 +104,15 @@ C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.Identi
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\WTINFO PC\Desktop\Project_ASA\Api\Api\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\itextsharp.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api\Api\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

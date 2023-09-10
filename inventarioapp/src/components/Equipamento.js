@@ -37,7 +37,7 @@ class Equipamento extends React.Component {
       modalAberto: false,
       modalExcluirAberto: false,
       paginaAtual: 1,
-      itensPorPagina: 9,
+      itensPorPagina: 5,
       termoBusca: "",
       emprestimo: false,
       requisicao: "",
@@ -724,7 +724,7 @@ class Equipamento extends React.Component {
             </Modal.Footer>
           </Modal>
         </div>
-        <div className="tabela">{this.renderTabela()}</div>
+        {this.renderTabela()}
       </div>
     );
   }

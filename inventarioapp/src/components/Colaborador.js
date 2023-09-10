@@ -26,7 +26,7 @@ class Colaborador extends React.Component {
       modalAberto: false,
       modalExcluirAberto: false,
       paginaAtual: 1,
-      itensPorPagina: 9,
+      itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", //para edição
       endoint : "http://localhost:5062/api/colaborador"
@@ -493,7 +493,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
             </Modal.Footer>
           </Modal>
         </div>
-        <div className="tabela">{this.renderTabela()}</div>
+        {this.renderTabela()}
       </div>
     );
   }

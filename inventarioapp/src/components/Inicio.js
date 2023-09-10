@@ -101,7 +101,7 @@ class Inicio extends Component {
           <p className="fraseinicio">VISUALIZAÇÃO DOS DADOS</p>
         </div>
         <div className="chart-container">
-          <canvas id="backupChart" width="400" height="200"></canvas>
+          <canvas id="backupChart" width="22.5rem" height="9.9rem"></canvas>
         </div>
       </div>
     );
