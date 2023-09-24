@@ -9,6 +9,6 @@
     "\\Api\\Infrastructure\\Repositories",
     "\\Api\\Servico"
   ],
-  "SelectedNode": "\\Api.sln",
+  "SelectedNode": "\\Api\\Controllers\\ColaboradorController.cs",
   "PreviewInSolutionExplorer": false
 }

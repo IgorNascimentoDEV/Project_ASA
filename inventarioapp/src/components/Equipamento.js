@@ -100,7 +100,7 @@ class Equipamento extends React.Component {
 
   // Atualizar dados do equipamento
   atualizarEquipamento = (equipamento) => {
-    fetch(this.state.endpoint + "/" + equipamento.id, {
+    fetch(this.state.endpoint + "/" + this.state.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(equipamento),
@@ -121,6 +121,7 @@ class Equipamento extends React.Component {
       .then((resposta) => resposta.json())
       .then((equipamento) => {
         this.setState({
+          id : id,
           identificador: equipamento.identificador,
           data: equipamento.data,
           modelo: equipamento.modelo,
@@ -136,7 +137,8 @@ class Equipamento extends React.Component {
           observacao: equipamento.observacao,
         });
 
-        if (requisicao === "editar") {
+        if (requisicao == "editar") {
+          this.state.requisicao = "editar"
           this.abrirModal();
         } else {
           this.abrirModalExcluir(id);
@@ -161,12 +163,12 @@ class Equipamento extends React.Component {
       tipo,
       observacao,
     } = this.state;
-
+  
     if (tipo === "" || identificador === "" || data === "") {
       alert("Os campos Tipo de Ativo, ID Equipamento e Data são obrigatórios");
       return;
     }
-
+  
     if (this.state.requisicao === "editar") {
       const equipamento = {
         identificador,
@@ -183,7 +185,7 @@ class Equipamento extends React.Component {
         tipo,
         observacao,
       };
-
+  
       this.atualizarEquipamento(equipamento);
       this.fecharModal();
     } else {
@@ -202,7 +204,7 @@ class Equipamento extends React.Component {
         tipo,
         observacao,
       };
-
+  
       this.cadastraEquipamento(equipamento);
       this.fecharModal();
     }
@@ -229,10 +231,9 @@ class Equipamento extends React.Component {
   };
 
   // Abre o modal de edição
-  abrirModal = (requisicao) => {
+  abrirModal = () => {
     this.setState({
       modalAberto: true,
-      requisicao: requisicao,
     });
   };
 

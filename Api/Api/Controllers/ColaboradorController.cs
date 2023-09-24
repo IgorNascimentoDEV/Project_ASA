@@ -66,12 +66,30 @@ namespace Api.Controllers
 
             var colaboradorBanco = await _repository.GetColaboradorByIdAsync(id);
 
-            var colaboradorAtualizar = _mapper.Map(colaborador, colaboradorBanco);
+            if (colaboradorBanco == null)
+            {
+                return NotFound("Colaborador não encontrado");
+            }
 
-            _repository.Update(colaboradorAtualizar);
+            // Verifique se a nova matrícula é diferente da matrícula existente
+            if (colaboradorBanco.Matricula != colaborador.Matricula)
+            {
+                // Verificar se já existe um colaborador com a nova matrícula
+                var existingColaborador = await _repository.GetColaboradorByMatriculaAsync(colaborador.Matricula);
+                if (existingColaborador != null)
+                {
+                    return BadRequest("Já existe um colaborador com a mesma matrícula.");
+                }
+            }
 
-            return await _repository.SaveChangesAsync() ? Ok(colaboradorAtualizar) : BadRequest("error ao atualizar");
+            // Atualize os dados do colaborador, incluindo a matrícula
+            _mapper.Map(colaborador, colaboradorBanco);
+
+            _repository.Update(colaboradorBanco);
+
+            return await _repository.SaveChangesAsync() ? Ok(colaboradorBanco) : BadRequest("Erro ao atualizar");
         }
+
 
         [HttpGet("matricula/{matricula}")]
         public async Task<IActionResult> GetColaboradorByMatricula(long matricula)

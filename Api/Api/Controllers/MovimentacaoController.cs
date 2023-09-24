@@ -92,10 +92,18 @@ namespace Api.Controllers
             await _equipamentoRepository.SaveChangesAsync();
 
             // Gerar o PDF
+            if(equipamento.Tipo == "Telefone")
+            {
             byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
-
-            // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
-            return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+            }
+            else
+            {
+             byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
+                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+            }     
         }
 
         [HttpGet]
