@@ -8,6 +8,8 @@
         public string Licenca { get; set; }
         public string Funcao { get; set; }
         public string Setor { get; set; }
+        public string Usuario { get; set; }
+        public string Senha { get; set; }
 
         public List<MovimentacaoModel> Movimentacao { get; set; }
     }

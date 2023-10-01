@@ -60,12 +60,30 @@ namespace Api.Controllers
 
             var equipamentoBanco = await _repository.GetEquipamentoByIdAsync(id);
 
-            var equipamentoAtualizar = _mapper.Map(equipamento, equipamentoBanco);
+            if (equipamentoBanco == null)
+            {
+                return NotFound("Equipamento não encontrado");
+            }
+
+            // Verifique se o novo identificador é diferente do identificador existente
+            if (equipamentoBanco.Identificador != equipamento.Identificador)
+            {
+                // Verificar se já existe um equipamento com o novo identificador
+                var existingEquipamento = await _repository.GetEquipamentoByIdentificadorAsync(equipamento.Identificador);
+                if (existingEquipamento != null)
+                {
+                    return BadRequest("Já existe um equipamento cadastrado com essa identificação");
+                }
+            }
+
+            // Atualize os dados do equipamento, incluindo o identificador
+            _mapper.Map(equipamento, equipamentoBanco);
 
             _repository.Update(equipamentoBanco);
 
-            return await _repository.SaveChangesAsync() ? Ok(equipamentoAtualizar) : BadRequest("error ao atualizar");
+            return await _repository.SaveChangesAsync() ? Ok(equipamentoBanco) : BadRequest("Erro ao atualizar");
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEquipamento(int id)

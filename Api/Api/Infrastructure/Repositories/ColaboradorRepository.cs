@@ -30,5 +30,12 @@ namespace Api.Infrastructure.Repositories
                 .Where(x => x.Matricula == matricula)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<ColaboradorModel> GetColaboradorUsuarioAsync(string usuario)
+        {
+            return await _context.Colaboradores
+                .Where(x => x.Usuario == usuario)
+                .FirstOrDefaultAsync();
+        }
     }
 }

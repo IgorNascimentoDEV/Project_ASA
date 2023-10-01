@@ -73,7 +73,7 @@ class Colaborador extends React.Component {
       .then((colaborador) => {
         console.log(colaborador)
         this.setState({
-          id : colaborador.id,
+          id : id,
           matricula: colaborador.matricula,
           nome: colaborador.nome,
           empresa: colaborador.empresa,
@@ -83,7 +83,8 @@ class Colaborador extends React.Component {
         });
 
         if (requisicao === "editar") {
-          this.abrirModal(requisicao);
+          this.state.requisicao = "editar"
+          this.abrirModal();
         } else {
           this.abrirModalExcluir(id);
         }
@@ -107,7 +108,7 @@ class Colaborador extends React.Component {
 
   // Atualiza um colaborador no servidor
   atualizarColaborador = (colaborador) => {
-    fetch(this.state.endoint + "/" + colaborador.matricula, {
+    fetch(this.state.endoint + "/" + this.state.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(colaborador),
@@ -265,19 +266,26 @@ class Colaborador extends React.Component {
       return;
     }
 
-    const colaborador = {
-      matricula,
-      nome,
-      empresa,
-      funcao,
-      setor,
-      licenca,
-    };
-
     if (this.state.requisicao === "editar") {
+      const colaborador = {
+        matricula,
+        nome,
+        empresa,
+        funcao,
+        setor,
+        licenca,
+      };
       this.atualizarColaborador(colaborador);
       this.fecharModal();
     } else {
+      const colaborador = {
+        matricula,
+        nome,
+        empresa,
+        funcao,
+        setor,
+        licenca,
+      };
       this.cadastraColaborador(colaborador);
       this.fecharModal();
     }
@@ -305,10 +313,9 @@ class Colaborador extends React.Component {
   };
 
   // Abre o modal de edição
-  abrirModal = (requisicao) => {
+  abrirModal = () => {
     this.setState({
       modalAberto: true,
-      requisicao: requisicao,
     });
   };
 

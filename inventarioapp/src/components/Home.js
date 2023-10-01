@@ -31,6 +31,7 @@ function initialState() {
 function Home() {
   const [values, setValues] = useState(initialState);
   const [token, setToken] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -79,6 +80,10 @@ function Home() {
     setToken("");
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div>
       {token === "" ? (
@@ -88,25 +93,33 @@ function Home() {
           </div>
           <h2 className="login-h2">STOCKHUB</h2>
           <form className="login-form">
-          <input
+            <input
               className="login-input"
               onChange={onChange}
               type="text"
-              name="user" 
+              name="user"
               placeholder="usuario"
               required
               value={values.user}
             />
-            <input
-              className="login-input"
-              onChange={onChange}
-              type="password"
-              name="password"
-              placeholder="password"
-              required
-              value={values.password}
-            />
-
+            <div className="password-input-wrapper">
+              <input
+                className="login-input"
+                onChange={onChange}
+                type={showPassword ? "text" : "password"} // Alterna visibilidade da senha
+                name="password"
+                placeholder="password"
+                required
+                value={values.password}
+              />
+              <button
+                type="button"
+                className="toggle-password-button"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <i class="bi bi-eye-fill"></i> : <i class="bi bi-eye-slash-fill"></i>}
+              </button>
+            </div>
             <button type="submit" className="btn-login" onClick={handleLogin}>
               Login
             </button>

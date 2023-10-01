@@ -4,8 +4,7 @@ import smartphone from "../assets/smartphone.png";
 import monitor from "../assets/computer.png";
 import "../App.css";
 import { Chart } from "chart.js";
-import 'chart.js/auto';
-
+import "chart.js/auto";
 
 class Inicio extends Component {
   constructor(props) {
@@ -45,23 +44,127 @@ class Inicio extends Component {
     });
   }
 
+  // Função para exportar os dados em formato CSV
+  exportarParaCSV = () => {
+    const { produtos } = this.state;
+
+    // Função para formatar a data no formato "dd/mm/yyyy"
+    const formatarData = (data) => {
+      const dataObj = new Date(data);
+      const dia = dataObj.getDate().toString().padStart(2, "0");
+      const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
+      const ano = dataObj.getFullYear();
+      return `${dia}/${mes}/${ano}`;
+    };
+
+    // Cabeçalho descritivo
+    let csvContent = "ID,Identificador,Tipo,Data de Aquisição,Modelo,Nome da Máquina,Linha,Número de Série,Armazenamento,Memória RAM,Processador,Office,Observação,Empréstimo\n";
+
+    produtos.forEach((produto) => {
+      const {
+        id,
+        identificador,
+        tipo,
+        data,
+        modelo,
+        nomeMaquina,
+        linha,
+        numeroDeSerie,
+        armazenamento,
+        memoriaRam,
+        processador,
+        office,
+        observacao,
+        emprestimo,
+      } = produto;
+
+      csvContent += `${id},"${identificador}","${tipo}","${formatarData(data)}","${modelo}","${nomeMaquina}","${linha}","${numeroDeSerie}","${armazenamento}","${memoriaRam}","${processador}","${office}","${observacao}",${emprestimo}\n`;
+    });
+
+    // Criar um Blob com o conteúdo CSV
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+
+    // Criar um link para download do arquivo CSV
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "dados.csv");
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };// Função para exportar os dados em formato CSV
+  exportarParaCSV = () => {
+    const { produtos } = this.state;
+
+    // Função para formatar a data no formato "dd/mm/yyyy"
+    const formatarData = (data) => {
+      const dataObj = new Date(data);
+      const dia = dataObj.getDate().toString().padStart(2, "0");
+      const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
+      const ano = dataObj.getFullYear();
+      return `${dia}/${mes}/${ano}`;
+    };
+
+    // Cabeçalho descritivo
+    let csvContent = "ID,Identificador,Tipo,Data de Aquisição,Modelo,Nome da Máquina,Linha,Número de Série,Armazenamento,Memória RAM,Processador,Office,Observação,Empréstimo\n";
+
+    produtos.forEach((produto) => {
+      const {
+        id,
+        identificador,
+        tipo,
+        data,
+        modelo,
+        nomeMaquina,
+        linha,
+        numeroDeSerie,
+        armazenamento,
+        memoriaRam,
+        processador,
+        office,
+        observacao,
+        emprestimo,
+      } = produto;
+
+      csvContent += `${id},"${identificador}","${tipo}","${formatarData(data)}","${modelo}","${nomeMaquina}","${linha}","${numeroDeSerie}","${armazenamento}","${memoriaRam}","${processador}","${office}","${observacao}",${emprestimo}\n`;
+    });
+
+    // Criar um Blob com o conteúdo CSV
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+
+    // Criar um link para download do arquivo CSV
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "dados.csv");
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
   renderChart() {
     const ctx = document.getElementById("backupChart").getContext("2d");
     const { produtos } = this.state;
-  
+
     // Filtrar máquinas e telefones
     const maquinas = produtos.filter((produto) => produto.tipo === "Maquina");
     const celulares = produtos.filter((produto) => produto.tipo === "Telefone");
-  
+
     // Calcular quantidades de backup
     const quantidadeBkpMaquina = maquinas.filter((maquina) => !maquina.emprestimo).length;
     const quantidadeBkpCelular = celulares.filter((celular) => !celular.emprestimo).length;
-  
+
     // Destrua o gráfico anterior, se existir
     if (this.chart) {
       this.chart.destroy();
     }
-  
+
     this.chart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -92,8 +195,7 @@ class Inicio extends Component {
       },
     });
   }
-  
-  
+
   renderCards() {
     return (
       <div className="box">
@@ -111,7 +213,9 @@ class Inicio extends Component {
     return (
       <div>
         {this.renderCards()}
-        
+
+        {/* Botão para exportar os dados */}
+        <button onClick={this.exportarParaCSV}>Exportar</button>
       </div>
     );
   }

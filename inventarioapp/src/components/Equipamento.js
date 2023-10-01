@@ -31,7 +31,7 @@ class Equipamento extends React.Component {
       processador: "",
       office: "",
       observacao: "",
-      movimentacao :[],
+      movimentacao: [],
       equipamentos: [],
       equipamentosFiltrados: [],
       modalAberto: false,
@@ -41,7 +41,7 @@ class Equipamento extends React.Component {
       termoBusca: "",
       emprestimo: false,
       requisicao: "",
-      endpoint : "http://localhost:5062/equipamento/api/Equipamento"
+      endpoint: "http://localhost:5062/equipamento/api/Equipamento",
     };
   }
 
@@ -85,7 +85,9 @@ class Equipamento extends React.Component {
         } else {
           // Verificar o status da resposta para determinar se a exclusão é permitida ou não
           if (resposta.status === 500) {
-            alert("O registro não pode ser excluído pois está sendo referenciado em movimentação");
+            alert(
+              "O registro não pode ser excluído pois está sendo referenciado em movimentação"
+            );
           } else {
             alert("Ocorreu um erro ao excluir o registro.");
           }
@@ -100,7 +102,7 @@ class Equipamento extends React.Component {
 
   // Atualizar dados do equipamento
   atualizarEquipamento = (equipamento) => {
-    fetch(this.state.endpoint + "/" + equipamento.id, {
+    fetch(this.state.endpoint + "/" + this.state.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(equipamento),
@@ -121,6 +123,7 @@ class Equipamento extends React.Component {
       .then((resposta) => resposta.json())
       .then((equipamento) => {
         this.setState({
+          id: id,
           identificador: equipamento.identificador,
           data: equipamento.data,
           modelo: equipamento.modelo,
@@ -130,13 +133,15 @@ class Equipamento extends React.Component {
           office: equipamento.office,
           nomeMaquina: equipamento.nomeMaquina,
           numeroDeSerie: equipamento.numeroDeSerie,
+          movimentacao: equipamento.movimentacao,
           linha: equipamento.linha,
           emprestimo: equipamento.emprestimo,
           tipo: equipamento.tipo,
           observacao: equipamento.observacao,
         });
 
-        if (requisicao === "editar") {
+        if (requisicao == "editar") {
+          this.state.requisicao = "editar";
           this.abrirModal();
         } else {
           this.abrirModalExcluir(id);
@@ -229,10 +234,9 @@ class Equipamento extends React.Component {
   };
 
   // Abre o modal de edição
-  abrirModal = (requisicao) => {
+  abrirModal = () => {
     this.setState({
       modalAberto: true,
-      requisicao: requisicao,
     });
   };
 
@@ -282,30 +286,27 @@ class Equipamento extends React.Component {
   };
 
   filtrarEquipamento = (equipamento, termoBusca) => {
-    const {
-      identificador,
-      modelo,
-      linha,
-      tipo,
-      nomeMaquina,
-    } = equipamento;
+    const { identificador, modelo, linha, tipo, nomeMaquina } = equipamento;
     const termoBuscaLowerCase = termoBusca.toLowerCase();
-  
+
     // Verifica se os valores são strings antes de chamar o toLowerCase
     const identificadorStr = identificador ? identificador.toString() : "";
     const modeloStr = modelo ? modelo.toString() : "";
     const linhaStr = linha ? linha.toString() : "";
     const tipoAtivoStr = tipo ? tipo.toString() : "";
     const nomeMaquinaStr = nomeMaquina ? nomeMaquina.toString() : "";
-  
+
     return (
-      (identificadorStr && identificadorStr.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (identificadorStr &&
+        identificadorStr.toLowerCase().includes(termoBuscaLowerCase)) ||
       (modeloStr && modeloStr.toLowerCase().includes(termoBuscaLowerCase)) ||
       (linhaStr && linhaStr.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (tipoAtivoStr && tipoAtivoStr.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (nomeMaquinaStr && nomeMaquinaStr.toLowerCase().includes(termoBuscaLowerCase))
+      (tipoAtivoStr &&
+        tipoAtivoStr.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (nomeMaquinaStr &&
+        nomeMaquinaStr.toLowerCase().includes(termoBuscaLowerCase))
     );
-  }; 
+  };
 
   // Atualizar o estado de emprestimo
   atualizarEmprestimo = (e) => {
@@ -459,6 +460,37 @@ class Equipamento extends React.Component {
     this.setState({
       paginaAtual: pagina,
     });
+  };
+
+  ListaMovimentacoes() {
+    const { movimentacoes, fecharModal } = this.props;
+
+    return (
+      <Modal show={true} onHide={fecharModal} className="custom-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Movimentações do Ativo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {movimentacoes.length > 0 ? (
+            <ul>
+              {movimentacoes.map((movimentacao) => (
+                <li key={movimentacao.id}>
+                  Data: {movimentacao.dataMovimentacao}, Tipo:{" "}
+                  {movimentacao.tipo}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Nenhuma movimentação encontrada para este ativo.</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={fecharModal}>
+            Sair
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
   }
 
   render() {
@@ -656,6 +688,33 @@ class Equipamento extends React.Component {
                     />
                   </Form.Group>
                 </>
+              )}
+
+              {this.state.movimentacao.length > 0 && (
+                <div>
+                  <h4>Lista de Movimentações</h4>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>Data Movimentação</th>
+                        <th>Colaborador</th>
+                        <th>Tipo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.movimentacao.map((movimentacao) => (
+                        <tr key={movimentacao.codigoMovimentacao}>
+                          <td>{movimentacao.dataMovimentacao}</td>
+                          <td>
+                            {movimentacao.colaborador &&
+                              movimentacao.colaborador.nome}
+                          </td>
+                          <td>{movimentacao.tipo}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
               )}
             </Form>
           </Modal.Body>

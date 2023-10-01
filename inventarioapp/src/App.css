@@ -268,7 +268,6 @@ input[type="email"]:focus {
 }
 .fraseinicio{
   white-space: nowrap;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   font-size: 2rem;
 }
 

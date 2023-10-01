@@ -7,5 +7,6 @@ namespace Api.Domain.Interfaces
         Task<IEnumerable<ColaboradorModel>> GetColaboradorAsync();
         Task<ColaboradorModel> GetColaboradorByIdAsync(long id);
         Task<ColaboradorModel> GetColaboradorByMatriculaAsync(long matricula);
+        Task<ColaboradorModel> GetColaboradorUsuarioAsync(string usuario);
     }
 }
