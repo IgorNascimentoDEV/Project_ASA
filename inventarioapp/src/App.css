@@ -19,6 +19,12 @@
   justify-content: center;
   padding-top: 1rem;
   margin: 1%;
+  margin-top: 85%;
+}
+
+.button-logout{
+  border: none;
+  width:70%;
 }
 
 .logoAsa {
@@ -184,7 +190,8 @@ a:active:hover {
 }
 
 input[type="password"],
-input[type="email"] {
+input[type="email"],
+input[type="text"] {
   width: 100%;
   padding: 0 0 0 10px;
   margin: 10px 0;
@@ -198,6 +205,35 @@ input[type="email"] {
   position: relative;
   display: inline-block;
   background: none;
+}
+
+
+.input-container {
+  position: relative;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0 0 0 10px;
+  margin: 10px 0;
+  color: #8a8b8e;
+  border: 1px solid #c2c0ca;
+  font-style: normal;
+  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  background: none;
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #8a8b8e;
 }
 
 input[type="password"]:focus,
@@ -273,4 +309,7 @@ input[type="email"]:focus {
 
 .icon-list{
   margin-left: 0.5rem;
+}
+.butto-export-csv{
+  border-radius: 4px;
 }

@@ -8,12 +8,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logoBranca from "../assets/logo-branca.png";
 import logo from "../assets/Asa-1.png";
 import Card from "react-bootstrap/Card";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import {
-  BiAt,
   BiUserPlus,
   BiSolidHome,
   BiDesktop,
   BiArrowBack,
+  BiSolidShare,
+  BiRepost
 } from "react-icons/bi";
 import {
   CDBSidebar,
@@ -36,9 +38,9 @@ function Home() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const { user , password } = values; // Desestruturação para obter apenas os campos necessários
+    const { user, password } = values; // Desestruturação para obter apenas os campos necessários
 
-    const usuario = { user , password };
+    const usuario = { user, password };
 
     fetch(`http://localhost:5062/api/v1/auth?username=${user}&password=${password}`, {
       method: "POST",
@@ -102,23 +104,19 @@ function Home() {
               required
               value={values.user}
             />
-            <div className="password-input-wrapper">
+            <div className="input-container">
               <input
                 className="login-input"
                 onChange={onChange}
-                type={showPassword ? "text" : "password"} // Alterna visibilidade da senha
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="password"
                 required
                 value={values.password}
               />
-              <button
-                type="button"
-                className="toggle-password-button"
-                onClick={togglePasswordVisibility}
-              >
-                {showPassword ? <i class="bi bi-eye-fill"></i> : <i class="bi bi-eye-slash-fill"></i>}
-              </button>
+              <span className="password-icon" onClick={togglePasswordVisibility}>
+                {showPassword ? <BsEye /> : <BsEyeSlash />}
+              </span>
             </div>
             <button type="submit" className="btn-login" onClick={handleLogin}>
               Login
@@ -131,12 +129,6 @@ function Home() {
             <img className="logoAsa" src={logoBranca} alt="Logo" />
             <div className="textoHeader">
               <p className="fraseHeader"> Asa Industria e Comercio</p>
-            </div>
-            <div className="buttonHeader" variant="outline-secondary">
-              <button onClick={handleLogout}>
-                <BiArrowBack />
-                Logout
-              </button>
             </div>
           </div>
 
@@ -185,14 +177,24 @@ function Home() {
                       <CDBSidebarMenuItem>
                         <NavLink as={Link} to="/movimentacao">
                           <CDBSidebarMenuItem className="menu-item">
-                            <BiAt className="icon" />
+                            <BiRepost className="icon" />
                             Movimentacão
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenuItem>
+                      <CDBSidebarMenuItem>
+
+                      </CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                   </CDBSidebarContent>
+                  <div className="buttonHeader" variant="outline-secondary">
+                    <button onClick={handleLogout} className="button-logout">
+                      <BiSolidShare className="icon" />
+                      Sair
+                    </button>
+                  </div>
                 </CDBSidebar>
+
 
                 <div className="content">
                   <div className="card">

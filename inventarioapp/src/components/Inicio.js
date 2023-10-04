@@ -5,6 +5,9 @@ import monitor from "../assets/computer.png";
 import "../App.css";
 import { Chart } from "chart.js";
 import "chart.js/auto";
+import {
+  BiSolidDownload
+} from "react-icons/bi";
 
 class Inicio extends Component {
   constructor(props) {
@@ -58,7 +61,7 @@ class Inicio extends Component {
     };
 
     // Cabeçalho descritivo
-    let csvContent = "ID,Identificador,Tipo,Data de Aquisição,Modelo,Nome da Máquina,Linha,Número de Série,Armazenamento,Memória RAM,Processador,Office,Observação,Empréstimo\n";
+    let csvContent = "ID;Identificador;Tipo;Data de Aquisicao;Modelo;Nome da Maquina;Linha;Numero de Serie;Armazenamento;Memoria RAM;Processador;Office;Observacao;Emprestimo\n";
 
     produtos.forEach((produto) => {
       const {
@@ -78,58 +81,10 @@ class Inicio extends Component {
         emprestimo,
       } = produto;
 
-      csvContent += `${id},"${identificador}","${tipo}","${formatarData(data)}","${modelo}","${nomeMaquina}","${linha}","${numeroDeSerie}","${armazenamento}","${memoriaRam}","${processador}","${office}","${observacao}",${emprestimo}\n`;
-    });
+      // Construir uma linha para cada produto
+      const linhaCSV = `${id};${identificador};${tipo};"${formatarData(data)}";"${modelo}";"${nomeMaquina}";"${linha}";"${numeroDeSerie}";"${armazenamento}";"${memoriaRam}";"${processador}";"${office}";"${observacao}";${emprestimo}\n`;
 
-    // Criar um Blob com o conteúdo CSV
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-
-    // Criar um link para download do arquivo CSV
-    if (link.download !== undefined) {
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute("download", "dados.csv");
-      link.style.visibility = "hidden";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  };// Função para exportar os dados em formato CSV
-  exportarParaCSV = () => {
-    const { produtos } = this.state;
-
-    // Função para formatar a data no formato "dd/mm/yyyy"
-    const formatarData = (data) => {
-      const dataObj = new Date(data);
-      const dia = dataObj.getDate().toString().padStart(2, "0");
-      const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
-      const ano = dataObj.getFullYear();
-      return `${dia}/${mes}/${ano}`;
-    };
-
-    // Cabeçalho descritivo
-    let csvContent = "ID,Identificador,Tipo,Data de Aquisição,Modelo,Nome da Máquina,Linha,Número de Série,Armazenamento,Memória RAM,Processador,Office,Observação,Empréstimo\n";
-
-    produtos.forEach((produto) => {
-      const {
-        id,
-        identificador,
-        tipo,
-        data,
-        modelo,
-        nomeMaquina,
-        linha,
-        numeroDeSerie,
-        armazenamento,
-        memoriaRam,
-        processador,
-        office,
-        observacao,
-        emprestimo,
-      } = produto;
-
-      csvContent += `${id},"${identificador}","${tipo}","${formatarData(data)}","${modelo}","${nomeMaquina}","${linha}","${numeroDeSerie}","${armazenamento}","${memoriaRam}","${processador}","${office}","${observacao}",${emprestimo}\n`;
+      csvContent += linhaCSV;
     });
 
     // Criar um Blob com o conteúdo CSV
@@ -147,6 +102,7 @@ class Inicio extends Component {
       document.body.removeChild(link);
     }
   };
+
 
   renderChart() {
     const ctx = document.getElementById("backupChart").getContext("2d");
@@ -200,7 +156,7 @@ class Inicio extends Component {
     return (
       <div className="box">
         <div className="header-inicio">
-          <p className="fraseinicio">VISUALIZAÇÃO DOS DADOS</p>
+          <p className="frasepage">VISUALIZAÇÃO DOS DADOS</p>
         </div>
         <div className="chart-container">
           <canvas id="backupChart" width="22.5rem" height="9.9rem"></canvas>
@@ -214,8 +170,12 @@ class Inicio extends Component {
       <div>
         {this.renderCards()}
 
-        {/* Botão para exportar os dados */}
-        <button onClick={this.exportarParaCSV}>Exportar</button>
+        <button
+          className="butto-export-csv"
+          onClick={this.exportarParaCSV}>
+          <BiSolidDownload className="icon" />
+          Baixar
+        </button>
       </div>
     );
   }

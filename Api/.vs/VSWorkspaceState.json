@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Api",
+    "\\Api\\Infrastructure",
+    "\\Api\\Infrastructure\\Repositories",
     "\\Api\\Servico"
   ],
-  "SelectedNode": "\\Api\\Servico\\GeradorTermos.cs",
+  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\EquipamentoRepository.cs",
   "PreviewInSolutionExplorer": false
 }
