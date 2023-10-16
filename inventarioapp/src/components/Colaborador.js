@@ -8,7 +8,7 @@ import Card from "react-bootstrap/Card";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
-
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 class Colaborador extends React.Component {
   constructor(props) {
     super(props);
@@ -21,16 +21,21 @@ class Colaborador extends React.Component {
       funcao: "",
       licenca: "",
       setor: "",
+      usuario: "",
+      senha: "",
       movimentacao: [],
       colaboradores: [],
+      tecnico: false,
       modalAberto: false,
       modalExcluirAberto: false,
       paginaAtual: 1,
       itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", //para edição
-      endoint : "http://localhost:5062/api/colaborador"
+      endoint: "http://localhost:5062/api/colaborador",
+      showPassword: false
     };
+    this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this);
   }
 
   componentDidMount() {
@@ -73,15 +78,20 @@ class Colaborador extends React.Component {
       .then((colaborador) => {
         console.log(colaborador)
         this.setState({
-          id : id,
+          id: id,
           matricula: colaborador.matricula,
           nome: colaborador.nome,
           empresa: colaborador.empresa,
           funcao: colaborador.funcao,
           setor: colaborador.setor,
           licenca: colaborador.licenca,
+          usuario: colaborador.usuario,
+          senha: colaborador.senha
         });
 
+        if (this.state.usuario === "") {
+          this.state.tecnico = false
+        }
         if (requisicao === "editar") {
           this.state.requisicao = "editar"
           this.abrirModal();
@@ -204,6 +214,12 @@ class Colaborador extends React.Component {
     );
   }
 
+  togglePasswordVisibility() {
+    this.setState((prevState) => ({
+      showPassword: !prevState.showPassword
+    }));
+  }
+
   atualizarPaginaAtual = (pagina) => {
     this.setState({
       paginaAtual: pagina,
@@ -251,9 +267,27 @@ class Colaborador extends React.Component {
     });
   };
 
+  atualizarTecnico = (e) => {
+    this.setState({
+      tecnico: e.target.value,
+    });
+  }
+
+  atualizarUsuario = (e) => {
+    this.setState({
+      usuario: e.target.value,
+    })
+  }
+
+  atualizarSenha = (e) => {
+    this.setState({
+      senha: e.target.value,
+    })
+  }
+
   // Executa o cadastro ou atualização do colaborador
   submit = () => {
-    const { matricula, nome, empresa, funcao, setor, licenca } = this.state;
+    const { matricula, nome, empresa, funcao, setor, licenca, usuario, senha } = this.state;
 
     if (
       matricula === 0 ||
@@ -274,6 +308,8 @@ class Colaborador extends React.Component {
         funcao,
         setor,
         licenca,
+        usuario,
+        senha
       };
       this.atualizarColaborador(colaborador);
       this.fecharModal();
@@ -285,6 +321,8 @@ class Colaborador extends React.Component {
         funcao,
         setor,
         licenca,
+        usuario,
+        senha
       };
       this.cadastraColaborador(colaborador);
       this.fecharModal();
@@ -301,6 +339,8 @@ class Colaborador extends React.Component {
       setor: "",
       licenca: "",
       requisicao: "",
+      usuario: "",
+      senha: ""
     });
     this.abrirModal();
   };
@@ -334,22 +374,22 @@ class Colaborador extends React.Component {
     });
   };
 
-// Filtra os colaboradores com base no termo de busca
-filtrarColaborador = (colaborador, termoBusca) => {
-  const { nome, empresa, funcao, setor, matricula } = colaborador;
-  const termoBuscaLowerCase = termoBusca.toLowerCase();
+  // Filtra os colaboradores com base no termo de busca
+  filtrarColaborador = (colaborador, termoBusca) => {
+    const { nome, empresa, funcao, setor, matricula } = colaborador;
+    const termoBuscaLowerCase = termoBusca.toLowerCase();
 
-  // Função utilitária para verificar se o valor é uma string
-  const isString = (value) => typeof value === 'string';
+    // Função utilitária para verificar se o valor é uma string
+    const isString = (value) => typeof value === 'string';
 
-  return (
-    (isString(nome) && nome.toLowerCase().includes(termoBuscaLowerCase)) ||
-    (isString(empresa) && empresa.toLowerCase().includes(termoBuscaLowerCase)) ||
-    (isString(funcao) && funcao.toLowerCase().includes(termoBuscaLowerCase)) ||
-    (isString(setor) && setor.toLowerCase().includes(termoBuscaLowerCase)) ||
-    (typeof matricula === 'number' && matricula.toString().includes(termoBuscaLowerCase))
-  );
-};
+    return (
+      (isString(nome) && nome.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (isString(empresa) && empresa.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (isString(funcao) && funcao.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (isString(setor) && setor.toLowerCase().includes(termoBuscaLowerCase)) ||
+      (typeof matricula === 'number' && matricula.toString().includes(termoBuscaLowerCase))
+    );
+  };
 
 
 
@@ -383,6 +423,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
                     type="Number"
                     value={this.state.matricula}
                     onChange={this.atualizarMatricula}
+                    className="input_padrão"
                   />
                 </Col>
                 <Col>
@@ -392,6 +433,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
                     type="text"
                     value={this.state.nome}
                     onChange={this.atualizarNome}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                   />
                 </Col>
               </Row>
@@ -403,6 +445,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
                     type="text"
                     value={this.state.empresa}
                     onChange={this.atualizarEmpresa}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                   />
                 </Col>
                 <Col>
@@ -412,6 +455,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
                     type="text"
                     value={this.state.funcao}
                     onChange={this.atualizarFuncao}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                   />
                 </Col>
               </Row>
@@ -423,6 +467,7 @@ filtrarColaborador = (colaborador, termoBusca) => {
                     type="text"
                     value={this.state.licenca}
                     onChange={this.atualizarLicenca}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                   />
                 </Col>
                 <Col>
@@ -432,9 +477,56 @@ filtrarColaborador = (colaborador, termoBusca) => {
                     type="text"
                     value={this.state.setor}
                     onChange={this.atualizarSetor}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                   />
                 </Col>
               </Row>
+              <Row>
+                <Col
+                  controlId="formEmprestimo"
+                  style={{ marginTop: "2.3rem" }}>
+                  <Form.Check
+                    type="checkbox"
+                    label="Tecnico"
+                    checked={this.state.tecnico}
+                    onChange={(e) =>
+                      this.setState({ tecnico: e.target.checked })
+                    }
+                  />
+                </Col>
+              </Row>
+
+              {this.state.tecnico === true && (
+                <Row>
+                  <Col>
+                    <Form.Label>Usuario</Form.Label>
+                    <Form.Control
+                      style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
+                      placeholder="Usuario"
+                      type="text"
+                      value={this.state.usuario}
+                      onChange={(e) =>
+                        this.setState({ usuario: e.target.value })
+                      }
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Label>Senha</Form.Label>
+                    <Form.Control
+                      style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
+                      placeholder="Senha"
+                      type={this.state.showPassword ? "text" : "password"}
+                      value={this.state.senha}
+                      onChange={(e) =>
+                        this.setState({ senha: e.target.value })
+                      }
+                    />
+                    <span className="password-icon-col" onClick={this.togglePasswordVisibility}>
+                      {this.state.showPassword ? <BsEye /> : <BsEyeSlash />}
+                    </span>
+                  </Col>
+                </Row>
+              )}
             </Form>
           </Modal.Body>
           <Modal.Footer>

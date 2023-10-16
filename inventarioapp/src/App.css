@@ -235,6 +235,14 @@ input[type="text"] {
   cursor: pointer;
   color: #8a8b8e;
 }
+.password-icon-col {
+  position: absolute;
+  right: 25px;
+  top: 90%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #8a8b8e;
+}
 
 input[type="password"]:focus,
 input[type="email"]:focus {
@@ -313,3 +321,4 @@ input[type="email"]:focus {
 .butto-export-csv{
   border-radius: 4px;
 }
+

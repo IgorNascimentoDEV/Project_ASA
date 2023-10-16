@@ -62,7 +62,7 @@ class MovimentacaoEquipamento extends React.Component {
       .then((resposta) => resposta.json())
       .then((movimentacao) => {
         this.setState({
-          id : id,
+          id: id,
           dataMovimentacao: movimentacao.dataMovimentacao,
           idColaborador: movimentacao.idColaborador,
           identificador: movimentacao.identificador,
@@ -75,40 +75,40 @@ class MovimentacaoEquipamento extends React.Component {
   };
 
   // Cadastra uma nova movimentação no servidor
-cadastraMovimentacao = (movimentacao) => {
-  fetch(this.state.endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(movimentacao),
-  })
-    .then(async (response) => {
-      if (response.ok) {
-        // Se a movimentação foi adicionada com sucesso, solicite o download do termo gerado
-        const pdfBlob = await response.blob();
-        const url = window.URL.createObjectURL(pdfBlob);
-
-        // Crie um link <a> para iniciar o download
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'termo_responsabilidade.pdf';
-
-        // Adicione o link <a> ao DOM e clique nele para iniciar o download
-        document.body.appendChild(a);
-        a.click();
-
-        // Limpe o objeto URL
-        window.URL.revokeObjectURL(url);
-
-        // Em seguida, atualize a lista de movimentações
-        this.buscarMovimentacoes();
-      } else {
-        alert("Não foi possível adicionar a movimentação.");
-      }
+  cadastraMovimentacao = (movimentacao) => {
+    fetch(this.state.endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(movimentacao),
     })
-    .catch((error) => {
-      console.error("Erro ao cadastrar a movimentação:", error);
-    });
-};
+      .then(async (response) => {
+        if (response.ok) {
+          // Se a movimentação foi adicionada com sucesso, solicite o download do termo gerado
+          const pdfBlob = await response.blob();
+          const url = window.URL.createObjectURL(pdfBlob);
+
+          // Crie um link <a> para iniciar o download
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'termo_responsabilidade.pdf';
+
+          // Adicione o link <a> ao DOM e clique nele para iniciar o download
+          document.body.appendChild(a);
+          a.click();
+
+          // Limpe o objeto URL
+          window.URL.revokeObjectURL(url);
+
+          // Em seguida, atualize a lista de movimentações
+          this.buscarMovimentacoes();
+        } else {
+          alert("Não foi possível adicionar a movimentação.");
+        }
+      })
+      .catch((error) => {
+        console.error("Erro ao cadastrar a movimentação:", error);
+      });
+  };
 
   // Renderiza a tabela de movimentações
   renderTabela() {
@@ -279,8 +279,8 @@ cadastraMovimentacao = (movimentacao) => {
   };
 
 
-   // Fecha o modal de visualização
-   fecharModalVisualiza = () => {
+  // Fecha o modal de visualização
+  fecharModalVisualiza = () => {
     this.setState({
       modalAbertoVisualiza: false,
     });
@@ -295,7 +295,7 @@ cadastraMovimentacao = (movimentacao) => {
 
   // Filtra as movimentações com base no termo de busca
   filtrarMovimentacao = (movimentacao, termoBusca) => {
-    const {id, dataMovimentacao, tipo, colaborador, equipamento } = movimentacao;
+    const { id, dataMovimentacao, tipo, colaborador, equipamento } = movimentacao;
     const termoBuscaLowerCase = termoBusca.toLowerCase();
 
     return (
@@ -305,7 +305,7 @@ cadastraMovimentacao = (movimentacao) => {
         colaborador.nome.toLowerCase().includes(termoBuscaLowerCase)) ||
       (equipamento &&
         equipamento.tipo.toLowerCase().includes(termoBuscaLowerCase)) ||
-      (tipo && tipo.toLowerCase().includes(termoBuscaLowerCase)) 
+      (tipo && tipo.toLowerCase().includes(termoBuscaLowerCase))
     );
   };
 
@@ -343,6 +343,7 @@ cadastraMovimentacao = (movimentacao) => {
                 <Col>
                   <Form.Label>Código do Colaborador</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Código do Colaborador"
                     type="text"
                     value={this.state.idColaborador}
@@ -354,6 +355,7 @@ cadastraMovimentacao = (movimentacao) => {
                 <Col>
                   <Form.Label>Código do Equipamento</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Código do Equipamento"
                     type="text"
                     value={this.state.identificador}
@@ -406,7 +408,7 @@ cadastraMovimentacao = (movimentacao) => {
                     onChange={this.atualizarDataMovimentacao}
                   />
                 </Col>
-                
+
                 <Col>
                   <Form.Label>Tipo de movimentação</Form.Label>
                   <Form.Control
@@ -425,15 +427,17 @@ cadastraMovimentacao = (movimentacao) => {
                 <Col>
                   <Form.Label>Código do Equipamento</Form.Label>
                   <Form.Control
+                  style={{padding: "0.375rem 0.75rem", margin: "0px"}}
                     placeholder="Código do Equipamento"
                     type="text"
                     value={this.state.equipamento ? this.state.equipamento.identificador : ""}
                   />
                 </Col>
-                
+
                 <Col>
                   <Form.Label>Código do Colaborador</Form.Label>
                   <Form.Control
+                    style={{padding: "0.375rem 0.75rem", margin: "0px"}}
                     placeholder="Código do Colaborador"
                     type="text"
                     value={this.state.colaborador ? this.state.colaborador.matricula : ""}
@@ -444,15 +448,17 @@ cadastraMovimentacao = (movimentacao) => {
                 <Col>
                   <Form.Label>Equipamento</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Equipamento"
                     type="text"
                     value={this.state.equipamento ? this.state.equipamento.tipo : ""}
                   />
                 </Col>
-                
+
                 <Col>
                   <Form.Label>Colaborador</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Colaborador"
                     type="text"
                     value={this.state.colaborador ? this.state.colaborador.nome : ""}
@@ -463,15 +469,17 @@ cadastraMovimentacao = (movimentacao) => {
                 <Col>
                   <Form.Label>Equipamento Modelo</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Equipamento Modelo"
                     type="text"
                     value={this.state.equipamento ? this.state.equipamento.modelo : ""}
                   />
                 </Col>
-                
+
                 <Col>
                   <Form.Label>Colaborador Setor</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Colaborador"
                     type="text"
                     value={this.state.colaborador ? this.state.colaborador.setor : ""}

@@ -523,11 +523,13 @@ class Equipamento extends React.Component {
                     <option value="">Selecione o tipo de ativo</option>
                     <option value="Maquina">Maquina</option>
                     <option value="Telefone">Telefone</option>
+
                   </Form.Control>
                 </Col>
                 <Col>
                   <Form.Label>ID Equipamento</Form.Label>
                   <Form.Control
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="ID do Equipamento"
                     type="text"
                     value={this.state.identificador}
@@ -568,6 +570,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Modelo</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Modelo da Máquina"
                         type="text"
                         value={this.state.modelo}
@@ -579,6 +582,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Nome</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="NOME da Máquina"
                         type="text"
                         value={this.state.nomeMaquina}
@@ -593,6 +597,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Armazenamento</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Capacidade de Armazenamento"
                         type="text"
                         value={this.state.armazenamento}
@@ -604,6 +609,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Memória RAM</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Memória RAM"
                         type="text"
                         value={this.state.memoriaRam}
@@ -618,6 +624,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Processador</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Processador da Máquina"
                         type="text"
                         value={this.state.processador}
@@ -629,6 +636,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Office</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Ano - Chave do Office"
                         type="text"
                         value={this.state.office}
@@ -641,6 +649,7 @@ class Equipamento extends React.Component {
                   <Form.Group className="mb-3">
                     <Form.Label>Observação</Form.Label>
                     <Form.Control
+                      style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                       as="textarea"
                       rows={3}
                       value={this.state.obs}
@@ -656,6 +665,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Modelo</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Modelo da Telefone"
                         type="text"
                         value={this.state.modelo}
@@ -667,6 +677,7 @@ class Equipamento extends React.Component {
                     <Col>
                       <Form.Label>Linha</Form.Label>
                       <Form.Control
+                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder="Linha do Telefone"
                         type="text"
                         value={this.state.linha}

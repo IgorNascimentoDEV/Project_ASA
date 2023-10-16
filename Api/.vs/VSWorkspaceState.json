@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Api",
-    "\\Api\\Infrastructure",
-    "\\Api\\Infrastructure\\Repositories",
-    "\\Api\\Servico"
+    "\\Api\\Controllers",
+    "\\Api\\Domain",
+    "\\Api\\Domain\\DTOs"
   ],
-  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\EquipamentoRepository.cs",
+  "SelectedNode": "\\Api\\Controllers\\ColaboradorController.cs",
   "PreviewInSolutionExplorer": false
 }

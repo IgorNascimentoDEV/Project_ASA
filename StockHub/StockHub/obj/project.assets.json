@@ -1774,24 +1774,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\WTINFO PC\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\igor.sn\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
+      "projectUniqueName": "c:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
       "projectName": "StockHub",
-      "projectPath": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
-      "packagesPath": "C:\\Users\\WTINFO PC\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\WTINFO PC\\Desktop\\Project_ASA\\StockHub\\StockHub\\obj\\",
+      "projectPath": "c:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\StockHub\\StockHub\\StockHub.csproj",
+      "packagesPath": "C:\\Users\\igor.sn\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\StockHub\\StockHub\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\WTINFO PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\igor.sn\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1799,8 +1794,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1879,7 +1872,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -42,3 +42,10 @@ code {
 .tabela{
   margin-top: 1rem;
 }
+
+.input_padrão{
+  width: 2px;
+  color: red;
+  padding: 0.375rem 0.75rem;
+}
+
