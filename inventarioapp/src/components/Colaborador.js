@@ -76,7 +76,6 @@ class Colaborador extends React.Component {
     fetch(this.state.endoint + "/" + id, { method: "GET" })
       .then((resposta) => resposta.json())
       .then((colaborador) => {
-        console.log(colaborador)
         this.setState({
           id: id,
           matricula: colaborador.matricula,
@@ -86,7 +85,8 @@ class Colaborador extends React.Component {
           setor: colaborador.setor,
           licenca: colaborador.licenca,
           usuario: colaborador.usuario,
-          senha: colaborador.senha
+          senha: colaborador.senha,
+          movimentacao: colaborador.movimentacao
         });
 
         if (this.state.usuario === "") {
@@ -340,7 +340,8 @@ class Colaborador extends React.Component {
       licenca: "",
       requisicao: "",
       usuario: "",
-      senha: ""
+      senha: "",
+      movimentacao: ""
     });
     this.abrirModal();
   };
@@ -527,6 +528,36 @@ class Colaborador extends React.Component {
                   </Col>
                 </Row>
               )}
+
+              {this.state.movimentacao.length > 0 && (
+                <div style={{ marginTop: "1rem" }}>
+                  <h4>Lista de Movimentações</h4>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>Data Movimentação</th>
+                        <th>Equipamento</th>
+                        <th>Tipo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.movimentacao.map((movimentacao) => (
+                        <tr key={movimentacao.id}>
+                          <td>{movimentacao.dataMovimentacao}</td>
+                          <td>
+                            {movimentacao.equipamento && movimentacao.equipamento.identificador !== "null"
+                              ? movimentacao.equipamento.identificador
+                              : "N/A"
+                            }
+                          </td>
+                          <td>{movimentacao.tipo}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+              )}
+
             </Form>
           </Modal.Body>
           <Modal.Footer>

@@ -6,5 +6,6 @@
     "\\Api\\Domain",
     "\\Api\\Domain\\DTOs"
   ],
+  "SelectedNode": "\\Api\\appsettings.Development.json",
   "PreviewInSolutionExplorer": false
 }

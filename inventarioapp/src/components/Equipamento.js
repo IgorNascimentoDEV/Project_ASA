@@ -12,6 +12,7 @@ import {
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
+import MaskedInput from 'react-text-mask';
 
 class Equipamento extends React.Component {
   constructor(props) {
@@ -401,7 +402,7 @@ class Equipamento extends React.Component {
               <tr>
                 <th>Tipo de Ativo</th>
                 <th>ID Equipamento</th>
-                <th>Data</th>
+                <th>Modelo</th>
                 <th>Opções</th>
               </tr>
             </thead>
@@ -410,7 +411,7 @@ class Equipamento extends React.Component {
                 <tr key={equipamento.identificador}>
                   <td>{equipamento.tipo}</td>
                   <td>{equipamento.identificador}</td>
-                  <td>{equipamento.data}</td>
+                  <td>{equipamento.modelo}</td>
                   <td>
                     <Button
                       variant="warning"
@@ -462,36 +463,6 @@ class Equipamento extends React.Component {
     });
   };
 
-  ListaMovimentacoes() {
-    const { movimentacoes, fecharModal } = this.props;
-
-    return (
-      <Modal show={true} onHide={fecharModal} className="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Movimentações do Ativo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {movimentacoes.length > 0 ? (
-            <ul>
-              {movimentacoes.map((movimentacao) => (
-                <li key={movimentacao.id}>
-                  Data: {movimentacao.dataMovimentacao}, Tipo:{" "}
-                  {movimentacao.tipo}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Nenhuma movimentação encontrada para este ativo.</p>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={fecharModal}>
-            Sair
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
 
   render() {
     const { termoBusca } = this.state;
@@ -521,7 +492,7 @@ class Equipamento extends React.Component {
                     onChange={(e) => this.setState({ tipo: e.target.value })}
                   >
                     <option value="">Selecione o tipo de ativo</option>
-                    <option value="Maquina">Maquina</option>
+                    <option value="Maquina">Computador</option>
                     <option value="Telefone">Telefone</option>
 
                   </Form.Control>
@@ -530,7 +501,7 @@ class Equipamento extends React.Component {
                   <Form.Label>ID Equipamento</Form.Label>
                   <Form.Control
                     style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                    placeholder="ID do Equipamento"
+                    placeholder="ID do ativo"
                     type="text"
                     value={this.state.identificador}
                     onChange={(e) =>
@@ -571,7 +542,7 @@ class Equipamento extends React.Component {
                       <Form.Label>Modelo</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Modelo da Máquina"
+                        placeholder="Modelo da máquina"
                         type="text"
                         value={this.state.modelo}
                         onChange={(e) =>
@@ -583,7 +554,7 @@ class Equipamento extends React.Component {
                       <Form.Label>Nome</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="NOME da Máquina"
+                        placeholder="Nome da máquina"
                         type="text"
                         value={this.state.nomeMaquina}
                         onChange={(e) =>
@@ -598,7 +569,7 @@ class Equipamento extends React.Component {
                       <Form.Label>Armazenamento</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Capacidade de Armazenamento"
+                        placeholder="Capacidade de armazenamento"
                         type="text"
                         value={this.state.armazenamento}
                         onChange={(e) =>
@@ -625,7 +596,7 @@ class Equipamento extends React.Component {
                       <Form.Label>Processador</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Processador da Máquina"
+                        placeholder="Processador da máquina"
                         type="text"
                         value={this.state.processador}
                         onChange={(e) =>
@@ -637,7 +608,7 @@ class Equipamento extends React.Component {
                       <Form.Label>Office</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Ano - Chave do Office"
+                        placeholder="Ano - Chave do office"
                         type="text"
                         value={this.state.office}
                         onChange={(e) =>
@@ -666,7 +637,7 @@ class Equipamento extends React.Component {
                       <Form.Label>Modelo</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Modelo da Telefone"
+                        placeholder="Modelo da telefone"
                         type="text"
                         value={this.state.modelo}
                         onChange={(e) =>
@@ -676,9 +647,11 @@ class Equipamento extends React.Component {
                     </Col>
                     <Col>
                       <Form.Label>Linha</Form.Label>
-                      <Form.Control
+                      <MaskedInput
+                        mask={["(", /\d/, /\d/, ")", ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                        guide={false}
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Linha do Telefone"
+                        placeholder="(xx) xxxxx-xxxx"
                         type="text"
                         value={this.state.linha}
                         onChange={(e) =>

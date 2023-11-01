@@ -21,14 +21,11 @@ namespace Api.Infrastructure.Repositories
 
         public async Task<ColaboradorModel> GetColaboradorByIdAsync(long id)
         {
-            return await _context.Colaboradores.Include(x => x.Movimentacao).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.Colaboradores.Include(x => x.Movimentacao).ThenInclude(m => m.Equipamento).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
         public async Task<ColaboradorModel> GetColaboradorByMatriculaAsync(long matricula)
         {
-            return await _context.Colaboradores
-                .Include(x => x.Movimentacao)
-                .Where(x => x.Matricula == matricula)
-                .FirstOrDefaultAsync();
+            return await _context.Colaboradores.Include(x => x.Movimentacao).ThenInclude(m => m.Equipamento).Where(x => x.Matricula == matricula).FirstOrDefaultAsync();
         }
 
         public async Task<ColaboradorModel> GetColaboradorUsuarioAsync(string usuario)
