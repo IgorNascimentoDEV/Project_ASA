@@ -111,7 +111,7 @@ class Colaborador extends React.Component {
       if (response.ok) {
         this.buscarColaboradores();
       } else {
-        alert("Matricula já existente");
+        alert("Matricula ou Usuario já existente");
       }
     });
   };

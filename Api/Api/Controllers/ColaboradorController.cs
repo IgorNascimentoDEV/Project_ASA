@@ -52,12 +52,15 @@ namespace Api.Controllers
                 return BadRequest("Já existe um colaborador com a mesma matrícula.");
             }
 
-            //Verificar se já existe um colaborador com o mesmo usuario
-            var VerificaUsuario = await _repository.GetColaboradorUsuarioAsync(colaborador.Usuario);
-            if (VerificaUsuario != null)
+            if(colaborador.Usuario != "")
             {
-                return BadRequest("Já existe um colaborador com esse mesmo login");
-            }
+                //Verificar se já existe um colaborador com o mesmo usuario
+                var VerificaUsuario = await _repository.GetColaboradorUsuarioAsync(colaborador.Usuario);
+                if (VerificaUsuario != null)
+                {
+                    return BadRequest("Já existe um colaborador com esse mesmo login");
+                }
+            }       
 
             var colaboradorAdicionar = _mapper.Map<ColaboradorModel>(colaborador);
 

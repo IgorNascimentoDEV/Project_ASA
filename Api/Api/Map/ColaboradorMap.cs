@@ -19,7 +19,7 @@ namespace Api.Map
             builder.Property(x => x.Nome).HasColumnName("nome").HasColumnType("varchar(100)").IsRequired();
             builder.Property(x => x.Empresa).HasColumnName("empresa").HasColumnType("varchar(50)").IsRequired();
             builder.Property(x => x.Licenca).HasColumnName("licenca").HasColumnType("varchar(50)").IsRequired();
-            builder.Property(x => x.Funcao).HasColumnName("funcao").HasColumnName("varchar(50)").IsRequired();
+            builder.Property(x => x.Funcao).HasColumnName("funcao").HasColumnType("varchar(50)").IsRequired();
             builder.Property(x => x.Usuario).HasColumnName("usuario").HasColumnType("varchar(30)");
             builder.Property(x => x.Senha).HasColumnName("senha").HasColumnType("varchar(30)");
         }
