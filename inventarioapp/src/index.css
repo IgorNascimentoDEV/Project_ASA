@@ -6,7 +6,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* Adiciona esta linha para desabilitar a rolagem */
+  overflow: hidden;
 }
 
 

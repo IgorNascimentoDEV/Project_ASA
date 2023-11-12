@@ -13,8 +13,7 @@ namespace Api.Map
 
             builder.ToTable("tb_movimentacao");
             builder.Property(x => x.DataMovimentacao).HasColumnName("data_movimentacao").HasColumnType("varchar(20)").IsRequired();
-            //builder.Property(x => x.Colaborador).HasColumnName("colaboorador").IsRequired();
-            //builder.Property(x => x.Equipamento).HasColumnName("equipamento").IsRequired();
+
             builder.Property(x => x.Tipo).HasColumnName("tipo_movimentacao").IsRequired();
 
             // Relacionamento com Colaborador

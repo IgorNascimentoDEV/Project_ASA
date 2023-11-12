@@ -5,9 +5,10 @@
     "\\Api\\Controllers",
     "\\Api\\Domain",
     "\\Api\\Domain\\DTOs",
+    "\\Api\\Domain\\Models",
     "\\Api\\Infrastructure",
     "\\Api\\Infrastructure\\Repositories"
   ],
-  "SelectedNode": "\\Api\\Infrastructure\\Repositories\\ColaboradorRepository.cs",
+  "SelectedNode": "\\Api\\appsettings.Development.json",
   "PreviewInSolutionExplorer": false
 }
