@@ -24,5 +24,13 @@ namespace Api.Infrastructure.Repositories
         {
             return await _context.Movimentacoes.Include(x => x.Colaborador).Include(x => x.Equipamento).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
+        public async Task<List<MovimentacaoModel>> GetMovimentacoesByColaboradorIdAsync(long colaboradorId)
+        {
+            return await _context.Movimentacoes
+                .Include(x => x.Colaborador)
+                .Include(x => x.Equipamento)
+                .Where(x => x.Colaborador.Matricula == colaboradorId)
+                .ToListAsync();
+        }
     }
 }

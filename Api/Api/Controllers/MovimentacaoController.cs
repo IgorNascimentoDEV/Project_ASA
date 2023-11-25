@@ -92,18 +92,34 @@ namespace Api.Controllers
             await _equipamentoRepository.SaveChangesAsync();
 
             // Gerar o PDF
-            if(equipamento.Tipo == "Telefone")
+            if (equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "ENTRADA")
             {
-            byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
+                byte[] pdfBytes = _termo.GenerateTermoDevolucaoAtivo(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
                 // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
                 return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
             }
-            else
+
+            if(equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "SAIDA")
             {
-             byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
+                byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
                 // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
                 return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
-            }     
+            }
+            
+            if(equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "ENTRADA")
+            {
+             byte[] pdfBytes = _termo.GenerateTermoDevolucaoMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
+                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+            }
+
+            if (equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "SAIDA")
+            {
+                byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
+                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+            }
+            return BadRequest();
         }
 
         [HttpGet]
@@ -118,6 +134,20 @@ namespace Api.Controllers
         {
             var movimentacao = await _movimentacaoRepository.GetMovimentacaoByIdAsync(id);
             return movimentacao == null ? NotFound() : Ok(movimentacao);
+        }
+
+
+        [HttpGet("colaborador/{colaboradorId}")]
+        public async Task<IActionResult> GetMovimentacoesByColaboradorId(long colaboradorId)
+        {
+            var movimentacoes = await _movimentacaoRepository.GetMovimentacoesByColaboradorIdAsync(colaboradorId);
+
+            if (movimentacoes == null || movimentacoes.Count == 0)
+            {
+                return NotFound($"Nenhuma movimentação encontrada para o colaborador com ID {colaboradorId}");
+            }
+
+            return Ok(movimentacoes);
         }
 
 

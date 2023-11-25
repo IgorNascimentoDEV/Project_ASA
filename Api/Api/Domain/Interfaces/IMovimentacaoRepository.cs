@@ -6,5 +6,6 @@ namespace Api.Domain.Interfaces
     {
         Task<IEnumerable<MovimentacaoModel>> GetMovimentacaoAsync();
         Task<MovimentacaoModel> GetMovimentacaoByIdAsync(long id);
+        Task<List<MovimentacaoModel>> GetMovimentacoesByColaboradorIdAsync(long colaboradorId);
     }
 }

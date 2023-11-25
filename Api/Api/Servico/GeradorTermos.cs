@@ -166,5 +166,134 @@ namespace Api.Servico
                 return memoryStream.ToArray();
             }
         }
+
+
+
+        public byte[] GenerateTermoDevolucaoAtivo(string nome,
+          long matricula,
+          string identificador,
+          string modelo,
+          string linha,
+          string observacao,
+          string tipo)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // Defina a fonte Arial com tamanho 7,5
+                Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
+
+                Document document = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+
+                document.Open();
+
+                // Título
+                Paragraph titulo = new Paragraph("TERMO DE DEVOLUÇÃO DE ATIVO\n\n", new Font(Font.FontFamily.COURIER, 16));
+                titulo.Alignment = Element.ALIGN_CENTER;
+                document.Add(titulo);
+
+                // Seção de informações gerais
+                string informacoesGerais = $"Tipo Termo: {tipo}\n" +
+                    "INTRODUÇÃO:\n" +
+                    "Esse Termo é referente à devolução de ativo da empresa, que foi previamente concedido ao funcionário. Este termo foi elaborado com base nos princípios gerais que norteiam o comportamento profissional e política aplicada na empresa.\n\n";
+                Paragraph informacoesGeraisParagrafo = new Paragraph(informacoesGerais, fonteArial75);
+                document.Add(informacoesGeraisParagrafo);
+
+                // Seção de devolução de ativo
+                string devolucaoAtivo = $"DEVOLUÇÃO DE ATIVO\n\n" +
+                    $"Nome: {nome}\t   |   Matrícula: {matricula}\n" +
+                    $"Identificador: {identificador}\t   |   Modelo: {modelo}\n" +
+                    $"Linha/Chip: {linha}\t   |   Observação: {observacao}\n\n";
+                Paragraph devolucaoAtivoParagrafo = new Paragraph(devolucaoAtivo, fonteArial75);
+                document.Add(devolucaoAtivoParagrafo);
+
+                // Seção de condições de devolução
+                string condicoesDevolucao = $"CONDIÇÕES DE DEVOLUÇÃO:\n\n" +
+                    "O ativo deverá ser devolvido em perfeito estado de conservação e com todos os acessórios originalmente fornecidos.\n" +
+                    "Caso haja danos ou acessórios faltantes, o funcionário será responsável pelo ressarcimento do valor correspondente.\n\n";
+                Paragraph condicoesDevolucaoParagrafo = new Paragraph(condicoesDevolucao, fonteArial75);
+                document.Add(condicoesDevolucaoParagrafo);
+
+                // Seção de declaração
+                string declaracao = "Declaro ter lido detidamente o texto acima e externo minha concordância às condições e termos nele constantes.\n\n";
+                Paragraph declaracaoParagrafo = new Paragraph(declaracao, fonteArial75);
+                document.Add(declaracaoParagrafo);
+
+                // Crie o parágrafo com a data atual
+                string dataAssinatura = $"Recife, {DateTime.Now.ToString("dd/MM/yyyy")} Ass: ________________________\n\n";
+                Paragraph dataAssinaturaParagrafo = new Paragraph(dataAssinatura, fonteArial75);
+                dataAssinaturaParagrafo.Alignment = Element.ALIGN_CENTER;
+                document.Add(dataAssinaturaParagrafo);
+
+                document.Close();
+
+                return memoryStream.ToArray();
+            }
+        }
+
+        public byte[] GenerateTermoDevolucaoMaquina(
+             string nome,
+             long matricula,
+             string identificador,
+             string modelo,
+             string nomeMaquina,
+             string observacao,
+             string tipo)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // Defina a fonte Arial com tamanho 7,5
+                Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
+
+                Document document = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+
+                document.Open();
+
+                // Título
+                Paragraph titulo = new Paragraph("TERMO DE DEVOLUÇÃO DE EQUIPAMENTO DE INFORMÁTICA\n\n", new Font(Font.FontFamily.COURIER, 16));
+                titulo.Alignment = Element.ALIGN_CENTER;
+                document.Add(titulo);
+
+                // Seção de informações gerais
+                string informacoesGerais = $"Tipo Termo: {tipo}\n" +
+                    "INTRODUÇÃO:\n" +
+                    "Este Termo é referente à devolução do Equipamento de Informática, anteriormente concedido ao funcionário. Este termo foi elaborado com base nos princípios gerais que norteiam o comportamento profissional e política aplicada na empresa.\n\n";
+                Paragraph informacoesGeraisParagrafo = new Paragraph(informacoesGerais, fonteArial75);
+                document.Add(informacoesGeraisParagrafo);
+
+                // Seção de devolução de máquina
+                string devolucaoMaquina = $"DEVOLUÇÃO DE MÁQUINA\n\n" +
+                    $"Nome: {nome}\t   |   Matrícula: {matricula}\n" +
+                    $"Identificador: {identificador}\t   |   Modelo: {modelo}\n" +
+                    $"Nome da Máquina: {nomeMaquina}\n" +
+                    $"Obs: {observacao}\n\n";
+                Paragraph devolucaoMaquinaParagrafo = new Paragraph(devolucaoMaquina, fonteArial75);
+                document.Add(devolucaoMaquinaParagrafo);
+
+                // Seção de condições de devolução
+                string condicoesDevolucao = $"CONDIÇÕES DE DEVOLUÇÃO:\n\n" +
+                    "O equipamento deverá ser devolvido em perfeito estado de conservação e com todos os acessórios originalmente fornecidos.\n" +
+                    "Caso haja danos ou acessórios faltantes, o funcionário será responsável pelo ressarcimento do valor correspondente.\n\n";
+                Paragraph condicoesDevolucaoParagrafo = new Paragraph(condicoesDevolucao, fonteArial75);
+                document.Add(condicoesDevolucaoParagrafo);
+
+                // Seção de declaração
+                string declaracao = "Declaro ter lido detidamente o texto acima e externo minha concordância às condições e termos nele constantes.\n\n";
+                Paragraph declaracaoParagrafo = new Paragraph(declaracao, fonteArial75);
+                document.Add(declaracaoParagrafo);
+
+                // Crie o parágrafo com a data atual
+                string dataAssinatura = $"Recife, {DateTime.Now.ToString("dd/MM/yyyy")} Ass: ________________________\n\n";
+                Paragraph dataAssinaturaParagrafo = new Paragraph(dataAssinatura, fonteArial75);
+                dataAssinaturaParagrafo.Alignment = Element.ALIGN_CENTER;
+                document.Add(dataAssinaturaParagrafo);
+
+                document.Close();
+
+                return memoryStream.ToArray();
+            }
+        }
+
     }
 }

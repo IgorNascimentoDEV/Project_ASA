@@ -86,9 +86,23 @@ class Colaborador extends React.Component {
           licenca: colaborador.licenca,
           usuario: colaborador.usuario,
           senha: colaborador.senha,
-          movimentacao: colaborador.movimentacao
         });
-
+        try{
+          fetch("http://localhost:5062/movimentacao/api/Movimentacao/colaborador/" + colaborador.matricula, { method: "GET" })
+        .then((res) => res.json())
+        .then((movimentacoes) => {
+          this.setState({
+            movimentacao: movimentacoes
+          }, () => {
+            console.log(this.state.movimentacao);
+          });
+        });
+        }catch{
+          this.setState({
+            movimentacao: []
+          })
+        }
+        
         if (this.state.usuario === "") {
           this.state.tecnico = false
         }
@@ -98,6 +112,7 @@ class Colaborador extends React.Component {
         } else {
           this.abrirModalExcluir(id);
         }
+
       });
   };
 
@@ -341,7 +356,7 @@ class Colaborador extends React.Component {
       requisicao: "",
       usuario: "",
       senha: "",
-      movimentacao: ""
+      movimentacao: []
     });
     this.abrirModal();
   };
