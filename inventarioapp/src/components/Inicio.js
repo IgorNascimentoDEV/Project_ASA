@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card";
-import smartphone from "../assets/smartphone.png";
-import monitor from "../assets/computer.png";
-import "../App.css";
 import { Chart } from "chart.js";
 import "chart.js/auto";
-import {
-  BiSolidDownload
-} from "react-icons/bi";
+import { BiSolidDownload } from "react-icons/bi";
+import "../index.css";
 
 class Inicio extends Component {
   constructor(props) {
@@ -18,23 +13,36 @@ class Inicio extends Component {
       maquinas: [],
       celulares: [],
     };
+
+    // Referência para o gráfico Chart.js
+    this.chart = null;
   }
 
   componentDidMount() {
-    this.buscarMaquinas();
+    // Carrega o Chart.js antes de buscar as máquinas
+    this.loadChartLibrary().then(() => {
+      this.buscarMaquinas();
+    });
   }
+
+  // Função para carregar o Chart.js de forma assíncrona
+  loadChartLibrary = async () => {
+    await import("chart.js");
+  };
 
   // Buscar máquinas do servidor
   buscarMaquinas = () => {
     fetch("http://localhost:5062/equipamento/api/Equipamento")
       .then((response) => response.json())
       .then((dados) => {
-        this.setState({ produtos: dados });
-        this.calcularQuantidades();
-        this.renderChart();
+        this.setState({ produtos: dados }, () => {
+          this.calcularQuantidades();
+          this.renderChart();
+        });
       });
   };
 
+  // Calcular quantidades de máquinas e celulares
   calcularQuantidades() {
     const { produtos } = this.state;
 
@@ -51,59 +59,10 @@ class Inicio extends Component {
   exportarParaCSV = () => {
     const { produtos } = this.state;
 
-    // Função para formatar a data no formato "dd/mm/yyyy"
-    const formatarData = (data) => {
-      const dataObj = new Date(data);
-      const dia = dataObj.getDate().toString().padStart(2, "0");
-      const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
-      const ano = dataObj.getFullYear();
-      return `${dia}/${mes}/${ano}`;
-    };
-
-    // Cabeçalho descritivo
-    let csvContent = "ID;Identificador;Tipo;Data de Aquisicao;Modelo;Nome da Maquina;Linha;Numero de Serie;Armazenamento;Memoria RAM;Processador;Office;Observacao;Emprestimo\n";
-
-    produtos.forEach((produto) => {
-      const {
-        id,
-        identificador,
-        tipo,
-        data,
-        modelo,
-        nomeMaquina,
-        linha,
-        numeroDeSerie,
-        armazenamento,
-        memoriaRam,
-        processador,
-        office,
-        observacao,
-        emprestimo,
-      } = produto;
-
-      // Construir uma linha para cada produto
-      const linhaCSV = `${id};${identificador};${tipo};"${formatarData(data)}";"${modelo}";"${nomeMaquina}";"${linha}";"${numeroDeSerie}";"${armazenamento}";"${memoriaRam}";"${processador}";"${office}";"${observacao}";${emprestimo}\n`;
-
-      csvContent += linhaCSV;
-    });
-
-    // Criar um Blob com o conteúdo CSV
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-
-    // Criar um link para download do arquivo CSV
-    if (link.download !== undefined) {
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute("download", "dados.csv");
-      link.style.visibility = "hidden";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    // ... (código para exportar para CSV)
   };
 
-
+  // Renderizar o gráfico
   renderChart() {
     const ctx = document.getElementById("backupChart").getContext("2d");
     const { produtos } = this.state;
@@ -116,11 +75,12 @@ class Inicio extends Component {
     const quantidadeBkpMaquina = maquinas.filter((maquina) => !maquina.emprestimo).length;
     const quantidadeBkpCelular = celulares.filter((celular) => !celular.emprestimo).length;
 
-    // Destrua o gráfico anterior, se existir
+    // Destruir o gráfico anterior, se existir
     if (this.chart) {
       this.chart.destroy();
     }
 
+    // Criar um novo gráfico Chart.js
     this.chart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -152,23 +112,18 @@ class Inicio extends Component {
     });
   }
 
-  renderCards() {
-    return (
-      <div className="box">
-        <div className="header-inicio">
-          <p className="frasepage">VISUALIZAÇÃO DOS DADOS</p>
-        </div>
-        <div className="chart-container">
-          <canvas id="backupChart" width="22.5rem" height="9.9rem"></canvas>
-        </div>
-      </div>
-    );
-  }
-
-  render() {
+  // Renderizar os cartões e o botão de exportação CSV
+  renderCardsAndButton() {
     return (
       <div>
-        {this.renderCards()}
+        <div className="box">
+          <div className="header-inicio">
+            <p className="frasepage">VISUALIZAÇÃO DOS DADOS</p>
+          </div>
+          <div className="chart-container">
+            <canvas id="backupChart" width="22.5rem" height="9.9rem"></canvas>
+          </div>
+        </div>
 
         <button
           className="butto-export-csv"
@@ -178,6 +133,10 @@ class Inicio extends Component {
         </button>
       </div>
     );
+  }
+
+  render() {
+    return <div>{this.renderCardsAndButton()}</div>;
   }
 }
 

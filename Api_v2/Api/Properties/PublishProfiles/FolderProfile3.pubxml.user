@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\stockBack</_PublishTargetUrl>
+    <History>True|2023-12-01T14:11:52.3180163Z;False|2023-12-01T11:07:33.5825124-03:00;False|2023-12-01T10:51:28.5585069-03:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

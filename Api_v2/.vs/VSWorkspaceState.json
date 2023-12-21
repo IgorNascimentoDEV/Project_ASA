@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Api",
+    "\\Api\\Controllers",
+    "\\Api\\Domain",
+    "\\Api\\Domain\\DTOs",
+    "\\Api\\Domain\\Models",
+    "\\Api\\Infrastructure",
+    "\\Api\\Infrastructure\\Repositories",
+    "\\Api\\Servico"
+  ],
+  "SelectedNode": "\\Api\\Servico\\GeradorTermos.cs",
+  "PreviewInSolutionExplorer": false
+}

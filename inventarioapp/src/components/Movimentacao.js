@@ -341,10 +341,10 @@ class MovimentacaoEquipamento extends React.Component {
                   />
                 </Col>
                 <Col>
-                  <Form.Label>Código do Colaborador</Form.Label>
+                  <Form.Label>Matricula do Colaborador</Form.Label>
                   <Form.Control
                     style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                    placeholder="Código do Colaborador"
+                    placeholder="Matricula do Colaborador"
                     type="text"
                     value={this.state.idColaborador}
                     onChange={this.atualizaridColaborador}

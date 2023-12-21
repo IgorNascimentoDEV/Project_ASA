@@ -24,7 +24,7 @@ import {
   CDBSidebarMenuItem,
 } from "cdbreact";
 
-import "../App.css";
+import "../index.css";
 
 function initialState() {
   return { user: "", password: "" };

@@ -87,22 +87,22 @@ class Colaborador extends React.Component {
           usuario: colaborador.usuario,
           senha: colaborador.senha,
         });
-        try{
+        try {
           fetch("http://localhost:5062/movimentacao/api/Movimentacao/colaborador/" + colaborador.matricula, { method: "GET" })
-        .then((res) => res.json())
-        .then((movimentacoes) => {
-          this.setState({
-            movimentacao: movimentacoes
-          }, () => {
-            console.log(this.state.movimentacao);
-          });
-        });
-        }catch{
+            .then((res) => res.json())
+            .then((movimentacoes) => {
+              this.setState({
+                movimentacao: movimentacoes
+              }, () => {
+                console.log(this.state.movimentacao);
+              });
+            });
+        } catch {
           this.setState({
             movimentacao: []
           })
         }
-        
+
         if (this.state.usuario === "") {
           this.state.tecnico = false
         }

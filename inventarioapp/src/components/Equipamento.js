@@ -551,10 +551,10 @@ class Equipamento extends React.Component {
                       />
                     </Col>
                     <Col>
-                      <Form.Label>Nome</Form.Label>
+                      <Form.Label>HostName</Form.Label>
                       <Form.Control
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Nome da máquina"
+                        placeholder="Host da máquina"
                         type="text"
                         value={this.state.nomeMaquina}
                         onChange={(e) =>
