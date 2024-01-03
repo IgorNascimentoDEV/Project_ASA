@@ -42,7 +42,7 @@ function Home() {
 
     const usuario = { user, password };
 
-    fetch(`http://localhost:5062/api/v1/auth?username=${user}&password=${password}`, {
+    fetch(`http://stockhub.asanet.com.br:5555/api/v1/auth?username=${user}&password=${password}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       //body: JSON.stringify(usuario),
@@ -152,7 +152,7 @@ function Home() {
                     <CDBSidebarMenu>
                       <CDBSidebarMenuItem>
                         <NavLink exact as={Link} to="/home">
-                          <CDBSidebarMenuItem className="menu-item">
+                          <CDBSidebarMenuItem className="menu-item ">
                             <BiSolidHome className="icon" />
                             Página Inicial
                           </CDBSidebarMenuItem>

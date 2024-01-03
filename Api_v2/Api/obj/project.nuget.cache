@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iKbBIob2AsjsFf+jPV8XIVB0qvk69xK1dt5BY/owZ035lVWatPNnAdnwYmb8MxJHLSWxwCsOxGRVCGsJaYAYlw==",
+  "dgSpecHash": "NrUPi8fQkhW+rQcrAClCBI8kKMNTJ6bvfcRZFQAmI0KPZKolf/8dS2qIFb+3HI9woVJbJ59Ay6drXcXhZ5bmdw==",
   "success": true,
-  "projectFilePath": "C:\\Api\\Api\\Api.csproj",
+  "projectFilePath": "C:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\igor.sn\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\igor.sn\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

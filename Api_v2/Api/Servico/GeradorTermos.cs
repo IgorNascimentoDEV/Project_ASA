@@ -16,6 +16,7 @@ namespace Api.Servico
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
+               
                 var valorAparelho = 1200.00;
                 var foneOuvido = "Não";
                 var carregador = "SIM";
@@ -150,6 +151,7 @@ namespace Api.Servico
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
                 Font fonteArial = FontFactory.GetFont("Arial", 16f);
 
+               
 
                 // Caminho da imagem da empresa
                 string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
@@ -267,6 +269,7 @@ namespace Api.Servico
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
                 Font fonteArial = FontFactory.GetFont("Arial", 16f);
 
+               
 
                 // Caminho da imagem da empresa
                 string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
@@ -371,6 +374,7 @@ namespace Api.Servico
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
                 Font fonteArial = FontFactory.GetFont("Arial", 16f);
 
+                
 
                 // Caminho da imagem da empresa
                 string imagePath = @"C:\Api\Api\Servico\Asa-1.png";

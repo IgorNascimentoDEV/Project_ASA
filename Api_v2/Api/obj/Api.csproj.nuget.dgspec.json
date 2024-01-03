@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Api\\Api\\Api.csproj": {}
+    "C:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Api\\Api\\Api.csproj": {
+    "C:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Api\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Api\\Api\\Api.csproj",
+        "projectPath": "C:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\igor.sn\\.nuget\\packages\\",
-        "outputPath": "C:\\Api\\Api\\obj\\",
+        "outputPath": "C:\\Users\\igor.sn\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\igor.sn\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -28,7 +28,7 @@ class MovimentacaoEquipamento extends React.Component {
       itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", // para edição
-      endpoint: "http://localhost:5062/movimentacao/api/Movimentacao"
+      endpoint:"http://stockhub.asanet.com.br:5555/movimentacao/api/Movimentacao"
     };
   }
 

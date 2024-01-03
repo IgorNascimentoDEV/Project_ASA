@@ -112,6 +112,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors(p => p.WithOrigins("http://stockhub.asanet.com.br:5551").AllowAnyMethod().AllowAnyMethod()) ;
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

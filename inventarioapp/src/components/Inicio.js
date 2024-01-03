@@ -3,6 +3,7 @@ import { Chart } from "chart.js";
 import "chart.js/auto";
 import { BiSolidDownload } from "react-icons/bi";
 import "../index.css";
+import Button from 'react-bootstrap/Button';
 
 class Inicio extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class Inicio extends Component {
 
   // Buscar máquinas do servidor
   buscarMaquinas = () => {
-    fetch("http://localhost:5062/equipamento/api/Equipamento")
+    fetch("http://stockhub.asanet.com.br:5555/equipamento/api/Equipamento")
       .then((response) => response.json())
       .then((dados) => {
         this.setState({ produtos: dados }, () => {
@@ -55,12 +56,57 @@ class Inicio extends Component {
     });
   }
 
-  // Função para exportar os dados em formato CSV
   exportarParaCSV = () => {
     const { produtos } = this.state;
-
-    // ... (código para exportar para CSV)
+  
+    // Criar um array de strings representando as linhas do CSV
+    const linhasCSV = [];
+  
+    // Adicionar cabeçalho
+    const cabecalho = ["Identificador", "Data", "Modelo", "Armazenamento", "Memoria RAM", "Processador", "Office", "Nome da Maquina", "Numero de Serie", "Linha", "Emprestimo", "Tipo", "Observacao"].join(";");
+    linhasCSV.push(cabecalho);
+  
+    // Adicionar dados
+    produtos.forEach((produto) => {
+      // Substituir quebras de linha nas observações por espaços
+      const observacaoLimpa = produto.observacao.replace(/[\r\n]+/g, ' ');
+  
+      const linha = [
+        produto.identificador,
+        produto.data,
+        produto.modelo,
+        produto.armazenamento,
+        produto.memoriaRam,
+        produto.processador,
+        produto.office,
+        produto.nomeMaquina,
+        produto.numeroDeSerie,
+        produto.linha,
+        produto.emprestimo,
+        produto.tipo,
+        observacaoLimpa
+      ].join(";");
+      linhasCSV.push(linha);
+    });
+  
+    // Converter o array de strings em uma única string, separando as linhas por quebras de linha
+    const conteudoCSV = linhasCSV.join("\n");
+  
+    // Criar um objeto Blob com o conteúdo CSV
+    const blob = new Blob([conteudoCSV], { type: "text/csv;charset=utf-8" });
+  
+    // Criar um link de download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "dados.csv";
+  
+    // Adicionar o link ao documento, clicá-lo e removê-lo
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+  
+  
 
   // Renderizar o gráfico
   renderChart() {
@@ -125,12 +171,13 @@ class Inicio extends Component {
           </div>
         </div>
 
-        <button
+        <Button
+          variant="info"
           className="butto-export-csv"
           onClick={this.exportarParaCSV}>
           <BiSolidDownload className="icon" />
           Baixar
-        </button>
+        </Button>
       </div>
     );
   }

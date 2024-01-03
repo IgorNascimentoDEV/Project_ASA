@@ -42,7 +42,7 @@ class Equipamento extends React.Component {
       termoBusca: "",
       emprestimo: false,
       requisicao: "",
-      endpoint: "http://localhost:5062/equipamento/api/Equipamento",
+      endpoint: "http://stockhub.asanet.com.br:5555/equipamento/api/Equipamento",
     };
   }
 
@@ -230,6 +230,7 @@ class Equipamento extends React.Component {
       tipo: "",
       observacao: "",
       requisicao: "",
+      movimentacao: []
     });
     this.abrirModal();
   };
@@ -622,9 +623,10 @@ class Equipamento extends React.Component {
                     <Form.Control
                       style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                       as="textarea"
+                      placeholder="Patrimônio:"
                       rows={3}
-                      value={this.state.obs}
-                      onChange={(e) => this.setState({ obs: e.target.value })}
+                      value={this.state.observacao}
+                      onChange={(e) => this.setState({ observacao: e.target.value })}
                     />
                   </Form.Group>
                 </>

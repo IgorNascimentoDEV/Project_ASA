@@ -32,7 +32,7 @@ class Colaborador extends React.Component {
       itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", //para edição
-      endoint: "http://localhost:5062/api/colaborador",
+      endoint: "http://stockhub.asanet.com.br:5555/api/colaborador",
       showPassword: false
     };
     this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this);
@@ -88,7 +88,7 @@ class Colaborador extends React.Component {
           senha: colaborador.senha,
         });
         try {
-          fetch("http://localhost:5062/movimentacao/api/Movimentacao/colaborador/" + colaborador.matricula, { method: "GET" })
+          fetch("http://stockhub.asanet.com.br:5555/movimentacao/api/Movimentacao/colaborador/" + colaborador.matricula, { method: "GET" })
             .then((res) => res.json())
             .then((movimentacoes) => {
               this.setState({
