@@ -2,7 +2,7 @@
 
 <h2>Visão Geral</h2>
 
-<p>O StockHub  é um sistema robusto de gerenciamento de inventário projetado para o rastreamento e controle eficientes de ativos tecnológicos. Criado como parte do projeto de desenvolvimento de estagiários da <a href="https://www.asanet.com.br/">Asanet</a>, este sistema fornece uma solução centralizada para substituir planilhas descentralizadas do Excel, oferecendo uma abordagem otimizada para o gerenciamento de seus equipamentos de TI.</p>
+<p>O StockHub  é um sistema robusto de gerenciamento de inventário projetado para o rastreamento e controle eficientes de ativos tecnológicos. Criado como parte do projeto de desenvolvimento de estagiários da <a href="https://www.asanet.com.br/">Asa Indústria</a>, este sistema fornece uma solução centralizada para substituir planilhas descentralizadas do Excel, oferecendo uma abordagem otimizada para o gerenciamento de seus equipamentos de TI.</p>
 
 <h2>Tecnologias</h2>
 
