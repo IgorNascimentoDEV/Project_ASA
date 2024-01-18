@@ -9,6 +9,8 @@ using iTextSharp.text.pdf;
 using System.Threading.Tasks;
 using Document = iTextSharp.text.Document;
 using Api.Servico;
+using Api.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {

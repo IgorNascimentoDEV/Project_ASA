@@ -166,12 +166,14 @@ namespace Api.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("data_movimentacao");
 
-                    b.Property<long>("IdColaborador")
-                        .HasColumnType("bigint")
+                    b.Property<string>("IdColaborador")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("id_colaborador");
 
-                    b.Property<long>("IdEquipamento")
-                        .HasColumnType("bigint")
+                    b.Property<string>("IdEquipamento")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("id_equipamento");
 
                     b.Property<string>("Tipo")

@@ -372,3 +372,13 @@ input[type="email"]:focus {
   border-radius: 4px;
 }
 
+/*CSS Equipamento*/
+.card-equipamento{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.card-form{
+  overflow-y: auto;
+  flex-grow: 1;
+}

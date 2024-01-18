@@ -1,0 +1,32 @@
+SELECT * FROM tb_equipamento;
+
+SELECT * FROM tb_movimentacao;
+
+SELECT * FROM tb_colaborador;
+
+
+SELECT identificador, modelo, linha 
+	FROM tb_equipamento 
+		WHERE emprestimo = true;
+		
+
+		
+SELECT e.identificador, e.modelo, e.linha, o.id_colaborador
+	FROM tb_equipamento e
+		INNER JOIN tb_movimentacao o ON o.id_equipamento = e.id
+		WHERE e.emprestimo = true;
+		
+
+
+
+SELECT e.modelo, e.identificador, e.linha, f.nome, f.funcao, o.tipo_movimentacao
+	FROM tb_equipamento e
+	INNER JOIN tb_movimentacao o ON e.id = o.id_equipamento
+	INNER JOIN tb_colaborador f ON o.id_colaborador = f.matricula
+	WHERE e.emprestimo = true;
+
+
+
+SELECT o.id_colaborador, f.nome
+	FROM tb_movimentacao o
+		INNER JOIN tb_colaborador f ON o.id_colaborador = f.matricula;

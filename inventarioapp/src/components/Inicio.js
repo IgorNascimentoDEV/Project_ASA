@@ -33,7 +33,7 @@ class Inicio extends Component {
 
   // Buscar máquinas do servidor
   buscarMaquinas = () => {
-    fetch("http://stockhub.asanet.com.br:5555/equipamento/api/Equipamento")
+    fetch("http://localhost:5062/equipamento/api/Equipamento")
       .then((response) => response.json())
       .then((dados) => {
         this.setState({ produtos: dados }, () => {

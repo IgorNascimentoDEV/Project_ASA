@@ -1,18 +1,19 @@
+import "../index.css";
+
 import React from "react";
 import {
-  Table,
   Button,
-  Form,
-  Col,
-  Row,
-  Modal,
   Card,
+  Col,
+  Form,
+  Modal,
   Pagination,
+  Row,
+  Table,
 } from "react-bootstrap";
-import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
-import MaskedInput from 'react-text-mask';
+import MaskedInput from "react-text-mask";
 
 class Equipamento extends React.Component {
   constructor(props) {
@@ -42,7 +43,8 @@ class Equipamento extends React.Component {
       termoBusca: "",
       emprestimo: false,
       requisicao: "",
-      endpoint: "http://stockhub.asanet.com.br:5555/equipamento/api/Equipamento",
+      validated: false,
+      endpoint: "http://localhost:5062/equipamento/api/Equipamento",
     };
   }
 
@@ -151,7 +153,17 @@ class Equipamento extends React.Component {
   };
 
   // Executar o cadastro ou a atualização do equipamento
-  submit = () => {
+  submit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.setState({
+      validated: true,
+    });
+
     const {
       identificador,
       data,
@@ -169,7 +181,7 @@ class Equipamento extends React.Component {
     } = this.state;
 
     if (tipo === "" || identificador === "" || data === "") {
-      alert("Os campos Tipo de Ativo, ID Equipamento e Data são obrigatórios");
+      //alert("Os campos Tipo de Ativo, ID Equipamento e Data são obrigatórios");
       return;
     }
 
@@ -230,7 +242,7 @@ class Equipamento extends React.Component {
       tipo: "",
       observacao: "",
       requisicao: "",
-      movimentacao: []
+      movimentacao: [],
     });
     this.abrirModal();
   };
@@ -464,7 +476,6 @@ class Equipamento extends React.Component {
     });
   };
 
-
   render() {
     const { termoBusca } = this.state;
 
@@ -475,234 +486,313 @@ class Equipamento extends React.Component {
             <Modal.Title>Cadastro de Ativos</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  placeholder="id"
-                  value={this.state.id}
-                  readOnly={true}
-                  style={{ display: "none" }}
-                />
-              </Form.Group>
-              <Row>
-                <Col>
-                  <Form.Label>Tipo de Ativo</Form.Label>
-                  <Form.Control
-                    as="select"
-                    value={this.state.tipo}
-                    onChange={(e) => this.setState({ tipo: e.target.value })}
-                  >
-                    <option value="">Selecione o tipo de ativo</option>
-                    <option value="Maquina">Computador</option>
-                    <option value="Telefone">Telefone</option>
-
-                  </Form.Control>
-                </Col>
-                <Col>
-                  <Form.Label>ID Equipamento</Form.Label>
-                  <Form.Control
-                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                    placeholder="ID do ativo"
-                    type="text"
-                    value={this.state.identificador}
-                    onChange={(e) =>
-                      this.setState({ identificador: e.target.value })
-                    }
-                  />
-                </Col>
-                <Col>
-                  <Form.Label>Data</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={this.state.data}
-                    onChange={(e) => this.setState({ data: e.target.value })}
-                  />
-                </Col>
-                <Col>
-                  <Form.Group
-                    controlId="formEmprestimo"
-                    style={{ marginTop: "2.3rem" }}
-                  >
-                    <Form.Check
-                      type="checkbox"
-                      label="Emprestimo"
-                      checked={this.state.emprestimo}
-                      onChange={(e) =>
-                        this.setState({ emprestimo: e.target.checked })
-                      }
-                      disabled
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              {this.state.tipo === "Maquina" && (
-                <>
-                  <Row>
-                    <Col>
-                      <Form.Label>Modelo</Form.Label>
-                      <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Modelo da máquina"
-                        type="text"
-                        value={this.state.modelo}
-                        onChange={(e) =>
-                          this.setState({ modelo: e.target.value })
-                        }
-                      />
-                    </Col>
-                    <Col>
-                      <Form.Label>HostName</Form.Label>
-                      <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Host da máquina"
-                        type="text"
-                        value={this.state.nomeMaquina}
-                        onChange={(e) =>
-                          this.setState({ nomeMaquina: e.target.value })
-                        }
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col>
-                      <Form.Label>Armazenamento</Form.Label>
-                      <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Capacidade de armazenamento"
-                        type="text"
-                        value={this.state.armazenamento}
-                        onChange={(e) =>
-                          this.setState({ armazenamento: e.target.value })
-                        }
-                      />
-                    </Col>
-                    <Col>
-                      <Form.Label>Memória RAM</Form.Label>
-                      <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Memória RAM"
-                        type="text"
-                        value={this.state.memoriaRam}
-                        onChange={(e) =>
-                          this.setState({ memoriaRam: e.target.value })
-                        }
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col>
-                      <Form.Label>Processador</Form.Label>
-                      <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Processador da máquina"
-                        type="text"
-                        value={this.state.processador}
-                        onChange={(e) =>
-                          this.setState({ processador: e.target.value })
-                        }
-                      />
-                    </Col>
-                    <Col>
-                      <Form.Label>Office</Form.Label>
-                      <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Ano - Chave do office"
-                        type="text"
-                        value={this.state.office}
-                        onChange={(e) =>
-                          this.setState({ office: e.target.value })
-                        }
-                      />
-                    </Col>
-                  </Row>
+            <Card className="card-equipamento">
+              <Card.Body className="card-form">
+                <Form noValidate validated={this.state.validated}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Observação</Form.Label>
                     <Form.Control
-                      style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                      as="textarea"
-                      placeholder="Patrimônio:"
-                      rows={3}
-                      value={this.state.observacao}
-                      onChange={(e) => this.setState({ observacao: e.target.value })}
+                      placeholder="id"
+                      value={this.state.id}
+                      readOnly={true}
+                      style={{ display: "none" }}
                     />
                   </Form.Group>
-                </>
-              )}
-
-              {this.state.tipo === "Telefone" && (
-                <>
                   <Row>
                     <Col>
-                      <Form.Label>Modelo</Form.Label>
+                      <Form.Label>Tipo de Ativo</Form.Label>
                       <Form.Control
-                        style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="Modelo da telefone"
-                        type="text"
-                        value={this.state.modelo}
+                        as="select"
+                        value={this.state.tipo}
                         onChange={(e) =>
-                          this.setState({ modelo: e.target.value })
+                          this.setState({ tipo: e.target.value })
                         }
-                      />
+                      >
+                        <option value="">Selecione o tipo de ativo</option>
+                        <option value="Maquina">Computador</option>
+                        <option value="Telefone">Telefone</option>
+                      </Form.Control>
                     </Col>
                     <Col>
-                      <Form.Label>Linha</Form.Label>
-                      <MaskedInput
-                        mask={["(", /\d/, /\d/, ")", ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                        guide={false}
+                      <Form.Label>ID Equipamento</Form.Label>
+                      <Form.Control
+                        required
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                        placeholder="(xx) xxxxx-xxxx"
+                        placeholder={
+                          this.state.tipo === "Maquina"
+                            ? "Número Serial"
+                            : this.state.tipo === "Telefone"
+                            ? "IMEI"
+                            : "ID do ativo"
+                        }
                         type="text"
-                        value={this.state.linha}
+                        value={this.state.identificador}
                         onChange={(e) =>
-                          this.setState({ linha: e.target.value })
+                          this.setState({ identificador: e.target.value })
                         }
                       />
+                      <Form.Control.Feedback type="invalid">
+                        Forneça um Identificador válido
+                      </Form.Control.Feedback>
+                    </Col>
+                    <Col>
+                      <Form.Label>Data</Form.Label>
+                      <Form.Control
+                        required
+                        type="date"
+                        value={this.state.data}
+                        onChange={(e) =>
+                          this.setState({ data: e.target.value })
+                        }
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Forneça uma Data válida
+                      </Form.Control.Feedback>
+                    </Col>
+                    <Col>
+                      <Form.Group
+                        controlId="formEmprestimo"
+                        style={{ marginTop: "2.3rem" }}
+                      >
+                        <Form.Check
+                          type="checkbox"
+                          label="Emprestimo"
+                          checked={this.state.emprestimo}
+                          onChange={(e) =>
+                            this.setState({ emprestimo: e.target.checked })
+                          }
+                          disabled
+                        />
+                      </Form.Group>
                     </Col>
                   </Row>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Observação</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      value={this.state.observacao}
-                      onChange={(e) =>
-                        this.setState({ observacao: e.target.value })
-                      }
-                    />
-                  </Form.Group>
-                </>
-              )}
 
-              {this.state.movimentacao.length > 0 && (
-                <div>
-                  <h4>Lista de Movimentações</h4>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Data Movimentação</th>
-                        <th>Colaborador</th>
-                        <th>Tipo</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.movimentacao.map((movimentacao) => (
-                        <tr key={movimentacao.codigoMovimentacao}>
-                          <td>{movimentacao.dataMovimentacao}</td>
-                          <td>
-                            {movimentacao.colaborador &&
-                              movimentacao.colaborador.nome}
-                          </td>
-                          <td>{movimentacao.tipo}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-              )}
-            </Form>
+                  {this.state.tipo === "Maquina" && (
+                    <>
+                      <Row>
+                        <Col>
+                          <Form.Label>Modelo</Form.Label>
+                          <Form.Control
+                            required
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Modelo da máquina"
+                            type="text"
+                            value={this.state.modelo}
+                            onChange={(e) =>
+                              this.setState({ modelo: e.target.value })
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            Forneça um Modelo válido
+                          </Form.Control.Feedback>
+                        </Col>
+                        <Col>
+                          <Form.Label>HostName</Form.Label>
+                          <Form.Control
+                            required
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Host da máquina"
+                            type="text"
+                            value={this.state.nomeMaquina}
+                            onChange={(e) =>
+                              this.setState({ nomeMaquina: e.target.value })
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            Forneça uma HostName válido
+                          </Form.Control.Feedback>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col>
+                          <Form.Label>Armazenamento</Form.Label>
+                          <Form.Control
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Capacidade de armazenamento"
+                            type="text"
+                            value={this.state.armazenamento}
+                            onChange={(e) =>
+                              this.setState({ armazenamento: e.target.value })
+                            }
+                          />
+                        </Col>
+                        <Col>
+                          <Form.Label>Memória RAM</Form.Label>
+                          <Form.Control
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Memória RAM"
+                            type="text"
+                            value={this.state.memoriaRam}
+                            onChange={(e) =>
+                              this.setState({ memoriaRam: e.target.value })
+                            }
+                          />
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col>
+                          <Form.Label>Processador</Form.Label>
+                          <Form.Control
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Processador da máquina"
+                            type="text"
+                            value={this.state.processador}
+                            onChange={(e) =>
+                              this.setState({ processador: e.target.value })
+                            }
+                          />
+                        </Col>
+                        <Col>
+                          <Form.Label>Office</Form.Label>
+                          <Form.Control
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Ano - Chave do office"
+                            type="text"
+                            value={this.state.office}
+                            onChange={(e) =>
+                              this.setState({ office: e.target.value })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Observação</Form.Label>
+                        <Form.Control
+                          style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
+                          as="textarea"
+                          placeholder="Patrimônio:"
+                          rows={3}
+                          value={this.state.observacao}
+                          onChange={(e) =>
+                            this.setState({ observacao: e.target.value })
+                          }
+                        />
+                      </Form.Group>
+                    </>
+                  )}
+
+                  {this.state.tipo === "Telefone" && (
+                    <>
+                      <Row>
+                        <Col>
+                          <Form.Label>Modelo</Form.Label>
+                          <Form.Control
+                            required
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Modelo da telefone"
+                            type="text"
+                            value={this.state.modelo}
+                            onChange={(e) =>
+                              this.setState({ modelo: e.target.value })
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            Forneça um Modelo válido
+                          </Form.Control.Feedback>
+                        </Col>
+                        <Col>
+                          <Form.Label>Linha</Form.Label>
+                          <MaskedInput className="form-control"
+                            mask={[
+                              "(",
+                              /\d/,
+                              /\d/,
+                              ")",
+                              " ",
+                              /\d/,
+                              /\d/,
+                              /\d/,
+                              /\d/,
+                              /\d/,
+                              "-",
+                              /\d/,
+                              /\d/,
+                              /\d/,
+                              /\d/,
+                            ]}
+                            guide={false}
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="(xx) xxxxx-xxxx"
+                            type="text"
+                            value={this.state.linha}
+                            onChange={(e) =>
+                              this.setState({ linha: e.target.value })
+                            }
+                            required
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            Forneça uma Linha válida
+                          </Form.Control.Feedback>
+                        </Col>
+                      </Row>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Observação</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          value={this.state.observacao}
+                          onChange={(e) =>
+                            this.setState({ observacao: e.target.value })
+                          }
+                        />
+                      </Form.Group>
+                    </>
+                  )}
+
+                  {this.state.movimentacao.length > 0 && (
+                    <div>
+                      <h4>Lista de Movimentações</h4>
+                      <Table striped bordered hover>
+                        <thead>
+                          <tr>
+                            <th>Data Movimentação</th>
+                            <th>Colaborador</th>
+                            <th>Tipo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {this.state.movimentacao.map((movimentacao) => (
+                            <tr key={movimentacao.codigoMovimentacao}>
+                              <td>{movimentacao.dataMovimentacao}</td>
+                              <td>
+                                {movimentacao.colaborador &&
+                                  movimentacao.colaborador.nome}
+                              </td>
+                              <td>{movimentacao.tipo}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </div>
+                  )}
+                </Form>
+              </Card.Body>
+            </Card>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.fecharModal}>
@@ -715,7 +805,7 @@ class Equipamento extends React.Component {
         </Modal>
 
         <div className="novo">
-          <p className="frasepage">CADASTRAMENTO DE ATIVOS</p>
+          <p className="frasepage">CADASTRO DE ATIVOS</p>
           <div className="pesquisa">
             <InputGroup>
               <Form.Control

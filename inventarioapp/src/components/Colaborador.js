@@ -9,6 +9,8 @@ import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
 import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+
+
 class Colaborador extends React.Component {
   constructor(props) {
     super(props);
@@ -32,8 +34,8 @@ class Colaborador extends React.Component {
       itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", //para edição
-      endoint: "http://stockhub.asanet.com.br:5555/api/colaborador",
-      showPassword: false
+      endoint: "http://localhost:5062/api/colaborador",
+      showPassword: false,
     };
     this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this);
   }
@@ -88,7 +90,7 @@ class Colaborador extends React.Component {
           senha: colaborador.senha,
         });
         try {
-          fetch("http://stockhub.asanet.com.br:5555/movimentacao/api/Movimentacao/colaborador/" + colaborador.matricula, { method: "GET" })
+          fetch("http://localhost:5062/movimentacao/api/Movimentacao/colaborador/" + colaborador.matricula, { method: "GET" })
             .then((res) => res.json())
             .then((movimentacoes) => {
               this.setState({
@@ -125,6 +127,7 @@ class Colaborador extends React.Component {
     }).then((response) => {
       if (response.ok) {
         this.buscarColaboradores();
+        alert("Colaborador Cadastrado com sucesso!");
       } else {
         alert("Matricula ou Usuario já existente");
       }
@@ -300,6 +303,19 @@ class Colaborador extends React.Component {
     })
   }
 
+  abrirSuccessModal = () => {
+    this.setState({ showSuccessModal: true });
+  
+    // Configurar um timeout para fechar o modal após 2 segundos
+    setTimeout(() => {
+      this.fecharSuccessModal();
+    }, 5000);
+  };
+  
+  fecharSuccessModal = () => {
+    this.setState({ showSuccessModal: false });
+  };
+
   // Executa o cadastro ou atualização do colaborador
   submit = () => {
     const { matricula, nome, empresa, funcao, setor, licenca, usuario, senha } = this.state;
@@ -416,11 +432,13 @@ class Colaborador extends React.Component {
     });
   };
 
+
   render() {
     const { termoBusca } = this.state;
 
     return (
       <div>
+
         <Modal
           show={this.state.modalAberto}
           onHide={this.fecharModal}
@@ -552,6 +570,7 @@ class Colaborador extends React.Component {
                       <tr>
                         <th>Data Movimentação</th>
                         <th>Equipamento</th>
+                        <th>Modelo</th>
                         <th>Tipo</th>
                       </tr>
                     </thead>
@@ -565,6 +584,7 @@ class Colaborador extends React.Component {
                               : "N/A"
                             }
                           </td>
+                          <td>{movimentacao.equipamento.modelo}</td>
                           <td>{movimentacao.tipo}</td>
                         </tr>
                       ))}
@@ -643,5 +663,7 @@ class Colaborador extends React.Component {
     );
   }
 }
+
+
 
 export default Colaborador;
