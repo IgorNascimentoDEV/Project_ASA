@@ -14,6 +14,8 @@
         public string Linha { get; set; }
         public bool Emprestimo { get; set; }
         public string Tipo { get; set; }
+
+        public int Patrimonio { get; set; }
         public string Observacao { get; set; }
 
         public List<MovimentacaoModel> Movimentacao { get; set; }

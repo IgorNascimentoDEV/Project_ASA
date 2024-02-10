@@ -382,3 +382,9 @@ input[type="email"]:focus {
   overflow-y: auto;
   flex-grow: 1;
 }
+
+
+.linha{
+  display: flex;
+  width: 50%;
+}

@@ -18,6 +18,7 @@ class MovimentacaoEquipamento extends React.Component {
       idColaborador: 0,
       identificador: "",
       tipo: "",
+      termo:"",
       colaborador: {},
       equipamento: {},
       movimentacoes: [],
@@ -109,6 +110,23 @@ class MovimentacaoEquipamento extends React.Component {
         console.error("Erro ao cadastrar a movimentação:", error);
       });
   };
+    // Função para buscar equipamento pelo ID
+    buscarEquipamentoPorId = async (id) => {
+      try {
+        const response = await fetch(`http://localhost:5062/equipamento/api/Equipamento/termo/${id}`);
+  
+        if (!response.ok) {
+          throw new Error("Erro ao buscar equipamento.");
+        }
+  
+        const equipamento = await response.json();
+        this.setState({ equipamento: equipamento });
+      } catch (error) {
+        console.error("Erro na busca do equipamento:", error.message);
+        // Aqui você pode adotar alguma estratégia para lidar com o erro,
+        // como mostrar uma mensagem de erro na interface do usuário.
+      }
+    };
 
   // Renderiza a tabela de movimentações
   renderTabela() {
@@ -211,6 +229,12 @@ class MovimentacaoEquipamento extends React.Component {
     });
   };
 
+  atualizarTermo = (e) => {
+    this.setState({
+      termo: e.target.value,
+    });
+  };
+
   // Atualiza o estado "tipo" com o valor do input correspondente
   atualizarTipo = (e) => {
     this.setState({
@@ -258,7 +282,8 @@ class MovimentacaoEquipamento extends React.Component {
       tipo: "",
       colaborador: null,
       equipamento: null,
-      requisicao: ""
+      requisicao: "",
+      termo:""
     });
     this.abrirModal();
   };
@@ -360,6 +385,7 @@ class MovimentacaoEquipamento extends React.Component {
                     type="text"
                     value={this.state.identificador}
                     onChange={this.atualizarIdentificador}
+                    onBlur={() => this.buscarEquipamentoPorId(this.state.identificador)}
                   />
                 </Col>
                 <Col>
@@ -375,7 +401,59 @@ class MovimentacaoEquipamento extends React.Component {
                     <option value="ENTRADA">ENTRADA</option>
                   </Form.Control>
                 </Col>
+                <Col>
+                      <Form.Label>TERMO</Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={this.state.termo}
+                        onChange={(e) =>
+                          this.setState({ termo: e.target.value })
+                        }
+                      >
+                        <option value="">Deseja criar um termo?</option>
+                        <option value="SIM">SIM</option>
+                        <option value="NÃO">NAO</option>
+                      </Form.Control>
+                    </Col>
               </Row>
+              {this.state.termo === "SIM" && (
+                    <>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Observação</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          value={this.state.observacao}
+                          onChange={(e) =>
+                            this.setState({ observacao: e.target.value })
+                          }
+                        />
+                      </Form.Group>
+                      {this.state.equipamento.tipo === "Telefone" && (
+                       <Row>
+                       <Col>
+                         <Form.Label>Modelo</Form.Label>
+                         <Form.Control
+                           required
+                           style={{
+                             padding: "0.375rem 0.75rem",
+                             margin: "0px",
+                           }}
+                           placeholder="Modelo da telefone"
+                           type="text"
+                           value={this.state.modelo}
+                           onChange={(e) =>
+                             this.setState({ modelo: e.target.value })
+                           }
+                         />
+                         <Form.Control.Feedback type="invalid">
+                           Forneça um Modelo válido
+                         </Form.Control.Feedback>
+                       </Col>
+                     </Row>                         
+                      )}
+                    </>
+                  )}
             </Form>
           </Modal.Body>
           <Modal.Footer>

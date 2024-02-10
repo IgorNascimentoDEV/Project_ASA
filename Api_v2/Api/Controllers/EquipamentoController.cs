@@ -33,6 +33,13 @@ namespace Api.Controllers
             return equipamento == null ? NotFound() : Ok(equipamento);
         }
 
+        [HttpGet("termo/{identificador}")]
+        public async Task<IActionResult> GetEquipamentoByIdentificador(string identificador)
+        {
+            var equipamento = await _repository.GetEquipamentoByIdentificadorAsync(identificador);
+            return equipamento == null ? NotFound() : Ok(equipamento);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostEquipamento(EquipamentoDto equipamento)
             {

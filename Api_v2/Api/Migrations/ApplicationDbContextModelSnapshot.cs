@@ -137,6 +137,10 @@ namespace Api.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("office");
 
+                    b.Property<int>("Patrimonio")
+                        .HasColumnType("integer")
+                        .HasColumnName("patrimonio");
+
                     b.Property<string>("Processador")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
@@ -166,14 +170,12 @@ namespace Api.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("data_movimentacao");
 
-                    b.Property<string>("IdColaborador")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
+                    b.Property<long>("IdColaborador")
+                        .HasColumnType("bigint")
                         .HasColumnName("id_colaborador");
 
-                    b.Property<string>("IdEquipamento")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
+                    b.Property<long>("IdEquipamento")
+                        .HasColumnType("bigint")
                         .HasColumnName("id_equipamento");
 
                     b.Property<string>("Tipo")

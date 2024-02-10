@@ -27,7 +27,8 @@ namespace Api.Servico
 
 
                 // Caminho da imagem da empresa
-                string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                // Img Produção  = string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                string imagePath = @"C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\Servico\Asa-1.png";
 
                 Document document = new Document(PageSize.A4);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
@@ -151,10 +152,11 @@ namespace Api.Servico
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
                 Font fonteArial = FontFactory.GetFont("Arial", 16f);
 
-               
+
 
                 // Caminho da imagem da empresa
-                string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                // Img Produção  = string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                string imagePath = @"C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\Servico\Asa-1.png";
 
                 Document document = new Document(PageSize.A4);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
@@ -269,10 +271,11 @@ namespace Api.Servico
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
                 Font fonteArial = FontFactory.GetFont("Arial", 16f);
 
-               
+
 
                 // Caminho da imagem da empresa
-                string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                // Img Produção  = string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                string imagePath = @"C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\Servico\Asa-1.png";
 
                 Document document = new Document(PageSize.A4);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
@@ -374,10 +377,11 @@ namespace Api.Servico
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
                 Font fonteArial = FontFactory.GetFont("Arial", 16f);
 
-                
+
 
                 // Caminho da imagem da empresa
-                string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                // Img Produção  = string imagePath = @"C:\Api\Api\Servico\Asa-1.png";
+                string imagePath = @"C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\Servico\Asa-1.png";
 
                 Document document = new Document(PageSize.A4);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);

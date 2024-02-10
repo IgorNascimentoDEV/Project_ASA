@@ -25,6 +25,7 @@ namespace Api.Map
             builder.Property(x => x.Linha).HasColumnName("linha").HasColumnType("varchar(50)");
             builder.Property(x => x.Emprestimo).HasColumnName("emprestimo").HasColumnType("boolean");
             builder.Property(x => x.Tipo).HasColumnName("tipo").HasColumnType("varchar(50)");
+            builder.Property(x => x.Patrimonio).HasColumnName("patrimonio");
             builder.Property(x => x.Observacao).HasColumnName("observação").HasColumnType("varchar(250)");
 
         }

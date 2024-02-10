@@ -1,0 +1,9 @@
+Realiza a atualização na tabela de equipamentos via SQL
+
+1- Rode o seguinte ALTER TAABLE no banco em produção
+	ALTER TABLE tb_equipamento
+	ADD COLUMN patrimonio INT;
+2- Rode um UPDATE para setar todos os valores para 1 para que não der error na API.
+	UPDATE tb_equipamento
+	SET patrimonio =1;
+

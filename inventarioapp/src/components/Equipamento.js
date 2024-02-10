@@ -32,6 +32,7 @@ class Equipamento extends React.Component {
       memoriaRam: "",
       processador: "",
       office: "",
+      patrimonio: 0,
       observacao: "",
       movimentacao: [],
       equipamentos: [],
@@ -140,6 +141,7 @@ class Equipamento extends React.Component {
           linha: equipamento.linha,
           emprestimo: equipamento.emprestimo,
           tipo: equipamento.tipo,
+          patrimonio: equipamento.patrimonio,
           observacao: equipamento.observacao,
         });
 
@@ -177,6 +179,7 @@ class Equipamento extends React.Component {
       linha,
       emprestimo,
       tipo,
+      patrimonio,
       observacao,
     } = this.state;
 
@@ -199,6 +202,7 @@ class Equipamento extends React.Component {
         linha,
         emprestimo,
         tipo,
+        patrimonio,
         observacao,
       };
 
@@ -218,6 +222,7 @@ class Equipamento extends React.Component {
         linha,
         emprestimo,
         tipo,
+        patrimonio,
         observacao,
       };
 
@@ -240,6 +245,7 @@ class Equipamento extends React.Component {
       linha: "",
       emprestimo: "",
       tipo: "",
+      patrimonio: 0,
       observacao: "",
       requisicao: "",
       movimentacao: [],
@@ -389,6 +395,12 @@ class Equipamento extends React.Component {
       office: e.target.value,
     });
   };
+
+  atualizarPatrimonio = (e) =>{
+    this.setState({
+      patrimonio: e.target.value,
+    })
+  }
 
   atualizarObs = (e) => {
     this.setState({
@@ -674,7 +686,29 @@ class Equipamento extends React.Component {
                           />
                         </Col>
                       </Row>
-                      <Form.Group className="mb-3">
+                      <Row>
+                      <Col>
+                          <Form.Label>Patrimônio</Form.Label>
+                          <Form.Control
+                            required
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="Patrimônio da máquina"
+                            type="text"
+                            value={this.state.patrimonio}
+                            onChange={(e) =>
+                              this.setState({ patrimonio: e.target.value })
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            Forneça um Patrimônio válido
+                          </Form.Control.Feedback>
+                        </Col>
+
+                        <Col>
+                        <Form.Group className="mb-3">
                         <Form.Label>Observação</Form.Label>
                         <Form.Control
                           style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
@@ -687,6 +721,9 @@ class Equipamento extends React.Component {
                           }
                         />
                       </Form.Group>
+                        </Col>
+                      </Row>
+                      
                     </>
                   )}
 
