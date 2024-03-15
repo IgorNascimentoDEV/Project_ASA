@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Pagination } from "react-bootstrap";
+import { Table, Button, Pagination, Alert } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -18,7 +18,7 @@ class MovimentacaoEquipamento extends React.Component {
       idColaborador: 0,
       identificador: "",
       tipo: "",
-      termo:"",
+      termo: "",
       colaborador: {},
       equipamento: {},
       movimentacoes: [],
@@ -29,7 +29,8 @@ class MovimentacaoEquipamento extends React.Component {
       itensPorPagina: 5,
       termoBusca: "", // Termo de busca
       requisicao: "", // para edição
-      endpoint:"http://localhost:5062/movimentacao/api/Movimentacao"
+      endpoint: "http://localhost:5062/movimentacao/api/Movimentacao",
+      endpointEquipamento: "http://localhost:5062/equipamento/api/Equipamento"
     };
   }
 
@@ -107,26 +108,24 @@ class MovimentacaoEquipamento extends React.Component {
         }
       })
       .catch((error) => {
-        console.error("Erro ao cadastrar a movimentação:", error);
+        alert("Erro ao cadastrar a movimentação:", error);
       });
   };
-    // Função para buscar equipamento pelo ID
-    buscarEquipamentoPorId = async (id) => {
-      try {
-        const response = await fetch(`http://localhost:5062/equipamento/api/Equipamento/termo/${id}`);
-  
-        if (!response.ok) {
-          throw new Error("Erro ao buscar equipamento.");
-        }
-  
-        const equipamento = await response.json();
-        this.setState({ equipamento: equipamento });
-      } catch (error) {
-        console.error("Erro na busca do equipamento:", error.message);
-        // Aqui você pode adotar alguma estratégia para lidar com o erro,
-        // como mostrar uma mensagem de erro na interface do usuário.
+  // Função para buscar equipamento pelo ID
+  buscarEquipamentoPorId = async (id) => {
+    try {
+      const response = await fetch(`${this.state.endpointEquipamento}/termo/${id}`);
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar equipamento.");
       }
-    };
+
+      const equipamento = await response.json();
+      this.setState({ equipamento: equipamento });
+    } catch (error) {
+      alert("Erro na busca do equipamento:", error.message);
+    }
+  };
 
   // Renderiza a tabela de movimentações
   renderTabela() {
@@ -283,7 +282,7 @@ class MovimentacaoEquipamento extends React.Component {
       colaborador: null,
       equipamento: null,
       requisicao: "",
-      termo:""
+      termo: ""
     });
     this.abrirModal();
   };
@@ -401,59 +400,95 @@ class MovimentacaoEquipamento extends React.Component {
                     <option value="ENTRADA">ENTRADA</option>
                   </Form.Control>
                 </Col>
-                <Col>
-                      <Form.Label>TERMO</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={this.state.termo}
-                        onChange={(e) =>
-                          this.setState({ termo: e.target.value })
-                        }
-                      >
-                        <option value="">Deseja criar um termo?</option>
-                        <option value="SIM">SIM</option>
-                        <option value="NÃO">NAO</option>
-                      </Form.Control>
-                    </Col>
               </Row>
-              {this.state.termo === "SIM" && (
-                    <>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Observação</Form.Label>
+              <Row>
+                <Col>
+                  <Form.Label>TERMO</Form.Label>
+                  <Form.Control
+                    as="select"
+                    placeholder="Deseja criar um termo?"
+                    value={this.state.termo}
+                    onChange={(e) =>
+                      this.setState({ termo: e.target.value })
+                    }
+                  >
+                    <option value=""></option>
+                    <option value="SIM">SIM</option>
+                    <option value="NÃO">NAO</option>
+                  </Form.Control>
+                </Col>
+                {this.state.termo === "SIM" && this.state.equipamento !== null && (
+                  <>
+                      <Col>
+                        <Form.Label>Carregador</Form.Label>
                         <Form.Control
-                          as="textarea"
-                          rows={3}
-                          value={this.state.observacao}
-                          onChange={(e) =>
-                            this.setState({ observacao: e.target.value })
-                          }
+                          as="select"
+                          //value={this.state.termo}
+                          //</Col>onChange={(e) =>
+                            //this.setState({ termo: e.target.value })
+                          //}
+                        >
+                          <option value=""></option>
+                          <option value="SIM">SIM</option>
+                          <option value="NÃO">NAO</option>
+                        </Form.Control>
+                      </Col>
+                  </>
+                )}
+              </Row>
+              {this.state.termo === "SIM" && this.state.equipamento !== null && (
+                <>
+                  {this.state.equipamento.tipo === "Telefone" && (
+                    <Row>
+                      <Col>
+                        <Form.Label>Valor do aparelho</Form.Label>
+                        <Form.Control
+                          required
+                          style={{
+                            padding: "0.375rem 0.75rem",
+                            margin: "0px",
+                          }}
+                          placeholder="Valor do aparelho"
+                          type="text"
+                          //value={this.state.modelo}
+                          //onChange={(e) =>
+                            //this.setState({ modelo: e.target.value })
+                          //}
                         />
-                      </Form.Group>
-                      {this.state.equipamento.tipo === "Telefone" && (
-                       <Row>
-                       <Col>
-                         <Form.Label>Modelo</Form.Label>
-                         <Form.Control
-                           required
-                           style={{
-                             padding: "0.375rem 0.75rem",
-                             margin: "0px",
-                           }}
-                           placeholder="Modelo da telefone"
-                           type="text"
-                           value={this.state.modelo}
-                           onChange={(e) =>
-                             this.setState({ modelo: e.target.value })
-                           }
-                         />
-                         <Form.Control.Feedback type="invalid">
-                           Forneça um Modelo válido
-                         </Form.Control.Feedback>
-                       </Col>
-                     </Row>                         
-                      )}
-                    </>
+                        <Form.Control.Feedback type="invalid">
+                          Forneça um valor válido
+                        </Form.Control.Feedback>
+                      </Col>
+                      <Col>
+                        <Form.Label>Fone</Form.Label>
+                        <Form.Control
+                        placeholder="fone"
+                          as="select"
+                          //value={this.state.termo}
+                          //</Col>onChange={(e) =>
+                            //this.setState({ termo: e.target.value })
+                          //}
+                        >
+                          <option value=""></option>
+                          <option value="SIM">SIM</option>
+                          <option value="NÃO">NAO</option>
+                        </Form.Control>
+                      </Col>
+                    </Row>
                   )}
+                  <Form.Group className="mb-3">
+                    <Form.Label>Observação</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={this.state.observacao}
+                      onChange={(e) =>
+                        this.setState({ observacao: e.target.value })
+                      }
+                    />
+                  </Form.Group>
+                </>
+              )}
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -505,7 +540,7 @@ class MovimentacaoEquipamento extends React.Component {
                 <Col>
                   <Form.Label>Código do Equipamento</Form.Label>
                   <Form.Control
-                  style={{padding: "0.375rem 0.75rem", margin: "0px"}}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Código do Equipamento"
                     type="text"
                     value={this.state.equipamento ? this.state.equipamento.identificador : ""}
@@ -515,7 +550,7 @@ class MovimentacaoEquipamento extends React.Component {
                 <Col>
                   <Form.Label>Código do Colaborador</Form.Label>
                   <Form.Control
-                    style={{padding: "0.375rem 0.75rem", margin: "0px"}}
+                    style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                     placeholder="Código do Colaborador"
                     type="text"
                     value={this.state.colaborador ? this.state.colaborador.matricula : ""}
@@ -590,6 +625,14 @@ class MovimentacaoEquipamento extends React.Component {
               </Button>
             </InputGroup>
           </div>
+          <Button
+            variant="warning"
+            type="submit"
+            onClick={this.reset}
+            style={{ width: "8rem", marginRight: "1rem" }}
+          >
+            Termo
+          </Button>
 
           <Button
             variant="primary"
@@ -599,6 +642,7 @@ class MovimentacaoEquipamento extends React.Component {
           >
             Novo
           </Button>
+
         </div>
         {this.renderTabela()}
       </div>

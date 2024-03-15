@@ -4,9 +4,31 @@ SELECT * FROM tb_movimentacao;
 
 SELECT * FROM tb_colaborador;
 
-
-SELECT e.modelo, e.identificador, e.linha, f.nome AS nome_colaborador, f.funcao, o.tipo_movimentacao
-FROM tb_equipamento e
-INNER JOIN tb_movimentacao o ON e.id = o.id_equipamento
-INNER JOIN tb_colaborador f ON o.id_colaborador = f.id
-WHERE e.tipo = 'Telefone' AND o.tipo_movimentacao = 'SAIDA' AND e.emprestimo = true;
+/*relatorio de telefones e usuarios*/
+SELECT 
+    e.modelo, 
+    e.identificador, 
+    e.linha, 
+    f.nome AS nome_colaborador, 
+    f.setor, 
+    o.tipo_movimentacao, 
+    o.data_movimentacao
+FROM 
+    tb_equipamento e
+LEFT JOIN 
+    tb_movimentacao o ON e.id = o.id_equipamento
+LEFT JOIN 
+    tb_colaborador f ON o.id_colaborador = f.id
+WHERE 
+    e.tipo = 'Telefone'
+    AND (o.tipo_movimentacao = 'SAIDA' OR o.tipo_movimentacao IS NULL)
+    AND (o.data_movimentacao = (
+            SELECT MAX(data_movimentacao)
+            FROM tb_movimentacao
+            WHERE id_equipamento = e.id
+            AND tipo_movimentacao = 'SAIDA'
+        )
+        OR o.tipo_movimentacao IS NULL
+    )
+ORDER BY 
+    e.identificador;

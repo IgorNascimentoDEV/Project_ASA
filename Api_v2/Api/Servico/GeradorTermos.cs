@@ -298,7 +298,7 @@ namespace Api.Servico
                 tabelaCabecalho.AddCell(imgCell);
 
                 // Adicionar o título na segunda célula
-                PdfPCell tituloCell = new PdfPCell(new Phrase("TERMO DE CONCESSÃO DE LINHA E APARELHO CELULAR CORPORATIVO\n\n", fonteArial));
+                PdfPCell tituloCell = new PdfPCell(new Phrase("TERMO DE DEVOLUÇÃO DE LINHA E APARELHO CELULAR CORPORATIVO\n\n", fonteArial));
                 tituloCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 tituloCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 tituloCell.Border = PdfPCell.NO_BORDER;
@@ -404,7 +404,7 @@ namespace Api.Servico
                 tabelaCabecalho.AddCell(imgCell);
 
                 // Adicionar o título na segunda célula
-                PdfPCell tituloCell = new PdfPCell(new Phrase("TERMO DE DEVOLUÇÃO DE LINHA E APARELHO CELULAR CORPORATIVO\n\n", fonteArial));
+                PdfPCell tituloCell = new PdfPCell(new Phrase("TERMO DE DEVOLUÇÃO DE EQUIPAMENTO CORPORATIVO\n\n", fonteArial));
                 tituloCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 tituloCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 tituloCell.Border = PdfPCell.NO_BORDER;

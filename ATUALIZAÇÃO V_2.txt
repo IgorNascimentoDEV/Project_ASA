@@ -7,3 +7,7 @@ Realiza a atualização na tabela de equipamentos via SQL
 	UPDATE tb_equipamento
 	SET patrimonio =1;
 
+
+
+
+
