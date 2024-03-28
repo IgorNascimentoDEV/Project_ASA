@@ -287,9 +287,10 @@ C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\static
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\staticwebassets.development.json
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\scopedcss\bundle\Api.styles.css
-C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\Api.csproj.CopyComplete
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\Api.dll
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\refint\Api.dll
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\Api.pdb
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\Api.genruntimeconfig.cache
 C:\Users\igor.sn\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\ref\Api.dll
+C:\Users\IGOR.SN\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\Api.sourcelink.json
+C:\Users\IGOR.SN\Documents\GitHub\Project_ASA\Api_v2\Api\obj\Debug\net7.0\Api.csproj.Up2Date

@@ -10,7 +10,7 @@
         public string Processador { get; set; }
         public string Office { get; set; }
         public string NomeMaquina { get; set; }
-        public string NumeroDeSerie { get; set; }
+        //public string NumeroDeSerie { get; set; }
         public string Linha { get; set; }
         public bool Emprestimo { get; set; }
         public string Tipo { get; set; }

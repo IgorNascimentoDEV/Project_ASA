@@ -93,33 +93,40 @@ namespace Api.Controllers
             await _colaboradorRepository.SaveChangesAsync();
             await _equipamentoRepository.SaveChangesAsync();
 
-            // Gerar o PDF
-            if (equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "ENTRADA")
+           if(movimentacaoDto.termo == "SIM")
             {
-                byte[] pdfBytes = _termo.GenerateTermoDevolucaoAtivo(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
-                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
-                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
-            }
+                // Gerar o PDF
+                if (equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "ENTRADA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoDevolucaoAtivo(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, movimentacaoDto.Observacao, movimentacaoModel.Tipo);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
 
-            if(equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "SAIDA")
-            {
-                byte[] pdfBytes = _termo.GenerateTermoResponsabilidade(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, equipamento.Observacao, movimentacaoModel.Tipo);
-                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
-                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
-            }
-            
-            if(equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "ENTRADA")
-            {
-             byte[] pdfBytes = _termo.GenerateTermoDevolucaoMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
-                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
-                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
-            }
+                if (equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "SAIDA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeTelefone(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, movimentacaoDto.Observacao, movimentacaoModel.Tipo, (float)movimentacaoDto.ValorEquipamento, movimentacaoDto.Carregador);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
 
-            if (equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "SAIDA")
+                if (equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "ENTRADA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoDevolucaoMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
+
+                if (equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "SAIDA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, movimentacaoDto.Carregador, movimentacaoDto.Observacao, movimentacaoModel.Tipo);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
+            }
+            if (movimentacaoDto.termo == "NÃO")
             {
-                byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
-                // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
-                return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                return NoContent();
             }
             return BadRequest();
         }

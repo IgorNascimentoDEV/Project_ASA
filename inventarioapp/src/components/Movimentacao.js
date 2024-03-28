@@ -30,7 +30,11 @@ class MovimentacaoEquipamento extends React.Component {
       termoBusca: "", // Termo de busca
       requisicao: "", // para edição
       endpoint: "http://localhost:5062/movimentacao/api/Movimentacao",
-      endpointEquipamento: "http://localhost:5062/equipamento/api/Equipamento"
+      endpointEquipamento: "http://localhost:5062/equipamento/api/Equipamento",
+      carregador: "",
+      chamado: "",
+      observacao: "",
+      valorEquipamento: 0
     };
   }
 
@@ -84,7 +88,7 @@ class MovimentacaoEquipamento extends React.Component {
       body: JSON.stringify(movimentacao),
     })
       .then(async (response) => {
-        if (response.ok) {
+        if (response.ok && this.state.termo == "SIM") {
           // Se a movimentação foi adicionada com sucesso, solicite o download do termo gerado
           const pdfBlob = await response.blob();
           const url = window.URL.createObjectURL(pdfBlob);
@@ -104,10 +108,16 @@ class MovimentacaoEquipamento extends React.Component {
           // Em seguida, atualize a lista de movimentações
           this.buscarMovimentacoes();
         } else {
-          alert("Não foi possível adicionar a movimentação.");
+          if (this.state.termo == "NÃO") {
+            alert("Movimentação realizada")
+          } else {
+
+            alert("Não foi possível adicionar a movimentação.");
+          }
         }
       })
       .catch((error) => {
+
         alert("Erro ao cadastrar a movimentação:", error);
       });
   };
@@ -227,6 +237,30 @@ class MovimentacaoEquipamento extends React.Component {
       identificador: e.target.value,
     });
   };
+  // Atualiza o estado "carregador" com o valor do input correspondente
+  atualizarCarregador = (e) => {
+    this.setState({
+      carregador: e.target.value,
+    });
+  };
+  // Atualiza o estado "chamado" com o valor do input correspondente
+  atualizarChamado = (e) => {
+    this.setState({
+      chamado: e.target.value,
+    });
+  };
+  // Atualiza o estado "observacao" com o valor do input correspondente
+  atualizarObservacao = (e) => {
+    this.setState({
+      observacao: e.target.value,
+    });
+  };
+  // Atualiza o estado "valorEquipamento" com o valor do input correspondente
+  atualizarValorEquipamento = (e) => {
+    this.setState({
+      valorEquipamento: e.target.value,
+    });
+  };
 
   atualizarTermo = (e) => {
     this.setState({
@@ -243,7 +277,7 @@ class MovimentacaoEquipamento extends React.Component {
 
   // Executa o cadastro ou atualização da movimentação
   submit = () => {
-    const { dataMovimentacao, idColaborador, identificador, tipo } =
+    const { dataMovimentacao, idColaborador, identificador, tipo, termo, chamado, observacao, valorEquipamento, carregador } =
       this.state;
 
     if (
@@ -261,6 +295,11 @@ class MovimentacaoEquipamento extends React.Component {
       idColaborador,
       identificador,
       tipo,
+      carregador,
+      chamado,
+      observacao,
+      valorEquipamento,
+      termo
     };
 
     if (this.state.requisicao === "editar") {
@@ -282,7 +321,11 @@ class MovimentacaoEquipamento extends React.Component {
       colaborador: null,
       equipamento: null,
       requisicao: "",
-      termo: ""
+      termo: "",
+      carregador: "",
+      chamado: "",
+      observacao: "",
+      valorEquipamento: 0
     });
     this.abrirModal();
   };
@@ -419,20 +462,19 @@ class MovimentacaoEquipamento extends React.Component {
                 </Col>
                 {this.state.termo === "SIM" && this.state.equipamento !== null && (
                   <>
-                      <Col>
-                        <Form.Label>Carregador</Form.Label>
-                        <Form.Control
-                          as="select"
-                          //value={this.state.termo}
-                          //</Col>onChange={(e) =>
-                            //this.setState({ termo: e.target.value })
-                          //}
-                        >
-                          <option value=""></option>
-                          <option value="SIM">SIM</option>
-                          <option value="NÃO">NAO</option>
-                        </Form.Control>
-                      </Col>
+                    <Col>
+                      <Form.Label>Carregador</Form.Label>
+                      <Form.Control
+                        as="select"
+                        placeholder="Carregador?"
+                        value={this.state.carregador}
+                        onChange={this.atualizarCarregador}
+                      >
+                        <option value="">Carregador?</option>
+                        <option value="SIM">SIM</option>
+                        <option value="NÃO">NÃO</option>
+                      </Form.Control>
+                    </Col>
                   </>
                 )}
               </Row>
@@ -444,35 +486,29 @@ class MovimentacaoEquipamento extends React.Component {
                         <Form.Label>Valor do aparelho</Form.Label>
                         <Form.Control
                           required
-                          style={{
-                            padding: "0.375rem 0.75rem",
-                            margin: "0px",
-                          }}
-                          placeholder="Valor do aparelho"
+                          style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
+                          placeholder="Valor do equipamento"
                           type="text"
-                          //value={this.state.modelo}
-                          //onChange={(e) =>
-                            //this.setState({ modelo: e.target.value })
-                          //}
+                          value={this.state.valorEquipamento}
+                          onChange={this.atualizarValorEquipamento}
                         />
                         <Form.Control.Feedback type="invalid">
                           Forneça um valor válido
                         </Form.Control.Feedback>
                       </Col>
                       <Col>
-                        <Form.Label>Fone</Form.Label>
+                        <Form.Label>Chamado</Form.Label>
                         <Form.Control
-                        placeholder="fone"
-                          as="select"
-                          //value={this.state.termo}
-                          //</Col>onChange={(e) =>
-                            //this.setState({ termo: e.target.value })
-                          //}
-                        >
-                          <option value=""></option>
-                          <option value="SIM">SIM</option>
-                          <option value="NÃO">NAO</option>
-                        </Form.Control>
+                          required
+                          style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
+                          placeholder="Numero do chamado"
+                          type="text"
+                          value={this.state.chamado}
+                          onChange={this.atualizarChamado}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          Forneça um valor válido
+                        </Form.Control.Feedback>
                       </Col>
                     </Row>
                   )}
@@ -482,9 +518,7 @@ class MovimentacaoEquipamento extends React.Component {
                       as="textarea"
                       rows={3}
                       value={this.state.observacao}
-                      onChange={(e) =>
-                        this.setState({ observacao: e.target.value })
-                      }
+                      onChange={this.atualizarObservacao}
                     />
                   </Form.Group>
                 </>

@@ -6,20 +6,19 @@ namespace Api.Servico
 {
     public class GeradorTermos
     {
-        public byte[] GenerateTermoResponsabilidade(string nome,
+        public byte[] GenerateTermoResponsabilidadeTelefone(string nome,
             long matricula,
             string identificador,
             string modelo,
             string linha,
             string observacao,
-            string tipo)
+            string tipo,
+            float valorEquipamento,
+            string carregador)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-               
-                var valorAparelho = 1200.00;
                 var foneOuvido = "Não";
-                var carregador = "SIM";
                 string dataAtual = DateTime.Now.ToString("dd/MM/yyyy");
                 // Defina a fonte Arial com tamanho 7,5
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
@@ -85,7 +84,7 @@ namespace Api.Servico
                 tabelaConcessao.AddCell($"IMEI Aparelho: {identificador}");
                 tabelaConcessao.AddCell($"Modelo: {modelo}");
 
-                tabelaConcessao.AddCell($"Valor: R$ {valorAparelho}");
+                tabelaConcessao.AddCell($"Valor: R$ {valorEquipamento}");
                 tabelaConcessao.AddCell($"Chip: {linha}");
 
                 tabelaConcessao.AddCell($"Carregador: {carregador}");
@@ -142,11 +141,11 @@ namespace Api.Servico
             string modelo,
             string nomeMaquina,
             string observacao,
-            string tipo)
+            string tipo,
+            string carregador)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                var carregador = "SIM";
                 string dataAtual = DateTime.Now.ToString("dd/MM/yyyy");
                 // Defina a fonte Arial com tamanho 7,5
                 Font fonteArial75 = FontFactory.GetFont("Arial", 8.5f);
