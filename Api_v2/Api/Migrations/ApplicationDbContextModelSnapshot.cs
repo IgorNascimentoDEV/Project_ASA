@@ -84,10 +84,10 @@ namespace Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Armazenamento")
+                    b.Property<string>("Anydesk")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
-                        .HasColumnName("armazenamento");
+                        .HasColumnName("anydesk");
 
                     b.Property<string>("Data")
                         .IsRequired()
@@ -107,11 +107,6 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasColumnName("linha");
-
-                    b.Property<string>("MemoriaRam")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("memoria_ram");
 
                     b.Property<string>("Modelo")
                         .IsRequired()
@@ -133,14 +128,14 @@ namespace Api.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("office");
 
+                    b.Property<string>("OfficeChave")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("office_chave");
+
                     b.Property<int>("Patrimonio")
                         .HasColumnType("integer")
                         .HasColumnName("patrimonio");
-
-                    b.Property<string>("Processador")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("processador");
 
                     b.Property<string>("Tipo")
                         .IsRequired()

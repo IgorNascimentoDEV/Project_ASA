@@ -131,6 +131,67 @@ namespace Api.Controllers
             return BadRequest();
         }
 
+        //função gerar termo
+        [HttpPost("termo")]
+        public async Task<IActionResult> GerarTermo([FromBody] MovimentacaoDto movimentacaoDto)
+        {
+            if (movimentacaoDto == null)
+                return BadRequest("Dados inválidos");
+
+            var movimentacaoModel = _mapper.Map<MovimentacaoModel>(movimentacaoDto);
+
+            var colaborador = await _colaboradorRepository.GetColaboradorByMatriculaAsync(movimentacaoModel.IdColaborador);
+            if (colaborador == null)
+                return NotFound("Colaborador não encontrado");
+
+            var equipamento = await _equipamentoRepository.GetEquipamentoByIdentificadorAsync(movimentacaoDto.identificador);
+            if (equipamento == null)
+                return NotFound("Equipamento não encontrado");
+
+            movimentacaoModel.Equipamento = equipamento;
+            movimentacaoModel.Colaborador = colaborador;
+            movimentacaoModel.IdEquipamento = equipamento.Id;
+
+
+            if (movimentacaoDto.termo == "SIM")
+            {
+                // Gerar o PDF
+                if (equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "ENTRADA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoDevolucaoAtivo(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, movimentacaoDto.Observacao, movimentacaoModel.Tipo);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
+
+                if (equipamento.Tipo == "Telefone" && movimentacaoDto.Tipo == "SAIDA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeTelefone(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.Linha, movimentacaoDto.Observacao, movimentacaoModel.Tipo, (float)movimentacaoDto.ValorEquipamento, movimentacaoDto.Carregador);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
+
+                if (equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "ENTRADA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoDevolucaoMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, equipamento.Observacao, movimentacaoModel.Tipo);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
+
+                if (equipamento.Tipo == "Maquina" && movimentacaoDto.Tipo == "SAIDA")
+                {
+                    byte[] pdfBytes = _termo.GenerateTermoResponsabilidadeMaquina(colaborador.Nome, colaborador.Matricula, equipamento.Identificador, equipamento.Modelo, equipamento.NomeMaquina, movimentacaoDto.Carregador, movimentacaoDto.Observacao, movimentacaoModel.Tipo);
+                    // Retornar o PDF como parte da resposta HTTP com cabeçalhos apropriados
+                    return File(pdfBytes, "application/pdf", "termo_responsabilidade.pdf");
+                }
+            }
+            if (movimentacaoDto.termo == "NÃO")
+            {
+                return NoContent(); 
+            }
+            return BadRequest();
+        }
+        //fim função gerar termo
+
         [HttpGet]
         public async Task<IActionResult> GetAllMovimentacoes()
         {

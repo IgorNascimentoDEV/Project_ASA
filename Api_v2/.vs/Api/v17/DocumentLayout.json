@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\map\\equipamentomap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\map\\equipamentomap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\domain\\models\\equipamentomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\domain\\models\\equipamentomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Migrations\\20240406011327_alterando_equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Api\\Migrations\\20240406011327_alterando_equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\domain\\dtos\\equipamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\domain\\dtos\\equipamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\domain\\models\\movimentacaomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\domain\\models\\movimentacaomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\controllers\\movimentacaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\controllers\\movimentacaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,16 +31,12 @@
       "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\servico\\geradortermos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Migrations\\20240328020033_adicionando-movimentacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Api\\Migrations\\20240328020033_adicionando-movimentacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\domain\\models\\movimentacaomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\domain\\models\\movimentacaomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\domain\\dtos\\movimentacaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\domain\\dtos\\movimentacaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|c:\\users\\igor.sn\\documents\\github\\project_asa\\api_v2\\api\\migrations\\20240328020033_adicionando-movimentacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E567F761-61DA-4A73-B1BE-E0F5B14A3B4C}|Api\\Api.csproj|solutionrelative:api\\migrations\\20240328020033_adicionando-movimentacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,20 +50,46 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GeradorTermos.cs",
-              "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Servico\\GeradorTermos.cs",
-              "RelativeDocumentMoniker": "Api\\Servico\\GeradorTermos.cs",
-              "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Servico\\GeradorTermos.cs",
-              "RelativeToolTip": "Api\\Servico\\GeradorTermos.cs",
-              "ViewState": "AQIAALQBAAAAAAAAAAAAwLEBAABKAAAA",
+              "DocumentIndex": 2,
+              "Title": "20240406011327_alterando_equipamento.cs",
+              "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Migrations\\20240406011327_alterando_equipamento.cs",
+              "RelativeDocumentMoniker": "Api\\Migrations\\20240406011327_alterando_equipamento.cs",
+              "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Migrations\\20240406011327_alterando_equipamento.cs",
+              "RelativeToolTip": "Api\\Migrations\\20240406011327_alterando_equipamento.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T01:49:40.872Z",
+              "WhenOpened": "2024-04-06T01:13:27.752Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "EquipamentoDto.cs",
+              "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Domain\\DTOs\\EquipamentoDto.cs",
+              "RelativeDocumentMoniker": "Api\\Domain\\DTOs\\EquipamentoDto.cs",
+              "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Domain\\DTOs\\EquipamentoDto.cs",
+              "RelativeToolTip": "Api\\Domain\\DTOs\\EquipamentoDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-06T01:12:04.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EquipamentoMap.cs",
+              "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Map\\EquipamentoMap.cs",
+              "RelativeDocumentMoniker": "Api\\Map\\EquipamentoMap.cs",
+              "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Map\\EquipamentoMap.cs",
+              "RelativeToolTip": "Api\\Map\\EquipamentoMap.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-06T01:09:52.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "20240328020033_adicionando-movimentacao.cs",
               "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Migrations\\20240328020033_adicionando-movimentacao.cs",
               "RelativeDocumentMoniker": "Api\\Migrations\\20240328020033_adicionando-movimentacao.cs",
@@ -55,12 +97,11 @@
               "RelativeToolTip": "Api\\Migrations\\20240328020033_adicionando-movimentacao.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T02:00:33.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-28T02:00:33.752Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "MovimentacaoDto.cs",
               "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Domain\\DTOs\\MovimentacaoDto.cs",
               "RelativeDocumentMoniker": "Api\\Domain\\DTOs\\MovimentacaoDto.cs",
@@ -68,25 +109,24 @@
               "RelativeToolTip": "Api\\Domain\\DTOs\\MovimentacaoDto.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T01:07:15.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-28T01:07:15.41Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "MovimentacaoController.cs",
               "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Controllers\\MovimentacaoController.cs",
               "RelativeDocumentMoniker": "Api\\Controllers\\MovimentacaoController.cs",
               "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Controllers\\MovimentacaoController.cs",
               "RelativeToolTip": "Api\\Controllers\\MovimentacaoController.cs",
-              "ViewState": "AQIAAGwAAAAAAAAAAAAkwIQAAAAAAAAA",
+              "ViewState": "AQIAAKoAAAAAAAAAAAAkwLwAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-27T22:54:33.442Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MovimentacaoModel.cs",
               "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Domain\\Models\\MovimentacaoModel.cs",
               "RelativeDocumentMoniker": "Api\\Domain\\Models\\MovimentacaoModel.cs",
@@ -95,6 +135,52 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-28T01:01:49.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GeradorTermos.cs",
+              "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Servico\\GeradorTermos.cs",
+              "RelativeDocumentMoniker": "Api\\Servico\\GeradorTermos.cs",
+              "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Servico\\GeradorTermos.cs",
+              "RelativeToolTip": "Api\\Servico\\GeradorTermos.cs",
+              "ViewState": "AQIAALQBAAAAAAAAAAAAwLEBAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T01:49:40.872Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "72458048-069a-4aeb-876d-89e0bdc7e670",
+        "Display": 0,
+        "X": 602,
+        "Y": 92,
+        "Width": 938,
+        "Height": 729,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EquipamentoModel.cs",
+              "DocumentMoniker": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Domain\\Models\\EquipamentoModel.cs",
+              "RelativeDocumentMoniker": "Api\\Domain\\Models\\EquipamentoModel.cs",
+              "ToolTip": "C:\\Users\\IGOR.SN\\Documents\\GitHub\\Project_ASA\\Api_v2\\Api\\Domain\\Models\\EquipamentoModel.cs",
+              "RelativeToolTip": "Api\\Domain\\Models\\EquipamentoModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-06T01:07:37.571Z",
               "EditorCaption": ""
             }
           ]

@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import "../index.css";
 import InputGroup from "react-bootstrap/InputGroup";
+import { BsFileEarmarkDiffFill, BsFiletypePdf  } from "react-icons/bs";
 
 class MovimentacaoEquipamento extends React.Component {
   constructor(props) {
@@ -30,11 +31,13 @@ class MovimentacaoEquipamento extends React.Component {
       termoBusca: "", // Termo de busca
       requisicao: "", // para edição
       endpoint: "http://localhost:5062/movimentacao/api/Movimentacao",
+      endpointTermo: "http://localhost:5062/movimentacao/api/Movimentacao/termo",
       endpointEquipamento: "http://localhost:5062/equipamento/api/Equipamento",
       carregador: "",
       chamado: "",
       observacao: "",
-      valorEquipamento: 0
+      valorEquipamento: 0,
+      gerarTermo: false,
     };
   }
 
@@ -83,6 +86,47 @@ class MovimentacaoEquipamento extends React.Component {
   // Cadastra uma nova movimentação no servidor
   cadastraMovimentacao = (movimentacao) => {
     fetch(this.state.endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(movimentacao),
+    })
+      .then(async (response) => {
+        if (response.ok && this.state.termo == "SIM") {
+          // Se a movimentação foi adicionada com sucesso, solicite o download do termo gerado
+          const pdfBlob = await response.blob();
+          const url = window.URL.createObjectURL(pdfBlob);
+
+          // Crie um link <a> para iniciar o download
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'termo_responsabilidade.pdf';
+
+          // Adicione o link <a> ao DOM e clique nele para iniciar o download
+          document.body.appendChild(a);
+          a.click();
+
+          // Limpe o objeto URL
+          window.URL.revokeObjectURL(url);
+
+          // Em seguida, atualize a lista de movimentações
+          this.buscarMovimentacoes();
+        } else {
+          if (this.state.termo == "NÃO") {
+            alert("Movimentação realizada")
+          } else {
+
+            alert("Não foi possível adicionar a movimentação.");
+          }
+        }
+      })
+      .catch((error) => {
+
+        alert("Erro ao cadastrar a movimentação:", error);
+      });
+  };
+  // gerar termo sem movimentação
+  gerarTermo = (movimentacao) => {
+    fetch(this.state.endpointTermo, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(movimentacao),
@@ -302,8 +346,13 @@ class MovimentacaoEquipamento extends React.Component {
       termo
     };
 
+
+
     if (this.state.requisicao === "editar") {
       this.atualizarMovimentacao(movimentacao);
+      this.fecharModal();
+    } if (this.state.gerarTermo) {
+      this.gerarTermo(movimentacao);
       this.fecharModal();
     } else {
       this.cadastraMovimentacao(movimentacao);
@@ -326,6 +375,26 @@ class MovimentacaoEquipamento extends React.Component {
       chamado: "",
       observacao: "",
       valorEquipamento: 0
+    });
+    this.abrirModal();
+  };
+
+  //criação de termo
+  resetTermo = () => {
+    this.setState({
+      dataMovimentacao: "",
+      idColaborador: "",
+      identificador: "",
+      tipo: "",
+      colaborador: null,
+      equipamento: null,
+      requisicao: "",
+      termo: "",
+      carregador: "",
+      chamado: "",
+      observacao: "",
+      valorEquipamento: 0,
+      gerarTermo: true
     });
     this.abrirModal();
   };
@@ -659,14 +728,21 @@ class MovimentacaoEquipamento extends React.Component {
               </Button>
             </InputGroup>
           </div>
-          <Button
-            variant="warning"
-            type="submit"
-            onClick={this.reset}
-            style={{ width: "8rem", marginRight: "1rem" }}
+
+          <div
+            style={{
+              backgroundColor: "#ffffff", marginRight: "1rem"
+            }}
           >
-            Termo
-          </Button>
+            <BsFiletypePdf 
+              style={{
+                color: "#000000"
+              }}
+              variant="warning"
+              type="submit"
+              onClick={this.resetTermo}
+            />
+          </div>
 
           <Button
             variant="primary"
@@ -674,7 +750,7 @@ class MovimentacaoEquipamento extends React.Component {
             onClick={this.reset}
             style={{ width: "8rem" }}
           >
-            Novo
+            Movimentar
           </Button>
 
         </div>

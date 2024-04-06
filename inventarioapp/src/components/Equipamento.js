@@ -15,6 +15,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { BiSolidPencil, BiSolidTrash } from "react-icons/bi";
 import MaskedInput from "react-text-mask";
 
+
 class Equipamento extends React.Component {
   constructor(props) {
     super(props);
@@ -28,9 +29,8 @@ class Equipamento extends React.Component {
       nomeMaquina: "",
       linha: "",
       numeroDeSerie: "",
-      armazenamento: "",
-      memoriaRam: "",
-      processador: "",
+      anydesk: "",
+      officeChave: "",
       office: "",
       patrimonio: 0,
       observacao: "",
@@ -45,6 +45,7 @@ class Equipamento extends React.Component {
       emprestimo: false,
       requisicao: "",
       validated: false,
+      mostrarAlerta: false,
       endpoint: "http://localhost:5062/equipamento/api/Equipamento",
     };
   }
@@ -131,9 +132,8 @@ class Equipamento extends React.Component {
           identificador: equipamento.identificador,
           data: equipamento.data,
           modelo: equipamento.modelo,
-          armazenamento: equipamento.armazenamento,
-          memoriaRam: equipamento.memoriaRam,
-          processador: equipamento.processador,
+          anydesk: equipamento.anydesk,
+          officeChave: equipamento.officeChave,
           office: equipamento.office,
           nomeMaquina: equipamento.nomeMaquina,
           numeroDeSerie: equipamento.numeroDeSerie,
@@ -170,9 +170,8 @@ class Equipamento extends React.Component {
       identificador,
       data,
       modelo,
-      armazenamento,
-      memoriaRam,
-      processador,
+      anydesk,
+      officeChave,
       office,
       nomeMaquina,
       numeroDeSerie,
@@ -190,40 +189,38 @@ class Equipamento extends React.Component {
 
     if (this.state.requisicao === "editar") {
       const equipamento = {
-        identificador,
-        data,
-        modelo,
-        armazenamento,
-        memoriaRam,
-        processador,
-        office,
-        nomeMaquina,
-        numeroDeSerie,
-        linha,
-        emprestimo,
-        tipo,
-        patrimonio,
-        observacao,
+        identificador: identificador.toUpperCase(),
+        data: data,
+        modelo: modelo ? modelo.toUpperCase() : "",
+        anydesk: anydesk,
+        officeChave: officeChave,
+        office: office,
+        nomeMaquina: nomeMaquina ? nomeMaquina.toUpperCase() : "",
+        numeroDeSerie: numeroDeSerie ? numeroDeSerie.toUpperCase() : "",
+        linha: linha,
+        emprestimo: emprestimo,
+        tipo: tipo,
+        patrimonio: patrimonio,
+        observacao: observacao ? observacao.toUpperCase() : "",
       };
 
       this.atualizarEquipamento(equipamento);
       this.fecharModal();
     } else {
       const equipamento = {
-        identificador,
-        data,
-        modelo,
-        armazenamento,
-        memoriaRam,
-        processador,
-        office,
-        nomeMaquina,
-        numeroDeSerie,
-        linha,
-        emprestimo,
-        tipo,
-        patrimonio,
-        observacao,
+        identificador: identificador.toUpperCase(),
+        data: data,
+        modelo: modelo ? modelo.toUpperCase() : "",
+        anydesk: anydesk,
+        officeChave: officeChave,
+        office: office,
+        nomeMaquina: nomeMaquina ? nomeMaquina.toUpperCase() : "",
+        numeroDeSerie: numeroDeSerie ? numeroDeSerie.toUpperCase() : "",
+        linha: linha,
+        emprestimo: emprestimo,
+        tipo: tipo,
+        patrimonio: patrimonio,
+        observacao: observacao ? observacao.toUpperCase() : "",
       };
 
       this.cadastraEquipamento(equipamento);
@@ -236,9 +233,8 @@ class Equipamento extends React.Component {
       identificador: "",
       data: "",
       modelo: "",
-      armazenamento: "",
-      memoriaRam: "",
-      processador: "",
+      anydesk: "",
+      officeChave: "",
       office: "",
       nomeMaquina: "",
       numeroDeSerie: "",
@@ -328,6 +324,7 @@ class Equipamento extends React.Component {
     );
   };
 
+
   // Atualizar o estado de emprestimo
   atualizarEmprestimo = (e) => {
     this.setState({
@@ -372,21 +369,15 @@ class Equipamento extends React.Component {
     });
   };
 
-  atualizarArmazenamento = (e) => {
+  atualizarAnydesk = (e) => {
     this.setState({
-      armazenamento: e.target.value,
+      anydesk: e.target.value,
     });
   };
 
-  atualizarMemoriaRam = (e) => {
+  atualizarOfficeChave = (e) => {
     this.setState({
-      memoriaRam: e.target.value,
-    });
-  };
-
-  atualizarProcessador = (e) => {
-    this.setState({
-      processador: e.target.value,
+      officeChave: e.target.value,
     });
   };
 
@@ -396,7 +387,7 @@ class Equipamento extends React.Component {
     });
   };
 
-  atualizarPatrimonio = (e) =>{
+  atualizarPatrimonio = (e) => {
     this.setState({
       patrimonio: e.target.value,
     })
@@ -520,8 +511,8 @@ class Equipamento extends React.Component {
                         }
                       >
                         <option value="">Selecione o tipo de ativo</option>
-                        <option value="Maquina">Computador</option>
-                        <option value="Telefone">Telefone</option>
+                        <option value="MAQUINA">Computador</option>
+                        <option value="TELEFONE">Telefone</option>
                       </Form.Control>
                     </Col>
                     <Col>
@@ -530,11 +521,11 @@ class Equipamento extends React.Component {
                         required
                         style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
                         placeholder={
-                          this.state.tipo === "Maquina"
+                          this.state.tipo === "MAQUINA"
                             ? "Número Serial"
-                            : this.state.tipo === "Telefone"
-                            ? "IMEI"
-                            : "ID do ativo"
+                            : this.state.tipo === "TELEFONE"
+                              ? "IMEI"
+                              : "ID do ativo"
                         }
                         type="text"
                         value={this.state.identificador}
@@ -578,7 +569,7 @@ class Equipamento extends React.Component {
                     </Col>
                   </Row>
 
-                  {this.state.tipo === "Maquina" && (
+                  {this.state.tipo === "MAQUINA" && (
                     <>
                       <Row>
                         <Col>
@@ -616,78 +607,29 @@ class Equipamento extends React.Component {
                             }
                           />
                           <Form.Control.Feedback type="invalid">
-                            Forneça uma HostName válido
+                            Forneça uma Host válido
                           </Form.Control.Feedback>
                         </Col>
                       </Row>
 
                       <Row>
                         <Col>
-                          <Form.Label>Armazenamento</Form.Label>
+                          <Form.Label>Anydesk</Form.Label>
                           <Form.Control
                             style={{
                               padding: "0.375rem 0.75rem",
                               margin: "0px",
                             }}
-                            placeholder="Capacidade de armazenamento"
+                            placeholder="anydesk"
                             type="text"
-                            value={this.state.armazenamento}
+                            value={this.state.anydesk}
                             onChange={(e) =>
-                              this.setState({ armazenamento: e.target.value })
+                              this.setState({ anydesk: e.target.value })
                             }
                           />
                         </Col>
-                        <Col>
-                          <Form.Label>Memória RAM</Form.Label>
-                          <Form.Control
-                            style={{
-                              padding: "0.375rem 0.75rem",
-                              margin: "0px",
-                            }}
-                            placeholder="Memória RAM"
-                            type="text"
-                            value={this.state.memoriaRam}
-                            onChange={(e) =>
-                              this.setState({ memoriaRam: e.target.value })
-                            }
-                          />
-                        </Col>
-                      </Row>
 
-                      <Row>
                         <Col>
-                          <Form.Label>Processador</Form.Label>
-                          <Form.Control
-                            style={{
-                              padding: "0.375rem 0.75rem",
-                              margin: "0px",
-                            }}
-                            placeholder="Processador da máquina"
-                            type="text"
-                            value={this.state.processador}
-                            onChange={(e) =>
-                              this.setState({ processador: e.target.value })
-                            }
-                          />
-                        </Col>
-                        <Col>
-                          <Form.Label>Office</Form.Label>
-                          <Form.Control
-                            style={{
-                              padding: "0.375rem 0.75rem",
-                              margin: "0px",
-                            }}
-                            placeholder="Ano - Chave do office"
-                            type="text"
-                            value={this.state.office}
-                            onChange={(e) =>
-                              this.setState({ office: e.target.value })
-                            }
-                          />
-                        </Col>
-                      </Row>
-                      <Row>
-                      <Col>
                           <Form.Label>Patrimônio</Form.Label>
                           <Form.Control
                             required
@@ -707,27 +649,70 @@ class Equipamento extends React.Component {
                           </Form.Control.Feedback>
                         </Col>
 
+                      </Row>
+
+                      <Row>
                         <Col>
-                        <Form.Group className="mb-3">
-                        <Form.Label>Observação</Form.Label>
-                        <Form.Control
-                          style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
-                          as="textarea"
-                          placeholder="Patrimônio:"
-                          rows={3}
-                          value={this.state.observacao}
-                          onChange={(e) =>
-                            this.setState({ observacao: e.target.value })
-                          }
-                        />
-                      </Form.Group>
+                          <Form.Label>Office</Form.Label>
+                          <Form.Control
+                            required
+                            as="select"
+                            value={this.state.office}
+                            onChange={(e) =>
+                              this.setState({ office: e.target.value })
+                            }
+                          >
+                            <option value="">Selecione o Office</option>
+                            <option value="Office_2010">Office 2010</option>
+                            <option value="Office_2013">Office 2013</option>
+                            <option value="Office_2015">Office 2015</option>
+                            <option value="Office_2016">Office 2016</option>
+                            <option value="Office_2019">Office 2019</option>
+                            <option value="Office_365">Office 365</option>
+                            <option value="nao_tem">Não possui</option>
+                          </Form.Control>
+                          <Form.Control.Feedback type="invalid">
+                            Forneça um Office válido
+                          </Form.Control.Feedback>
+                        </Col>
+                        <Col>
+                          <Form.Label>officeChave</Form.Label>
+                          <Form.Control
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              margin: "0px",
+                            }}
+                            placeholder="officeChave"
+                            type="text"
+                            value={this.state.officeChave}
+                            onChange={(e) =>
+                              this.setState({ officeChave: e.target.value })
+                            }
+                          />
                         </Col>
                       </Row>
-                      
+                      <Row>
+                        <Col>
+                          <Form.Group className="mb-3">
+                            <Form.Label>Observação</Form.Label>
+                            <Form.Control
+                              style={{ padding: "0.375rem 0.75rem", margin: "0px" }}
+                              as="textarea"
+                              placeholder="Patrimônio:"
+                              rows={3}
+                              value={this.state.observacao}
+                              onChange={(e) =>
+                                this.setState({ observacao: e.target.value })
+                              }
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
                     </>
                   )}
 
-                  {this.state.tipo === "Telefone" && (
+                  {this.state.tipo === "TELEFONE" && (
                     <>
                       <Row>
                         <Col>
